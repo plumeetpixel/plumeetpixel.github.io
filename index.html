@@ -3,1826 +3,1631 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PLUME & PIXEL — Catalogue de Services</title>
-  <meta name="description" content="PLUME & PIXEL — L'art de créer, la puissance d'imprimer. Yaoundé, Cameroun. Design graphique, impression, identité visuelle, gravure laser, sérigraphie et plus." />
+  <title>PLUME & PIXEL — Catalogue des Services</title>
+  <meta name="description" content="PLUME & PIXEL — L'art de créer, la puissance d'imprimer. Yaoundé, Cameroun." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <style>
-    /* ===== VARIABLES & BASE ===== */
+    /* ─── VARIABLES & RESET ─── */
     :root {
       --gold: #C9A84C;
-      --gold-light: #E8C97A;
-      --gold-dark: #A07830;
-      --noir: #0A0A0A;
-      --dark: #111111;
+      --gold-light: #E8C96A;
+      --gold-dark: #9A7730;
+      --dark: #0E0E0E;
       --dark2: #1A1A1A;
-      --dark3: #222222;
-      --cream: #FAF7F2;
+      --dark3: #242424;
+      --dark4: #2E2E2E;
+      --text: #F0EDE8;
+      --text-muted: #A09890;
       --white: #FFFFFF;
-      --gray: #6B6B6B;
-      --gray-light: #E5E5E5;
-      --whatsapp: #25D366;
-      --whatsapp-dark: #128C7E;
+      --green-wa: #25D366;
+      --green-wa-dark: #128C7E;
+      --radius: 16px;
+      --shadow: 0 8px 32px rgba(0,0,0,0.45);
+      --transition: all 0.3s cubic-bezier(.4,0,.2,1);
     }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', sans-serif;
-      background-color: var(--dark);
-      color: var(--white);
+      background: var(--dark);
+      color: var(--text);
+      min-height: 100vh;
       overflow-x: hidden;
     }
+    h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+    input, textarea, select { font-family: inherit; }
 
-    h1, h2, h3, .font-display {
-      font-family: 'Playfair Display', serif;
-    }
-
-    /* ===== SCROLLBAR ===== */
+    /* ─── SCROLLBAR ─── */
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--dark2); }
-    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
 
-    /* ===== GOLD GRADIENT ===== */
-    .gold-gradient {
-      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-light) 50%, var(--gold-dark) 100%);
+    /* ─── LOADER ─── */
+    #loader {
+      position: fixed; inset: 0; background: var(--dark);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      z-index: 9999; transition: opacity 0.6s ease;
     }
-    .gold-text {
-      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-light) 50%, var(--gold-dark) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    #loader .logo-anim {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem; font-weight: 900;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light), var(--gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
+      animation: pulse 1.5s ease infinite;
     }
-    .gold-border { border-color: var(--gold) !important; }
+    #loader .bar {
+      margin-top: 20px; width: 180px; height: 3px;
+      background: var(--dark4); border-radius: 3px; overflow: hidden;
+    }
+    #loader .bar-inner {
+      height: 100%; width: 0;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
+      border-radius: 3px;
+      animation: load 1.8s ease forwards;
+    }
+    @keyframes load { to { width: 100%; } }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.6} }
 
-    /* ===== HERO / COVER ===== */
-    #hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    #hero-bg {
-      position: absolute; inset: 0; z-index: 0;
-      background: linear-gradient(135deg, #0A0A0A 0%, #1a0e05 40%, #0A0A0A 100%);
-    }
-
-    #hero-bg-img {
-      position: absolute; inset: 0; z-index: 1;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      opacity: 0.25;
-      transition: opacity 0.5s;
-    }
-
-    #hero-bg-overlay {
-      position: absolute; inset: 0; z-index: 2;
-      background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.6) 60%, rgba(0,0,0,0.9) 100%);
-    }
-
-    #hero-content {
-      position: relative; z-index: 3;
-      text-align: center;
-      padding: 2rem 1.5rem;
-    }
-
-    .hero-logo-area {
-      width: 140px; height: 140px;
-      border-radius: 50%;
-      border: 3px solid var(--gold);
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 2rem;
-      background: rgba(0,0,0,0.5);
-      backdrop-filter: blur(10px);
-      overflow: hidden;
-      cursor: pointer;
-      position: relative;
-      transition: transform 0.3s, box-shadow 0.3s;
-      box-shadow: 0 0 30px rgba(201,168,76,0.3);
-    }
-    .hero-logo-area:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 50px rgba(201,168,76,0.5);
-    }
-    .hero-logo-area img { width: 100%; height: 100%; object-fit: cover; }
-    .hero-logo-placeholder {
-      display: flex; flex-direction: column; align-items: center; gap: 4px;
-      color: var(--gold); font-size: 0.65rem; font-weight: 500; text-align: center; padding: 10px;
-    }
-    .hero-logo-placeholder svg { width: 36px; height: 36px; }
-    .logo-edit-btn {
-      position: absolute; bottom: 6px; right: 6px;
-      background: var(--gold); border-radius: 50%;
-      width: 26px; height: 26px; display: flex; align-items: center; justify-content: center;
-      cursor: pointer; opacity: 0; transition: opacity 0.2s;
-    }
-    .hero-logo-area:hover .logo-edit-btn { opacity: 1; }
-
-    .hero-brand-name {
-      font-size: clamp(2.5rem, 8vw, 5rem);
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      line-height: 1;
-      margin-bottom: 0.5rem;
-    }
-
-    .hero-ampersand { color: var(--gold); }
-
-    .hero-slogan {
-      font-size: clamp(0.85rem, 2.5vw, 1.1rem);
-      color: rgba(255,255,255,0.7);
-      font-style: italic;
-      letter-spacing: 0.12em;
-      margin-bottom: 2rem;
-      font-family: 'Playfair Display', serif;
-    }
-
-    .divider-gold {
-      width: 80px; height: 2px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      margin: 1.2rem auto;
-    }
-
-    .hero-location {
-      display: flex; align-items: center; justify-content: center; gap: 6px;
-      color: rgba(255,255,255,0.5); font-size: 0.8rem;
-    }
-
-    .hero-scroll {
-      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); z-index: 3;
-      animation: bounce 2s infinite;
-    }
-    @keyframes bounce { 0%,100%{ transform: translateX(-50%) translateY(0); } 50%{ transform: translateX(-50%) translateY(8px); } }
-
-    .hero-cover-upload {
-      position: absolute; top: 1rem; right: 1rem; z-index: 10;
-    }
-
-    .btn-upload {
-      background: rgba(0,0,0,0.6);
-      border: 1px solid var(--gold);
-      color: var(--gold);
-      padding: 0.4rem 0.9rem;
-      border-radius: 20px;
-      font-size: 0.72rem;
-      font-weight: 500;
-      cursor: pointer;
-      backdrop-filter: blur(10px);
-      transition: all 0.3s;
-      display: flex; align-items: center; gap: 5px;
-    }
-    .btn-upload:hover { background: var(--gold); color: var(--dark); }
-
-    /* ===== NAVIGATION ===== */
-    #navbar {
-      position: sticky; top: 0; z-index: 999;
-      background: rgba(10,10,10,0.95);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(201,168,76,0.2);
-      padding: 0.8rem 1rem;
-    }
-
-    .nav-inner {
-      max-width: 1200px; margin: 0 auto;
+    /* ─── NAVIGATION ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(14,14,14,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      padding: 0 20px;
       display: flex; align-items: center; justify-content: space-between;
-      gap: 1rem;
+      height: 68px;
+      transition: var(--transition);
     }
-
-    .nav-logo {
+    .nav-brand {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .nav-brand .brand-logo-wrap {
+      width: 42px; height: 42px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      display: flex; align-items: center; justify-content: center;
       font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      white-space: nowrap;
+      font-size: 1.1rem; font-weight: 900; color: var(--dark);
+      overflow: hidden; position: relative;
+    }
+    .nav-brand .brand-logo-wrap img.logo-img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    }
+    .nav-brand .brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; font-weight: 700;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .nav-links {
+      display: flex; gap: 6px; align-items: center;
+    }
+    .nav-links a {
+      font-size: 0.78rem; font-weight: 500; padding: 7px 13px;
+      border-radius: 8px; color: var(--text-muted);
+      transition: var(--transition); white-space: nowrap;
+    }
+    .nav-links a:hover { color: var(--gold); background: rgba(201,168,76,0.08); }
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      padding: 6px; border-radius: 8px;
+      background: rgba(201,168,76,0.1);
+    }
+    .nav-hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--gold); border-radius: 2px; transition: var(--transition);
+    }
+    .mobile-menu {
+      display: none; position: fixed; top: 68px; left: 0; right: 0;
+      background: rgba(14,14,14,0.98); backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      padding: 16px; z-index: 999; flex-direction: column; gap: 4px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      padding: 14px 16px; border-radius: 10px; font-weight: 500;
+      color: var(--text-muted); transition: var(--transition);
+      border: 1px solid transparent;
+    }
+    .mobile-menu a:hover { color: var(--gold); border-color: rgba(201,168,76,0.2); background: rgba(201,168,76,0.06); }
+
+    /* ─── HERO / COVER ─── */
+    #hero {
+      min-height: 100vh;
+      position: relative; display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #0E0E0E 0%, #1A1208 50%, #0E0E0E 100%);
+    }
+    .hero-bg-img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+      opacity: 0.35;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(14,14,14,0.3) 0%, rgba(14,14,14,0.7) 60%, rgba(14,14,14,1) 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2; text-align: center; padding: 120px 20px 80px;
+      max-width: 780px;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 50px; padding: 8px 20px; margin-bottom: 28px;
+      font-size: 0.78rem; font-weight: 600; color: var(--gold); letter-spacing: 2px; text-transform: uppercase;
+    }
+    .hero-title {
+      font-size: clamp(2.8rem, 8vw, 5.5rem);
+      font-weight: 900; line-height: 1.05;
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 40%, #FFF8E7 70%, var(--gold) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 16px;
+    }
+    .hero-slogan {
+      font-size: clamp(1rem, 3vw, 1.35rem);
+      color: var(--text-muted); font-style: italic; margin-bottom: 36px;
+      font-weight: 300; letter-spacing: 0.5px;
+    }
+    .hero-slogan span { color: var(--gold); }
+    .hero-cover-upload {
+      display: flex; flex-direction: column; align-items: center; gap: 12px; margin-bottom: 40px;
+    }
+    .hero-cover-upload label {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(201,168,76,0.1); border: 1px dashed rgba(201,168,76,0.4);
+      border-radius: 12px; padding: 10px 22px; font-size: 0.82rem; color: var(--gold);
+      cursor: pointer; transition: var(--transition);
+    }
+    .hero-cover-upload label:hover { background: rgba(201,168,76,0.18); }
+    .hero-cta-row {
+      display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
+      color: var(--dark); font-weight: 700; font-size: 0.92rem;
+      padding: 14px 28px; border-radius: 50px;
+      transition: var(--transition); box-shadow: 0 4px 24px rgba(201,168,76,0.35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(201,168,76,0.5); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid rgba(201,168,76,0.5); color: var(--gold);
+      font-weight: 600; font-size: 0.92rem;
+      padding: 14px 28px; border-radius: 50px;
+      transition: var(--transition); background: rgba(201,168,76,0.06);
+    }
+    .btn-outline:hover { background: rgba(201,168,76,0.14); border-color: var(--gold); }
+    .hero-stats {
+      display: flex; gap: 32px; justify-content: center; flex-wrap: wrap;
+      margin-top: 60px; padding-top: 40px;
+      border-top: 1px solid rgba(201,168,76,0.15);
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .stat-label { font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; letter-spacing: 1px; text-transform: uppercase; }
+
+    /* ─── SECTION HEADER ─── */
+    .section-header {
+      text-align: center; padding: 80px 20px 48px; max-width: 700px; margin: 0 auto;
+    }
+    .section-eyebrow {
+      display: inline-block; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-size: clamp(1.9rem, 5vw, 3rem); font-weight: 900;
+      color: var(--text); line-height: 1.15; margin-bottom: 16px;
+    }
+    .section-desc { color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; }
+    .gold-line {
+      width: 60px; height: 3px; margin: 20px auto 0;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
+      border-radius: 3px;
     }
 
-    /* ===== SEARCH BAR ===== */
+    /* ─── ABOUT ─── */
+    #about { background: var(--dark2); padding-bottom: 80px; }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+      max-width: 1100px; margin: 0 auto; padding: 0 20px;
+      align-items: start;
+    }
+    .about-card {
+      background: var(--dark3); border: 1px solid rgba(201,168,76,0.12);
+      border-radius: var(--radius); padding: 32px; transition: var(--transition);
+    }
+    .about-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-4px); }
+    .about-card h3 {
+      font-size: 1.3rem; color: var(--gold); margin-bottom: 14px;
+    }
+    .about-card p { color: var(--text-muted); line-height: 1.75; font-size: 0.93rem; }
+    .about-card ul { list-style: none; margin-top: 12px; }
+    .about-card ul li {
+      padding: 8px 0; border-bottom: 1px solid rgba(201,168,76,0.08);
+      color: var(--text-muted); font-size: 0.88rem;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .about-card ul li:last-child { border-bottom: none; }
+    .about-card ul li::before { content: "✦"; color: var(--gold); font-size: 0.65rem; flex-shrink: 0; }
+    .payment-icons { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+    .payment-badge {
+      background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 8px; padding: 6px 14px; font-size: 0.8rem; color: var(--gold); font-weight: 600;
+    }
+    .social-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px; }
+    .social-badge {
+      display: flex; align-items: center; gap: 7px;
+      background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 50px; padding: 8px 16px; font-size: 0.82rem; color: var(--text-muted);
+      transition: var(--transition);
+    }
+    .social-badge:hover { color: var(--gold); border-color: rgba(201,168,76,0.4); }
+    .social-badge svg { width: 16px; height: 16px; fill: var(--gold); }
+
+    /* ─── SEARCH ─── */
+    #search-section {
+      padding: 48px 20px;
+      background: var(--dark);
+      position: sticky; top: 68px; z-index: 900;
+      border-bottom: 1px solid rgba(201,168,76,0.1);
+    }
     .search-wrap {
-      flex: 1; max-width: 420px;
+      max-width: 680px; margin: 0 auto;
       position: relative;
     }
-
+    .search-wrap svg {
+      position: absolute; left: 18px; top: 50%; transform: translateY(-50%);
+      width: 20px; height: 20px; fill: var(--text-muted); pointer-events: none;
+    }
     #searchInput {
-      width: 100%;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(201,168,76,0.3);
-      color: var(--white);
-      padding: 0.55rem 1rem 0.55rem 2.6rem;
-      border-radius: 30px;
-      font-size: 0.85rem;
-      outline: none;
-      transition: border-color 0.3s, background 0.3s;
+      width: 100%; padding: 16px 20px 16px 52px;
+      background: var(--dark3); border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 50px; color: var(--text); font-size: 0.95rem;
+      outline: none; transition: var(--transition);
     }
-    #searchInput::placeholder { color: rgba(255,255,255,0.35); }
-    #searchInput:focus {
-      border-color: var(--gold);
-      background: rgba(255,255,255,0.09);
+    #searchInput::placeholder { color: var(--text-muted); }
+    #searchInput:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,168,76,0.12); }
+    .search-clear {
+      position: absolute; right: 18px; top: 50%; transform: translateY(-50%);
+      width: 24px; height: 24px; border-radius: 50%;
+      background: rgba(201,168,76,0.2); color: var(--gold);
+      display: none; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 0.85rem; transition: var(--transition);
     }
+    .search-clear:hover { background: rgba(201,168,76,0.35); }
+    .search-results-count {
+      text-align: center; margin-top: 12px; font-size: 0.83rem; color: var(--text-muted);
+    }
+    .filter-tags {
+      display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 16px;
+    }
+    .filter-tag {
+      padding: 6px 16px; border-radius: 50px; font-size: 0.78rem; font-weight: 600;
+      border: 1px solid rgba(201,168,76,0.2); color: var(--text-muted);
+      cursor: pointer; transition: var(--transition); background: transparent;
+    }
+    .filter-tag.active, .filter-tag:hover { background: rgba(201,168,76,0.15); color: var(--gold); border-color: var(--gold); }
 
-    .search-icon {
-      position: absolute; left: 0.85rem; top: 50%; transform: translateY(-50%);
-      color: var(--gold); pointer-events: none;
-    }
-
-    #clearSearch {
-      position: absolute; right: 0.85rem; top: 50%; transform: translateY(-50%);
-      color: rgba(255,255,255,0.4); cursor: pointer; display: none;
-      background: none; border: none; font-size: 1rem; line-height: 1;
-    }
-    #clearSearch:hover { color: var(--gold); }
-
-    .nav-whatsapp {
-      display: flex; align-items: center; gap: 6px;
-      background: var(--whatsapp);
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 30px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      text-decoration: none;
-      white-space: nowrap;
-      transition: background 0.3s, transform 0.2s;
-    }
-    .nav-whatsapp:hover { background: var(--whatsapp-dark); transform: scale(1.04); }
-
-    /* ===== SECTIONS ===== */
-    section { padding: 4rem 1rem; }
-    .section-title {
-      text-align: center;
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
-      font-weight: 700;
-      margin-bottom: 0.6rem;
-    }
-    .section-sub {
-      text-align: center;
-      color: rgba(255,255,255,0.5);
-      font-size: 0.9rem;
-      margin-bottom: 3rem;
-    }
-    .container { max-width: 1200px; margin: 0 auto; }
-
-    /* ===== ABOUT SECTION ===== */
-    #about { background: var(--dark2); }
-
-    .about-grid {
+    /* ─── CATALOGUE GRID ─── */
+    #catalogue { padding: 20px 0 80px; background: var(--dark); }
+    .catalogue-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      align-items: center;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 28px; padding: 0 20px; max-width: 1300px; margin: 0 auto;
     }
-    @media (max-width: 768px) {
-      .about-grid { grid-template-columns: 1fr; }
+    .no-results {
+      grid-column: 1/-1; text-align: center; padding: 80px 20px;
     }
+    .no-results .icon { font-size: 3rem; margin-bottom: 16px; }
+    .no-results p { color: var(--text-muted); font-size: 1rem; }
 
-    .about-img-wrap {
-      position: relative; border-radius: 16px; overflow: hidden;
-      border: 1px solid rgba(201,168,76,0.2);
-      aspect-ratio: 4/3;
-      cursor: pointer;
-    }
-    .about-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
-    .about-img-overlay {
-      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-      background: rgba(0,0,0,0.5); opacity: 0; transition: opacity 0.3s;
-      font-size: 0.8rem; color: var(--gold); gap: 6px;
-      flex-direction: column;
-    }
-    .about-img-wrap:hover .about-img-overlay { opacity: 1; }
-
-    .about-text h2 { font-size: 1.8rem; margin-bottom: 1rem; }
-    .about-text p {
-      color: rgba(255,255,255,0.65);
-      line-height: 1.8;
-      font-size: 0.93rem;
-      margin-bottom: 1rem;
-    }
-
-    .about-badges {
-      display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem;
-    }
-    .badge {
-      background: rgba(201,168,76,0.12);
-      border: 1px solid rgba(201,168,76,0.3);
-      color: var(--gold-light);
-      padding: 0.35rem 0.85rem;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 500;
-    }
-
-    /* ===== PAYMENT STRIP ===== */
-    .payment-strip {
-      background: rgba(201,168,76,0.08);
-      border: 1px solid rgba(201,168,76,0.15);
-      border-radius: 12px;
-      padding: 1rem 1.5rem;
-      margin-top: 1.5rem;
-      display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
-    }
-    .payment-strip span { font-size: 0.8rem; color: rgba(255,255,255,0.6); }
-    .payment-pill {
-      background: rgba(201,168,76,0.2);
-      border-radius: 20px;
-      padding: 0.3rem 0.75rem;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--gold-light);
-    }
-
-    /* ===== CATALOGUE GRID ===== */
-    #catalogue { background: var(--dark); }
-
-    .filter-tabs {
-      display: flex; flex-wrap: wrap; gap: 0.5rem;
-      justify-content: center; margin-bottom: 2.5rem;
-    }
-    .filter-tab {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: rgba(255,255,255,0.6);
-      padding: 0.4rem 1rem;
-      border-radius: 20px;
-      font-size: 0.78rem;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    .filter-tab.active, .filter-tab:hover {
-      background: var(--gold);
-      border-color: var(--gold);
-      color: var(--dark);
-      font-weight: 600;
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1.5rem;
-    }
-    @media (max-width: 480px) {
-      .services-grid { grid-template-columns: 1fr; }
-    }
-
-    /* ===== SERVICE CARD ===== */
+    /* ─── SERVICE CARD ─── */
     .service-card {
       background: var(--dark2);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 20px;
+      border: 1px solid rgba(201,168,76,0.12);
+      border-radius: var(--radius);
       overflow: hidden;
-      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+      transition: var(--transition);
       display: flex; flex-direction: column;
     }
     .service-card:hover {
+      border-color: rgba(201,168,76,0.35);
       transform: translateY(-6px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,76,0.2);
-      border-color: rgba(201,168,76,0.2);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
     }
 
     /* Card image gallery */
     .card-gallery {
-      position: relative;
-      aspect-ratio: 16/9;
-      background: var(--dark3);
-      overflow: hidden;
+      position: relative; width: 100%; height: 220px;
+      background: var(--dark3); overflow: hidden;
     }
-
-    .card-gallery-slides {
-      display: flex;
-      width: 100%;
-      height: 100%;
+    .card-gallery .gallery-slides {
+      display: flex; height: 100%;
       transition: transform 0.4s ease;
     }
-
-    .card-gallery-slide {
-      min-width: 100%;
-      height: 100%;
-      position: relative;
-      flex-shrink: 0;
+    .card-gallery .slide {
+      min-width: 100%; height: 100%; position: relative; flex-shrink: 0;
     }
-
-    .card-gallery-slide img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
+    .card-gallery .slide img {
+      width: 100%; height: 100%; object-fit: cover;
     }
-
-    .slide-price-tag {
-      position: absolute;
-      bottom: 8px; left: 8px;
-      background: rgba(0,0,0,0.75);
-      border: 1px solid rgba(201,168,76,0.4);
-      backdrop-filter: blur(6px);
-      border-radius: 8px;
-      padding: 0.25rem 0.6rem;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--gold-light);
+    .gallery-placeholder {
+      width: 100%; height: 100%; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 10px;
+      background: linear-gradient(135deg, var(--dark3), var(--dark4));
     }
-
-    .slide-img-add {
-      width: 100%; height: 100%;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      border: 2px dashed rgba(201,168,76,0.3);
-      cursor: pointer;
-      gap: 6px;
-      transition: border-color 0.3s, background 0.3s;
-    }
-    .slide-img-add:hover {
-      border-color: var(--gold);
-      background: rgba(201,168,76,0.05);
-    }
-    .slide-img-add span { color: rgba(255,255,255,0.4); font-size: 0.72rem; }
-
-    .gallery-nav-btn {
+    .gallery-placeholder svg { width: 48px; height: 48px; fill: rgba(201,168,76,0.25); }
+    .gallery-placeholder span { font-size: 0.8rem; color: var(--text-muted); }
+    .gallery-nav {
       position: absolute; top: 50%; transform: translateY(-50%);
-      background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.15);
-      color: white; border-radius: 50%; width: 30px; height: 30px;
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; padding: 0 10px; pointer-events: none;
+    }
+    .gallery-btn {
+      pointer-events: all; width: 32px; height: 32px; border-radius: 50%;
+      background: rgba(14,14,14,0.7); border: 1px solid rgba(201,168,76,0.3);
       display: flex; align-items: center; justify-content: center;
-      cursor: pointer; z-index: 5; font-size: 0.8rem;
-      transition: background 0.2s, opacity 0.2s;
-      opacity: 0;
+      color: var(--gold); font-size: 0.8rem; cursor: pointer;
+      transition: var(--transition); backdrop-filter: blur(4px);
     }
-    .card-gallery:hover .gallery-nav-btn { opacity: 1; }
-    .gallery-nav-btn:hover { background: var(--gold); border-color: var(--gold); color: var(--dark); }
-    .gallery-nav-prev { left: 8px; }
-    .gallery-nav-next { right: 8px; }
-
+    .gallery-btn:hover { background: rgba(201,168,76,0.25); }
     .gallery-dots {
-      position: absolute; bottom: 8px; right: 8px;
-      display: flex; gap: 4px;
+      position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 5px;
     }
-    .gallery-dot {
+    .g-dot {
       width: 6px; height: 6px; border-radius: 50%;
-      background: rgba(255,255,255,0.4); cursor: pointer; transition: background 0.2s;
+      background: rgba(255,255,255,0.35); transition: var(--transition); cursor: pointer;
     }
-    .gallery-dot.active { background: var(--gold); }
-
+    .g-dot.active { background: var(--gold); width: 16px; border-radius: 3px; }
     .gallery-counter {
-      position: absolute; top: 8px; right: 8px;
-      background: rgba(0,0,0,0.6); border-radius: 10px;
-      padding: 2px 8px; font-size: 0.68rem; color: rgba(255,255,255,0.7);
+      position: absolute; top: 10px; right: 10px;
+      background: rgba(0,0,0,0.6); border-radius: 6px;
+      padding: 3px 9px; font-size: 0.72rem; color: var(--text-muted);
     }
 
-    .add-img-fab {
-      position: absolute; top: 8px; left: 8px;
-      background: rgba(0,0,0,0.65);
-      border: 1px solid rgba(201,168,76,0.5);
-      color: var(--gold);
-      border-radius: 8px;
-      padding: 0.25rem 0.55rem;
-      font-size: 0.68rem;
-      cursor: pointer;
-      display: flex; align-items: center; gap: 4px;
-      transition: all 0.2s;
-      z-index: 5;
-    }
-    .add-img-fab:hover { background: var(--gold); color: var(--dark); }
-
-    /* Card Body */
-    .card-body {
-      padding: 1.2rem;
-      flex: 1;
-      display: flex; flex-direction: column;
-      gap: 0.75rem;
+    /* Image price overlay */
+    .img-price-overlay {
+      position: absolute; bottom: 8px; left: 10px;
+      background: rgba(14,14,14,0.8); backdrop-filter: blur(6px);
+      border: 1px solid rgba(201,168,76,0.4); border-radius: 8px;
+      padding: 4px 12px; font-size: 0.82rem; font-weight: 700; color: var(--gold);
     }
 
+    /* Upload row */
+    .card-upload-row {
+      display: flex; gap: 8px; padding: 10px 16px;
+      background: rgba(0,0,0,0.2); border-bottom: 1px solid rgba(201,168,76,0.08);
+      overflow-x: auto;
+    }
+    .upload-thumb-btn {
+      flex-shrink: 0; width: 40px; height: 40px; border-radius: 8px;
+      background: rgba(201,168,76,0.08); border: 1px dashed rgba(201,168,76,0.3);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: var(--gold); font-size: 1rem;
+      transition: var(--transition); position: relative; overflow: hidden;
+    }
+    .upload-thumb-btn:hover { background: rgba(201,168,76,0.18); }
+    .upload-thumb-btn img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+      border-radius: 7px;
+    }
+    .upload-add-btn {
+      flex-shrink: 0; width: 40px; height: 40px; border-radius: 8px;
+      background: rgba(201,168,76,0.06); border: 1px dashed rgba(201,168,76,0.2);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: rgba(201,168,76,0.5); font-size: 1.1rem; font-weight: 700;
+      transition: var(--transition);
+    }
+    .upload-add-btn:hover { background: rgba(201,168,76,0.12); color: var(--gold); }
+
+    /* Card body */
+    .card-body { padding: 22px 20px 8px; flex: 1; display: flex; flex-direction: column; }
     .card-category {
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--gold);
-      background: rgba(201,168,76,0.1);
-      display: inline-block;
-      padding: 0.2rem 0.6rem;
-      border-radius: 4px;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 10px;
     }
-
+    .card-title-row {
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;
+      margin-bottom: 10px;
+    }
     .card-title {
       font-family: 'Playfair Display', serif;
-      font-size: 1.15rem;
-      font-weight: 700;
-      line-height: 1.3;
-      color: var(--white);
+      font-size: 1.2rem; font-weight: 700; color: var(--text); line-height: 1.2;
     }
-
+    .card-price-main {
+      flex-shrink: 0;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      border-radius: 8px; padding: 5px 12px;
+      font-size: 0.82rem; font-weight: 700; color: var(--dark); white-space: nowrap;
+    }
     .card-desc {
-      font-size: 0.83rem;
-      color: rgba(255,255,255,0.55);
-      line-height: 1.65;
+      font-size: 0.86rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 16px;
+      flex: 1;
     }
 
     /* Options checkboxes */
-    .card-options {
-      display: flex; flex-direction: column; gap: 0.35rem;
-    }
+    .card-options { margin-bottom: 16px; }
     .card-options-title {
-      font-size: 0.72rem; font-weight: 600; color: var(--gold);
-      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.1rem;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 10px;
     }
-    .option-row {
-      display: flex; align-items: center; gap: 0.5rem;
+    .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .option-check {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--dark3); border: 1px solid rgba(201,168,76,0.1);
+      border-radius: 8px; padding: 7px 10px; cursor: pointer;
+      transition: var(--transition); user-select: none;
     }
-    .option-row input[type="checkbox"] {
-      accent-color: var(--gold);
-      width: 14px; height: 14px; cursor: pointer; flex-shrink: 0;
+    .option-check input[type="checkbox"] { display: none; }
+    .option-check .checkmark {
+      width: 16px; height: 16px; border-radius: 4px; flex-shrink: 0;
+      border: 1.5px solid rgba(201,168,76,0.35);
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition);
     }
-    .option-row label {
-      font-size: 0.78rem; color: rgba(255,255,255,0.65); cursor: pointer;
-      user-select: none;
+    .option-check input:checked ~ .checkmark,
+    .option-check.checked .checkmark {
+      background: var(--gold); border-color: var(--gold);
     }
+    .option-check input:checked ~ .checkmark::after,
+    .option-check.checked .checkmark::after {
+      content: "✓"; font-size: 0.7rem; color: var(--dark); font-weight: 900;
+    }
+    .option-check .opt-label { font-size: 0.77rem; color: var(--text-muted); }
+    .option-check:hover { border-color: rgba(201,168,76,0.3); background: rgba(201,168,76,0.05); }
 
-    /* Meta row */
+    /* Card meta */
     .card-meta {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 0.5rem;
+      display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px;
     }
-    .meta-item {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 8px;
-      padding: 0.5rem 0.7rem;
+    .meta-pill {
+      display: flex; align-items: center; gap: 5px;
+      background: var(--dark3); border-radius: 6px;
+      padding: 5px 11px; font-size: 0.74rem; color: var(--text-muted);
     }
-    .meta-label {
-      font-size: 0.62rem; color: rgba(255,255,255,0.35);
-      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 2px;
-    }
-    .meta-value {
-      font-size: 0.78rem; color: rgba(255,255,255,0.8); font-weight: 500;
-    }
+    .meta-pill span { font-weight: 600; color: var(--text); }
 
     /* Remarks */
-    .card-remarks {
-      background: rgba(201,168,76,0.06);
-      border-left: 2px solid var(--gold);
-      padding: 0.5rem 0.75rem;
-      border-radius: 0 6px 6px 0;
-      font-size: 0.75rem;
-      color: rgba(255,255,255,0.5);
-      font-style: italic;
+    .card-remark {
+      background: rgba(201,168,76,0.05); border-left: 2px solid var(--gold-dark);
+      border-radius: 0 8px 8px 0; padding: 10px 14px;
+      font-size: 0.78rem; color: var(--text-muted); line-height: 1.5;
+      margin-bottom: 18px; font-style: italic;
     }
 
-    /* WhatsApp Button */
-    .btn-whatsapp {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      background: var(--whatsapp);
-      color: white;
-      padding: 0.75rem 1rem;
-      border-radius: 12px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
-      margin-top: auto;
-      box-shadow: 0 4px 15px rgba(37,211,102,0.2);
-    }
-    .btn-whatsapp:hover {
-      background: var(--whatsapp-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(37,211,102,0.35);
-    }
-    .btn-whatsapp svg { flex-shrink: 0; }
-
-    /* No results */
-    #noResults {
-      text-align: center;
-      padding: 4rem 1rem;
-      color: rgba(255,255,255,0.4);
-      display: none;
-    }
-    #noResults svg { margin: 0 auto 1rem; opacity: 0.3; }
-
-    /* ===== CONTACT SECTION ===== */
-    #contact {
-      background: linear-gradient(180deg, var(--dark) 0%, #0D0900 100%);
-      border-top: 1px solid rgba(201,168,76,0.15);
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-    }
-    @media (max-width: 768px) {
-      .contact-grid { grid-template-columns: 1fr; }
-      .nav-whatsapp span { display: none; }
-    }
-
-    .contact-card {
-      background: var(--dark2);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 20px;
-      padding: 2rem;
-    }
-
-    .contact-info-item {
-      display: flex; align-items: flex-start; gap: 0.75rem;
-      margin-bottom: 1.2rem;
-    }
-    .contact-info-icon {
-      width: 38px; height: 38px; border-radius: 10px;
-      background: rgba(201,168,76,0.12);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; color: var(--gold);
-    }
-    .contact-info-text { font-size: 0.83rem; color: rgba(255,255,255,0.65); line-height: 1.5; }
-    .contact-info-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold); margin-bottom: 2px; font-weight: 600; }
-
-    .social-row {
-      display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.5rem;
-    }
-    .social-pill {
-      display: flex; align-items: center; gap: 6px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: rgba(255,255,255,0.7);
-      padding: 0.45rem 0.9rem;
-      border-radius: 20px;
-      font-size: 0.78rem;
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 0.3s;
-    }
-    .social-pill:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.08); }
-
-    .cta-box {
-      display: flex; flex-direction: column; gap: 1rem;
-    }
-
-    .btn-whatsapp-lg {
+    /* Card footer */
+    .card-footer { padding: 0 20px 20px; }
+    .wa-btn {
       display: flex; align-items: center; justify-content: center; gap: 10px;
-      background: var(--whatsapp);
-      color: white;
-      padding: 1.1rem 1.5rem;
-      border-radius: 14px;
-      font-size: 1rem;
-      font-weight: 700;
-      text-decoration: none;
-      transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
-      box-shadow: 0 6px 30px rgba(37,211,102,0.3);
+      width: 100%; padding: 14px;
+      background: linear-gradient(135deg, #128C7E, var(--green-wa));
+      border-radius: 12px; font-weight: 700; font-size: 0.9rem;
+      color: var(--white); transition: var(--transition);
+      box-shadow: 0 4px 16px rgba(37,211,102,0.25);
     }
-    .btn-whatsapp-lg:hover {
-      background: var(--whatsapp-dark);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 40px rgba(37,211,102,0.45);
-    }
+    .wa-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(37,211,102,0.4); }
+    .wa-btn svg { width: 20px; height: 20px; fill: white; flex-shrink: 0; }
 
-    .btn-outline-gold {
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      background: transparent;
-      border: 1.5px solid var(--gold);
-      color: var(--gold);
-      padding: 0.85rem 1.5rem;
-      border-radius: 14px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.3s;
+    /* ─── CONTACT ─── */
+    #contact {
+      background: var(--dark2);
+      border-top: 1px solid rgba(201,168,76,0.12);
     }
-    .btn-outline-gold:hover { background: var(--gold); color: var(--dark); }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+      max-width: 1100px; margin: 0 auto; padding: 0 20px 80px;
+    }
+    .contact-card {
+      background: var(--dark3); border: 1px solid rgba(201,168,76,0.12);
+      border-radius: var(--radius); padding: 32px; transition: var(--transition);
+    }
+    .contact-card:hover { border-color: rgba(201,168,76,0.3); }
+    .contact-card h3 {
+      font-size: 1.25rem; color: var(--gold); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .contact-info-row {
+      display: flex; align-items: flex-start; gap: 12px;
+      margin-bottom: 16px;
+    }
+    .contact-icon {
+      width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+      background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.2);
+      display: flex; align-items: center; justify-content: center; font-size: 1rem;
+    }
+    .contact-text { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+    .contact-text strong { color: var(--text); display: block; margin-bottom: 2px; }
+    .wa-btn-large {
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      padding: 18px 28px; margin-top: 12px;
+      background: linear-gradient(135deg, #128C7E, var(--green-wa));
+      border-radius: 14px; font-weight: 700; font-size: 1rem;
+      color: var(--white); transition: var(--transition);
+      box-shadow: 0 4px 24px rgba(37,211,102,0.3);
+    }
+    .wa-btn-large:hover { transform: translateY(-3px); box-shadow: 0 10px 36px rgba(37,211,102,0.45); }
+    .wa-btn-large svg { width: 24px; height: 24px; fill: white; }
+    .wa-options-form {
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .wa-option-row {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--dark4); border-radius: 10px; padding: 12px 14px;
+      cursor: pointer; transition: var(--transition);
+      border: 1px solid transparent;
+    }
+    .wa-option-row:hover { border-color: rgba(37,211,102,0.3); background: rgba(37,211,102,0.06); }
+    .wa-option-row .wa-option-label { font-size: 0.87rem; color: var(--text-muted); }
+    .wa-option-row svg { width: 20px; height: 20px; fill: var(--green-wa); flex-shrink: 0; }
 
-    /* ===== FOOTER ===== */
+    /* ─── FOOTER ─── */
     footer {
-      background: var(--noir);
-      border-top: 1px solid rgba(201,168,76,0.1);
-      padding: 2rem 1rem;
-      text-align: center;
+      background: var(--dark); border-top: 1px solid rgba(201,168,76,0.12);
+      padding: 48px 20px;
     }
-    footer .footer-brand {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.3rem; font-weight: 700; margin-bottom: 0.4rem;
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; flex-direction: column; align-items: center; gap: 24px;
     }
-    footer p { font-size: 0.75rem; color: rgba(255,255,255,0.3); margin-top: 0.3rem; }
+    .footer-logo {
+      font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .footer-tagline { color: var(--text-muted); font-size: 0.85rem; font-style: italic; }
+    .footer-divider { width: 60px; height: 2px; background: linear-gradient(90deg, var(--gold-dark), var(--gold-light)); border-radius: 2px; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
+    .footer-links a { font-size: 0.82rem; color: var(--text-muted); transition: var(--transition); }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-copy { font-size: 0.75rem; color: rgba(160,152,144,0.5); text-align: center; }
 
-    /* ===== MODAL IMAGE VIEWER ===== */
-    #imgModal {
-      display: none;
-      position: fixed; inset: 0; z-index: 9999;
-      background: rgba(0,0,0,0.92);
-      align-items: center; justify-content: center;
+    /* ─── EDIT PANEL ─── */
+    .edit-panel {
+      position: fixed; right: -380px; top: 0; width: 380px; height: 100vh;
+      background: var(--dark2); border-left: 1px solid rgba(201,168,76,0.2);
+      z-index: 2000; transition: right 0.35s ease; overflow-y: auto;
+      padding-bottom: 40px;
     }
-    #imgModal.open { display: flex; }
-    #imgModal img { max-width: 90vw; max-height: 90vh; border-radius: 8px; }
-    #imgModal .close-modal {
-      position: absolute; top: 1rem; right: 1.5rem;
-      font-size: 2rem; color: white; cursor: pointer; z-index: 1;
+    .edit-panel.open { right: 0; }
+    .edit-panel-header {
+      padding: 24px 20px; border-bottom: 1px solid rgba(201,168,76,0.12);
+      display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0;
+      background: var(--dark2); z-index: 1;
     }
-
-    /* ===== NOTIFICATION TOAST ===== */
-    #toast {
-      position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
-      background: var(--gold); color: var(--dark);
-      padding: 0.65rem 1.5rem; border-radius: 30px;
-      font-size: 0.82rem; font-weight: 600;
-      z-index: 9998; opacity: 0; pointer-events: none;
-      transition: opacity 0.3s;
-      white-space: nowrap;
+    .edit-panel-header h3 { font-size: 1rem; color: var(--gold); }
+    .edit-close {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: rgba(201,168,76,0.1); color: var(--gold); font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
     }
-    #toast.show { opacity: 1; }
-
-    /* ===== HIDDEN FILE INPUTS ===== */
-    .hidden-input { display: none; }
-
-    /* ===== EDIT CONTACT PANEL ===== */
-    .edit-contact-panel {
-      background: rgba(201,168,76,0.08);
-      border: 1px solid rgba(201,168,76,0.2);
-      border-radius: 12px;
-      padding: 1rem;
-      margin-top: 0.5rem;
-      display: none;
-      flex-direction: column;
-      gap: 0.5rem;
+    .edit-form { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+    .edit-field label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; letter-spacing: 1px; text-transform: uppercase; }
+    .edit-field input, .edit-field textarea, .edit-field select {
+      width: 100%; background: var(--dark3); border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 10px; padding: 10px 14px; color: var(--text); font-size: 0.88rem;
+      outline: none; transition: var(--transition); resize: vertical;
     }
-    .edit-contact-panel.open { display: flex; }
-    .edit-contact-panel input, .edit-contact-panel textarea {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(201,168,76,0.25);
-      color: white;
-      padding: 0.5rem 0.75rem;
-      border-radius: 8px;
-      font-size: 0.8rem;
-      outline: none;
-      width: 100%;
-      transition: border-color 0.3s;
+    .edit-field input:focus, .edit-field textarea:focus { border-color: var(--gold); }
+    .edit-save-btn {
+      width: 100%; padding: 14px; border-radius: 12px; font-weight: 700; font-size: 0.92rem;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      color: var(--dark); transition: var(--transition); margin-top: 8px;
     }
-    .edit-contact-panel input:focus, .edit-contact-panel textarea:focus { border-color: var(--gold); }
-    .edit-contact-panel textarea { resize: vertical; min-height: 60px; }
-    .edit-panel-btns { display: flex; gap: 0.5rem; }
-    .btn-save {
-      background: var(--gold); color: var(--dark);
-      border: none; border-radius: 8px; padding: 0.45rem 1rem;
-      font-size: 0.78rem; font-weight: 700; cursor: pointer; transition: background 0.2s;
-    }
-    .btn-save:hover { background: var(--gold-light); }
-    .btn-cancel {
-      background: transparent; color: rgba(255,255,255,0.5);
-      border: 1px solid rgba(255,255,255,0.15); border-radius: 8px;
-      padding: 0.45rem 1rem; font-size: 0.78rem; cursor: pointer; transition: all 0.2s;
-    }
-    .btn-cancel:hover { border-color: var(--gold); color: var(--gold); }
-
-    /* ===== PRICE EDIT ===== */
-    .price-edit-wrap {
-      display: flex; align-items: center; gap: 6px;
-    }
-    .price-edit-input {
-      background: transparent;
-      border: none;
-      border-bottom: 1px solid transparent;
-      color: var(--gold-light);
-      font-size: 0.75rem; font-weight: 600;
-      width: 100%; outline: none;
-      transition: border-color 0.2s;
-    }
-    .price-edit-input:focus { border-color: var(--gold); }
-
-    /* ===== EDIT MODE TOGGLE ===== */
-    #editModeToggle {
-      position: fixed; bottom: 5rem; right: 1rem; z-index: 100;
-      background: var(--dark2); border: 1px solid var(--gold);
-      color: var(--gold); padding: 0.55rem 1rem;
-      border-radius: 20px; font-size: 0.75rem; font-weight: 600;
-      cursor: pointer; display: flex; align-items: center; gap: 6px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-      transition: all 0.3s;
-    }
-    #editModeToggle.active { background: var(--gold); color: var(--dark); }
-    #editModeToggle:hover { transform: scale(1.05); }
-
-    .edit-indicator {
-      display: none;
-      background: rgba(201,168,76,0.1);
-      border: 1px dashed var(--gold);
-      border-radius: 8px;
-      padding: 0.3rem 0.5rem;
-      font-size: 0.7rem;
-      color: var(--gold);
-      text-align: center;
-      margin-bottom: 0.5rem;
-    }
-    body.edit-mode .edit-indicator { display: block; }
-    body.edit-mode .card-title[contenteditable] { 
-      border-bottom: 1px dashed var(--gold);
-      outline: none;
-      cursor: text;
-    }
-    body.edit-mode .card-desc[contenteditable] {
-      border-bottom: 1px dashed rgba(201,168,76,0.4);
-      outline: none;
-      cursor: text;
-    }
-    body.edit-mode .meta-value[contenteditable] {
-      border-bottom: 1px dashed rgba(201,168,76,0.4);
-      outline: none;
-      cursor: text;
-    }
-    body.edit-mode .card-remarks[contenteditable] {
-      outline: none;
-      cursor: text;
-    }
-
-    /* ===== FLOATING WHATSAPP ===== */
-    #floatWhatsapp {
-      position: fixed; bottom: 1.5rem; right: 1rem; z-index: 100;
-      width: 54px; height: 54px;
-      background: var(--whatsapp);
-      border-radius: 50%;
+    .edit-save-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(201,168,76,0.35); }
+    .edit-trigger {
+      position: absolute; top: 12px; right: 12px; z-index: 10;
+      width: 32px; height: 32px; border-radius: 8px;
+      background: rgba(14,14,14,0.75); border: 1px solid rgba(201,168,76,0.35);
       display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
-      text-decoration: none;
-      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer; color: var(--gold); font-size: 0.9rem;
+      transition: var(--transition); backdrop-filter: blur(4px);
     }
-    #floatWhatsapp:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(37,211,102,0.6); }
-    .float-pulse {
-      position: absolute; inset: -4px;
-      border-radius: 50%;
-      border: 2px solid rgba(37,211,102,0.4);
-      animation: pulse 2s infinite;
+    .edit-trigger:hover { background: rgba(201,168,76,0.2); }
+    .panel-overlay {
+      display: none; position: fixed; inset: 0; z-index: 1999;
+      background: rgba(0,0,0,0.5);
     }
-    @keyframes pulse { 0%{ transform: scale(1); opacity: 1; } 100%{ transform: scale(1.5); opacity: 0; } }
+    .panel-overlay.open { display: block; }
 
-    /* ===== CATEGORIES STRIP ===== */
-    .categories-strip {
-      display: flex; gap: 0.75rem; overflow-x: auto;
-      padding: 0.5rem 0; margin-bottom: 1.5rem;
-      scrollbar-width: none;
+    /* ─── SCROLL TO TOP ─── */
+    #scrollTop {
+      position: fixed; bottom: 24px; right: 24px; z-index: 800;
+      width: 46px; height: 46px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; box-shadow: 0 4px 16px rgba(201,168,76,0.4);
+      transition: var(--transition); opacity: 0; pointer-events: none;
+      color: var(--dark); font-size: 1.1rem;
     }
-    .categories-strip::-webkit-scrollbar { display: none; }
+    #scrollTop.visible { opacity: 1; pointer-events: all; }
+    #scrollTop:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(201,168,76,0.55); }
 
-    /* Responsive tweaks */
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .catalogue-grid { grid-template-columns: 1fr; padding: 0 14px; }
+    }
     @media (max-width: 640px) {
-      section { padding: 3rem 1rem; }
-      .contact-card { padding: 1.5rem 1.25rem; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .hero-stats { gap: 20px; }
+      .options-grid { grid-template-columns: 1fr; }
+      .edit-panel { width: 100%; right: -100%; }
+      .hero-cta-row { flex-direction: column; align-items: center; }
     }
+    @media (max-width: 400px) {
+      .nav-brand .brand-name { font-size: 0.95rem; }
+    }
+
+    /* ─── ANIMATIONS ─── */
+    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .fade-in-delay-1 { transition-delay: 0.1s; }
+    .fade-in-delay-2 { transition-delay: 0.2s; }
+    .fade-in-delay-3 { transition-delay: 0.3s; }
+
+    /* ─── TOAST ─── */
+    #toast {
+      position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: var(--dark3); border: 1px solid rgba(201,168,76,0.3);
+      color: var(--text); padding: 12px 24px; border-radius: 50px;
+      font-size: 0.85rem; z-index: 9999; opacity: 0;
+      transition: all 0.3s ease; pointer-events: none;
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   </style>
 </head>
 <body>
 
-<!-- ===== HIDDEN FILE INPUTS ===== -->
-<input type="file" id="heroCoverInput" class="hidden-input" accept="image/*" />
-<input type="file" id="heroLogoInput" class="hidden-input" accept="image/*" />
-<input type="file" id="aboutImgInput" class="hidden-input" accept="image/*" />
-
-<!-- ===== HERO / COUVERTURE ===== -->
-<section id="hero">
-  <div id="hero-bg"></div>
-  <img id="hero-bg-img" src="https://images.pexels.com/photos/7014405/pexels-photo-7014405.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200" alt="Couverture PLUME & PIXEL" />
-  <div id="hero-bg-overlay"></div>
-
-  <!-- Upload cover button -->
-  <div class="hero-cover-upload">
-    <button class="btn-upload" id="heroUploadBtn">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-      Photo de couverture
-    </button>
-  </div>
-
-  <div id="hero-content">
-    <!-- Logo importable -->
-    <div class="hero-logo-area" id="heroLogoArea" title="Cliquer pour changer le logo">
-      <div class="hero-logo-placeholder" id="logoPlaceholder">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
-        </svg>
-        <span>Votre Logo</span>
-        <span style="font-size:0.55rem;opacity:0.6">Cliquer pour importer</span>
-      </div>
-      <img id="heroLogoImg" src="" alt="Logo" style="display:none;width:100%;height:100%;object-fit:contain;padding:10px;" />
-      <div class="logo-edit-btn">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-      </div>
-    </div>
-
-    <h1 class="hero-brand-name">PLUME <span class="hero-ampersand">&</span> PIXEL</h1>
-    <div class="divider-gold"></div>
-    <p class="hero-slogan">« L'art de créer, la puissance d'imprimer. »</p>
-
-    <div class="hero-location" style="margin-bottom:1.5rem;">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-      Jouvence — Yaoundé, Cameroun
-    </div>
-
-    <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
-      <a href="#catalogue" class="btn-outline-gold" style="padding:0.6rem 1.2rem;border-radius:30px;font-size:0.82rem;">
-        Voir nos services
-      </a>
-      <a id="heroWhatsapp" href="#" class="btn-whatsapp" style="border-radius:30px;padding:0.6rem 1.2rem;font-size:0.82rem;margin-top:0;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-        Nous contacter
-      </a>
-    </div>
-  </div>
-
-  <!-- Scroll arrow -->
-  <div class="hero-scroll">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.6)" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-  </div>
-</section>
-
-<!-- ===== NAVBAR ===== -->
-<nav id="navbar">
-  <div class="nav-inner">
-    <div class="nav-logo">
-      <span class="gold-text">PLUME</span> <span style="color:rgba(255,255,255,0.3)">&</span> <span class="gold-text">PIXEL</span>
-    </div>
-    <div class="search-wrap">
-      <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" id="searchInput" placeholder="Rechercher un service..." autocomplete="off" />
-      <button id="clearSearch">×</button>
-    </div>
-    <a id="navWhatsapp" href="#" class="nav-whatsapp">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-      <span>WhatsApp</span>
-    </a>
-  </div>
-</nav>
-
-<!-- ===== ABOUT ===== -->
-<section id="about">
-  <div class="container">
-    <div class="about-grid">
-      <div class="about-img-wrap" id="aboutImgWrap" title="Cliquer pour changer la photo">
-        <img id="aboutImg" src="https://images.pexels.com/photos/7180492/pexels-photo-7180492.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200" alt="Notre atelier" />
-        <div class="about-img-overlay">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-          <span style="font-size:0.75rem;">Changer la photo</span>
-        </div>
-      </div>
-      <div class="about-text">
-        <h2><span class="gold-text">Qui sommes-nous ?</span></h2>
-        <p>
-          <strong style="color:white;">PLUME & PIXEL</strong> est une agence créative multidisciplinaire basée à Yaoundé, Cameroun. Nous conjuguons design graphique, impression numérique et fabrication sur-mesure pour donner vie à vos projets les plus ambitieux.
-        </p>
-        <p>
-          De la carte de visite au panneau publicitaire, du packaging élégant à la gravure laser, notre équipe passionnée met son expertise au service de votre image de marque avec une qualité irréprochable.
-        </p>
-        <p>
-          Situés à <strong style="color:rgba(255,255,255,0.8);">Jouvence — Nouvelle route Tam-tam, face snack bar Le Click Plus</strong>, nous recevons sur rendez-vous et répondons à toutes vos demandes par WhatsApp.
-        </p>
-
-        <div class="about-badges">
-          <span class="badge">Design Graphique</span>
-          <span class="badge">Impression Offset</span>
-          <span class="badge">Gravure Laser</span>
-          <span class="badge">Découpe CNC</span>
-          <span class="badge">Sérigraphie</span>
-          <span class="badge">Signalétique</span>
-          <span class="badge">Packaging</span>
-          <span class="badge">Décoration</span>
-        </div>
-
-        <div class="payment-strip">
-          <span>Moyens de paiement :</span>
-          <span class="payment-pill">💵 Cash</span>
-          <span class="payment-pill">🟠 Orange Money</span>
-          <span class="payment-pill">📱 MoMo</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== CATALOGUE ===== -->
-<section id="catalogue">
-  <div class="container">
-    <p class="section-sub" style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;">NOS SERVICES</p>
-    <h2 class="section-title">Catalogue Complet</h2>
-    <div class="divider-gold" style="margin-bottom:2rem;"></div>
-
-    <!-- Filter tabs -->
-    <div class="filter-tabs" id="filterTabs">
-      <button class="filter-tab active" data-filter="all">Tout voir</button>
-      <button class="filter-tab" data-filter="design">Design</button>
-      <button class="filter-tab" data-filter="impression">Impression</button>
-      <button class="filter-tab" data-filter="fabrication">Fabrication</button>
-      <button class="filter-tab" data-filter="communication">Communication</button>
-      <button class="filter-tab" data-filter="evenement">Événementiel</button>
-    </div>
-
-    <!-- Services Grid -->
-    <div class="services-grid" id="servicesGrid">
-      <!-- Cards injected by JS -->
-    </div>
-
-    <!-- No results -->
-    <div id="noResults">
-      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <p style="font-size:1rem;margin-bottom:0.5rem;">Aucun service trouvé</p>
-      <p style="font-size:0.8rem;">Essayez un autre terme de recherche</p>
-    </div>
-  </div>
-</section>
-
-<!-- ===== CONTACT ===== -->
-<section id="contact">
-  <div class="container">
-    <p class="section-sub" style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;">NOUS TROUVER</p>
-    <h2 class="section-title">Contact & Localisation</h2>
-    <div class="divider-gold" style="margin-bottom:2.5rem;"></div>
-
-    <div class="contact-grid">
-      <!-- Infos -->
-      <div class="contact-card">
-        <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:1.5rem;">
-          <span class="gold-text">Informations</span>
-        </h3>
-
-        <div class="contact-info-item">
-          <div class="contact-info-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          </div>
-          <div>
-            <div class="contact-info-label">Adresse</div>
-            <div class="contact-info-text">Jouvence — Yaoundé, Cameroun<br/>Nouvelle route Tam-tam, face snack bar Le Click Plus</div>
-          </div>
-        </div>
-
-        <div class="contact-info-item">
-          <div class="contact-info-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-          </div>
-          <div>
-            <div class="contact-info-label">WhatsApp</div>
-            <div class="contact-info-text" id="contactWhatsappDisplay">+237 672 434 547</div>
-          </div>
-        </div>
-
-        <div class="contact-info-item">
-          <div class="contact-info-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          </div>
-          <div>
-            <div class="contact-info-label">Horaires</div>
-            <div class="contact-info-text">Lun – Sam : 08h00 – 18h00<br/>Dimanche : Sur rendez-vous</div>
-          </div>
-        </div>
-
-        <div style="border-top:1px solid rgba(255,255,255,0.07);padding-top:1.2rem;margin-top:0.3rem;">
-          <div class="contact-info-label" style="margin-bottom:0.75rem;">Réseaux Sociaux</div>
-          <div class="social-row">
-            <a href="https://www.facebook.com/plumeetpixel" target="_blank" rel="noopener" class="social-pill">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-              Facebook
-            </a>
-            <a href="https://www.instagram.com/plumeetpixel" target="_blank" rel="noopener" class="social-pill">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-              Instagram
-            </a>
-            <a href="https://www.tiktok.com/@plumeetpixel" target="_blank" rel="noopener" class="social-pill">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.29 6.29 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
-              TikTok
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CTA -->
-      <div class="contact-card" style="display:flex;flex-direction:column;justify-content:space-between;">
-        <div>
-          <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:0.75rem;">
-            <span class="gold-text">Commandez maintenant</span>
-          </h3>
-          <p style="color:rgba(255,255,255,0.55);font-size:0.85rem;line-height:1.7;margin-bottom:1.5rem;">
-            Décrivez votre projet, nous vous répondons dans les plus brefs délais avec un devis personnalisé. Aucun projet n'est trop grand ou trop petit pour nous !
-          </p>
-
-          <div class="cta-box">
-            <a id="ctaWhatsappMain" href="#" class="btn-whatsapp-lg">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-              Démarrer une conversation WhatsApp
-            </a>
-            <a id="ctaWhatsappDevis" href="#" class="btn-outline-gold">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-              Demander un devis gratuit
-            </a>
-          </div>
-        </div>
-
-        <div style="margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,0.07);">
-          <div class="contact-info-label" style="margin-bottom:0.75rem;">Paiement accepté</div>
-          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
-            <span class="payment-pill">💵 Cash</span>
-            <span class="payment-pill">🟠 Orange Money</span>
-            <span class="payment-pill">📱 MTN MoMo</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== FOOTER ===== -->
-<footer>
-  <div class="footer-brand"><span class="gold-text">PLUME</span> <span style="color:rgba(255,255,255,0.25)">&</span> <span class="gold-text">PIXEL</span></div>
-  <p style="font-style:italic;color:rgba(255,255,255,0.4);font-family:'Playfair Display',serif;">« L'art de créer, la puissance d'imprimer. »</p>
-  <p style="margin-top:0.75rem;">© 2025 PLUME & PIXEL — Yaoundé, Cameroun. Tous droits réservés.</p>
-</footer>
-
-<!-- ===== FLOATING WHATSAPP ===== -->
-<a id="floatWhatsapp" href="#" title="Contactez-nous sur WhatsApp" target="_blank" rel="noopener">
-  <div class="float-pulse"></div>
-  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-</a>
-
-<!-- ===== EDIT MODE TOGGLE ===== -->
-<button id="editModeToggle" title="Activer/désactiver le mode édition">
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-  Mode Édition
-</button>
-
-<!-- ===== IMAGE MODAL ===== -->
-<div id="imgModal">
-  <span class="close-modal" id="closeModal">×</span>
-  <img id="modalImg" src="" alt="Aperçu" />
+<!-- LOADER -->
+<div id="loader">
+  <div class="logo-anim">PLUME & PIXEL</div>
+  <div class="bar"><div class="bar-inner"></div></div>
 </div>
 
-<!-- ===== TOAST ===== -->
-<div id="toast">✓ Action effectuée</div>
+<!-- TOAST -->
+<div id="toast"></div>
 
-<script>
-  // ============================================================
-  // ██████████████████████████████████████████████████████
-  //   CONFIGURATION — MODIFIER ICI UNIQUEMENT
-  // ██████████████████████████████████████████████████████
-  // ============================================================
+<!-- SCROLL TOP -->
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Haut de page">▲</button>
 
-  /**
-   * NUMÉRO WHATSAPP
-   * Format international sans +, sans espaces, sans tirets
-   * Exemple : 237672434547 pour +237 672 434 547
-   */
-  const WHATSAPP_NUMBER = "237672434547";
+<!-- PANEL OVERLAY -->
+<div class="panel-overlay" id="panelOverlay" onclick="closeEditPanel()"></div>
 
-  /**
-   * MESSAGE PAR DÉFAUT (sera encodé automatiquement)
-   */
-  const WHATSAPP_DEFAULT_MSG = "Bonjour PLUME & PIXEL 👋\nJe souhaite obtenir des informations sur vos services.\nMerci !";
+<!-- EDIT PANEL -->
+<div class="edit-panel" id="editPanel">
+  <div class="edit-panel-header">
+    <h3>✏️ Modifier le service</h3>
+    <button class="edit-close" onclick="closeEditPanel()">✕</button>
+  </div>
+  <div class="edit-form" id="editForm">
+    <div class="edit-field">
+      <label>Titre du service</label>
+      <input type="text" id="ep_title" placeholder="Ex: Design Graphique" />
+    </div>
+    <div class="edit-field">
+      <label>Catégorie</label>
+      <input type="text" id="ep_cat" placeholder="Ex: CRÉATION" />
+    </div>
+    <div class="edit-field">
+      <label>Prix à partir de (FCFA)</label>
+      <input type="text" id="ep_price" placeholder="Ex: 15 000 FCFA" />
+    </div>
+    <div class="edit-field">
+      <label>Description</label>
+      <textarea id="ep_desc" rows="4" placeholder="Description courte du service..."></textarea>
+    </div>
+    <div class="edit-field">
+      <label>Délai</label>
+      <input type="text" id="ep_delay" placeholder="Ex: 48h – 5 jours" />
+    </div>
+    <div class="edit-field">
+      <label>Quantité minimale</label>
+      <input type="text" id="ep_qty" placeholder="Ex: 50 exemplaires" />
+    </div>
+    <div class="edit-field">
+      <label>Remarques</label>
+      <textarea id="ep_remark" rows="3" placeholder="Informations supplémentaires..."></textarea>
+    </div>
+    <button class="edit-save-btn" onclick="saveCardEdit()">💾 Enregistrer</button>
+  </div>
+</div>
 
-  /**
-   * MESSAGE DEVIS
-   */
-  const WHATSAPP_DEVIS_MSG = "Bonjour PLUME & PIXEL 👋\nJe souhaite demander un devis gratuit pour mon projet.\nPourriez-vous me contacter ? Merci !";
+<!-- NAVIGATION -->
+<nav id="navbar">
+  <div class="nav-brand">
+    <div class="nav-brand .brand-logo-wrap" id="navLogoWrap" style="width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,#9A7730,#C9A84C);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:#0E0E0E;overflow:hidden;position:relative;cursor:pointer;" onclick="document.getElementById('logoUploadInput').click()" title="Cliquez pour changer le logo">
+      P&P
+      <img id="navLogoImg" src="" alt="Logo" style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:10px;" />
+    </div>
+    <input type="file" id="logoUploadInput" accept="image/*" style="display:none" onchange="handleLogoUpload(this)" />
+    <span class="nav-brand .brand-name" style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;background:linear-gradient(135deg,#C9A84C,#E8C96A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">PLUME & PIXEL</span>
+  </div>
+  <div class="nav-links">
+    <a href="#hero">Accueil</a>
+    <a href="#about">À propos</a>
+    <a href="#catalogue">Services</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <button class="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#hero" onclick="closeMobileMenu()">🏠 Accueil</a>
+  <a href="#about" onclick="closeMobileMenu()">ℹ️ À propos</a>
+  <a href="#catalogue" onclick="closeMobileMenu()">📦 Services</a>
+  <a href="#contact" onclick="closeMobileMenu()">📞 Contact</a>
+</div>
 
-  // ============================================================
-  //   FIN CONFIGURATION
-  // ============================================================
-
-  /**
-   * Génère un lien wa.me valide
-   * @param {string} message - message non encodé
-   * @param {string} [service] - nom du service optionnel
-   */
-  function waLink(message, service) {
-    let msg = message;
-    if (service) {
-      msg = `Bonjour PLUME & PIXEL 👋\nJe suis intéressé(e) par votre service : *${service}*.\nPourriez-vous me donner plus d'informations et un devis ? Merci !`;
-    }
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
-  }
-
-  // ============================================================
-  //   DONNÉES DES SERVICES
-  // ============================================================
-
-  const SERVICES = [
-    {
-      id: 1,
-      category: "design",
-      categoryLabel: "Design",
-      title: "Design Graphique",
-      desc: "Création de visuels percutants : flyers, affiches, bannières, cartes de visite, brochures et tous supports imprimés ou numériques sur mesure.",
-      images: [
-        { url: "https://images.pexels.com/photos/31862222/pexels-photo-31862222.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "À partir de 5 000 FCFA" },
-        { url: "https://images.pexels.com/photos/16313664/pexels-photo-16313664.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Flyer A4 : 15 000 FCFA" }
-      ],
-      delai: "24h – 72h",
-      qteMin: "1 exemplaire",
-      remarques: "Fichiers HD fournis en PDF, PNG et AI. Corrections illimitées incluses.",
-      options: ["Standard", "Express (+50%)", "Avec livraison", "Design inclus", "Personnalisation avancée"]
-    },
-    {
-      id: 2,
-      category: "impression",
-      categoryLabel: "Impression",
-      title: "Impression Numérique & Offset",
-      desc: "Impression haute définition sur papier couché, bâche, vinyle, tissu et autres supports. Finitions vernis, pelliculage mat ou brillant disponibles.",
-      images: [
-        { url: "https://images.pexels.com/photos/7014405/pexels-photo-7014405.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Flyer 500 ex : 35 000 FCFA" },
-        { url: "https://images.pexels.com/photos/7014400/pexels-photo-7014400.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Poster A3 : 8 000 FCFA" }
-      ],
-      delai: "48h – 5 jours",
-      qteMin: "50 exemplaires",
-      remarques: "Tarifs dégressifs selon quantité. Fichiers en CMJN requis.",
-      options: ["Standard", "Express (+50%)", "Avec livraison", "Design inclus", "Personnalisation avancée"]
-    },
-    {
-      id: 3,
-      category: "design",
-      categoryLabel: "Design",
-      title: "Création d'Identité Visuelle",
-      desc: "Conception complète de votre identité de marque : logo, charte graphique, palette de couleurs, typographies et guide d'utilisation.",
-      images: [
-        { url: "https://images.pexels.com/photos/7180492/pexels-photo-7180492.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Pack Logo : 50 000 FCFA" },
-        { url: "https://images.pexels.com/photos/37326538/pexels-photo-37326538.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Charte complète : 150 000 FCFA" }
-      ],
-      delai: "5 – 15 jours ouvrables",
-      qteMin: "N/A",
-      remarques: "3 propositions de logo incluses. Révisions illimitées jusqu'à validation.",
-      options: ["Standard", "Express (+50%)", "Avec livraison", "Design inclus", "Personnalisation avancée"]
-    },
-    {
-      id: 4,
-      category: "fabrication",
-      categoryLabel: "Fabrication",
-      title: "Packaging & Étiquettes Produits",
-      desc: "Conception et fabrication de boîtes, sachets, étiquettes adhésives et emballages personnalisés pour valoriser vos produits.",
-      images: [
-        { url: "https://images.pexels.com/photos/9594420/pexels-photo-9594420.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Étiquettes 100 ex : 20 000 FCFA" },
-        { url: "https://images.pexels.com/photos/9594419/pexels-photo-9594419.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Packaging sur devis" }
-      ],
-      delai: "3 – 10 jours",
-      qteMin: "50 unités",
-      remarques: "Prototypage gratuit avant lancement de la production.",
-      options: ["Standard", "Express (+50%)", "Avec livraison", "Design inclus", "Personnalisation avancée"]
-    },
-    {
-      id: 5,
-      category: "evenement",
-      categoryLabel: "Événementiel",
-      title: "Invitations Personnalisées",
-      desc: "Cartons d'invitation sur mesure pour mariages, baptêmes, anniversaires, obsèques, conférences. Formats variés : pliés, dépliants, avec enveloppe.",
-      images: [
-        { url: "https://images.pexels.com/photos/17259710/pexels-photo-17259710.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "50 invitations : 25 000 FCFA" },
-        { url: "https://images.pexels.com/photos/36617802/pexels-photo-36617802.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "100 invitations : 45 000 FCFA" }
-      ],
-      delai: "48h – 5 jours",
-      qteMin: "20 exemplaires",
-      remarques: "Papier premium, dorure à chaud et découpe à la forme disponibles.",
-      options: ["Standard", "Express (+50%)", "Avec livraison", "Design inclus", "Personnalisation avancée"]
-    },
-    {
-      id: 6,
-      category: "communication",
-      categoryLabel: "Communication",
-      title: "Objets Publicitaires Personnalisés",
-      desc: "Impression et personnalisation de stylos, mugs, t-shirts, casquettes, carnets, sacs, clés USB et tout type de goodies pour votre communication.",
-      images: [
-        { url: "https://images.pexels.com/photos/9902807/pexels-photo-9902807.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "T-shirt (lot 10) : 45 000 FCFA" }
-      ],
-      delai: "5 – 15 jours",
-      qteMin: "10 pièces",
-      remarques: "Tarifs dégressifs à partir de 50 pièces. Échantillon fourni sur demande.",
-      options: ["Standard", "Express (+50%)", "Avec livraison", "Design inclus", "Personnalisation avancée"]
-    },
-    {
-      id: 7,
-      category: "fabrication",
-      categoryLabel: "Fabrication",
-      title: "Gravure Laser",
-      desc: "Gravure laser de précision sur bois, métal, acrylique, cuir, verre. Idéale pour trophées, plaques, cadeaux d'entreprise et objets personnalisés.",
-      images: [
-        { url: "https://images.pexels.com/photos/6345332/pexels-photo-6345332.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Plaque bois : 8 000 FCFA" },
-        { url: "https://images.pexels.com/photos/7005503/pexels-photo-7005503.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Trophée gravé : 15 000 FCFA" }
-      ],
-      delai: "24h – 72h",
-      qteMin: "1 pièce",
-      remarques: "Fichiers vectoriels (SVG, AI, DXF) requis pour une gravure optimale.",
-      options: ["Standard", "Express (+50%)", "Avec livraison", "Design inclus", "Personnalisation avancée"]
-    },
-    {
-      id: 8,
-      category: "fabrication",
-      categoryLabel: "Fabrication",
-      title: "Découpe CNC",
-      desc: "Découpe CNC de précision pour enseignes, lettres volumétriques, éléments décoratifs, présentoirs et structures en bois, MDF, acrylique et PVC.",
-      images: [
-        { url: "https://images.pexels.com/photos/28271096/pexels-photo-28271096.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Sur devis selon dimensions" }
-      ],
-      delai: "3 – 10 jours",
-      qteMin: "1 pièce",
-      remarques: "Plans techniques ou fichiers DXF nécessaires. Devis sur mesure.",
-      options: ["Standard", "Express (+50%)", "Avec livraison", "Design inclus", "Personnalisation avancée"]
-    },
-    {
-      id: 9,
-      category: "impression",
-      categoryLabel: "Impression",
-      title: "Sérigraphie",
-      desc: "Impression sérigraphique pour textiles (t-shirts, polos, blouses), sacs, bâches et supports rigides. Encres durables, couleurs vives et fidèles.",
-      images: [
-        { url: "https://images.pexels.com/photos/4347654/pexels-photo-4347654.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "T-shirt (50 pièces) : 120 000 FCFA" }
-      ],
-      delai: "5 – 15 jours",
-      qteMin: "20 pièces",
-      remarques: "Prix par couleur. Tarifs spéciaux pour les grandes séries.",
-      options: ["Standard", "Express (+50%)", "Avec livraison", "Design inclus", "Personnalisation avancée"]
-    },
-    {
-      id: 10,
-      category: "communication",
-      categoryLabel: "Communication",
-      title: "Signalétique",
-      desc: "Conception et fabrication de toutes vos signalisations : panneaux directionnels, enseignes lumineuses, kakémonos, roll-up, banderoles et affiches grand format.",
-      images: [
-        { url: "https://images.pexels.com/photos/33690927/pexels-photo-33690927.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Roll-up 80x200 : 45 000 FCFA" }
-      ],
-      delai: "48h – 7 jours",
-      qteMin: "1 pièce",
-      remarques: "Installation comprise dans Yaoundé sur devis. Structures aluminium disponibles.",
-      options: ["Standard", "Express (+50%)", "Avec livraison", "Design inclus", "Personnalisation avancée"]
-    },
-    {
-      id: 11,
-      category: "fabrication",
-      categoryLabel: "Fabrication",
-      title: "Décoration & Habillage d'Espaces",
-      desc: "Habillage mural, stickers décoratifs, impressions sur toile, tableaux personnalisés, papiers peints sur mesure et mise en scène de vos espaces professionnels.",
-      images: [
-        { url: "https://images.pexels.com/photos/9784204/pexels-photo-9784204.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Sticker mural : à partir de 20 000 FCFA" }
-      ],
-      delai: "5 – 20 jours",
-      qteMin: "N/A",
-      remarques: "Visite sur site recommandée pour les grands projets. Devis gratuit.",
-      options: ["Standard", "Express (+50%)", "Avec livraison", "Design inclus", "Personnalisation avancée"]
-    },
-    {
-      id: 12,
-      category: "fabrication",
-      categoryLabel: "Fabrication",
-      title: "Trophées, Médailles & Récompenses",
-      desc: "Fabrication de trophées, médailles, boucliers et distinctions personnalisées pour cérémonies, concours sportifs, événements d'entreprise et remises de prix.",
-      images: [
-        { url: "https://images.pexels.com/photos/6345332/pexels-photo-6345332.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Médaille gravée : 5 000 FCFA" },
-        { url: "https://images.pexels.com/photos/7005503/pexels-photo-7005503.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Trophée premium : 25 000 FCFA" }
-      ],
-      delai: "3 – 10 jours",
-      qteMin: "1 pièce",
-      remarques: "Personnalisation : nom, logo, date, message gravé. Coffret cadeau disponible.",
-      options: ["Standard", "Express (+50%)", "Avec livraison", "Design inclus", "Personnalisation avancée"]
-    },
-    {
-      id: 13,
-      category: "impression",
-      categoryLabel: "Impression",
-      title: "Facturiers & Documents Commerciaux",
-      desc: "Impression de carnets de factures, bons de commande, reçus, tickets de caisse personnalisés avec logo et en-tête de votre entreprise.",
-      images: [
-        { url: "https://images.pexels.com/photos/9594430/pexels-photo-9594430.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Carnet 50 feuillets : 15 000 FCFA" }
-      ],
-      delai: "48h – 4 jours",
-      qteMin: "50 feuillets",
-      remarques: "Disponibles en duplicata, triplicata avec ou sans carbone. Numérotation incluse.",
-      options: ["Standard", "Express (+50%)", "Avec livraison", "Design inclus", "Personnalisation avancée"]
-    },
-    {
-      id: 14,
-      category: "communication",
-      categoryLabel: "Communication",
-      title: "Création de Contenus Réseaux Sociaux",
-      desc: "Création de visuels, stories, reels, carousels et templates animés pour vos réseaux sociaux. Stratégie éditoriale et calendrier de publication disponibles.",
-      images: [
-        { url: "https://images.pexels.com/photos/31862222/pexels-photo-31862222.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Pack 10 visuels : 30 000 FCFA" },
-        { url: "https://images.pexels.com/photos/9902807/pexels-photo-9902807.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Abonnement mensuel : 80 000 FCFA" }
-      ],
-      delai: "24h – 5 jours",
-      qteMin: "N/A",
-      remarques: "Formats livrés pour Instagram, Facebook, TikTok et LinkedIn. Droits de publication inclus.",
-      options: ["Standard", "Express (+50%)", "Avec livraison", "Design inclus", "Personnalisation avancée"]
-    }
-  ];
-
-  // ============================================================
-  //   STATE
-  // ============================================================
-
-  let cardImages = {}; // { serviceId: [ { url, price }, ... ] }
-  let cardCurrentSlide = {}; // { serviceId: number }
-  let editMode = false;
-
-  // ============================================================
-  //   INITIALISE IMAGES PAR SERVICE
-  // ============================================================
-
-  SERVICES.forEach(s => {
-    cardImages[s.id] = [...s.images];
-    cardCurrentSlide[s.id] = 0;
-  });
-
-  // ============================================================
-  //   RENDU DES CARTES
-  // ============================================================
-
-  function renderCard(service) {
-    const id = service.id;
-    const imgs = cardImages[id];
-    const currentIdx = cardCurrentSlide[id] || 0;
-    const optionsHtml = service.options.map((opt, i) =>
-      `<div class="option-row">
-        <input type="checkbox" id="opt_${id}_${i}" name="opt_${id}_${i}" />
-        <label for="opt_${id}_${i}">${opt}</label>
-      </div>`
-    ).join('');
-
-    // Build slides
-    let slidesHtml = imgs.map((img, idx) =>
-      `<div class="card-gallery-slide" data-slide-idx="${idx}">
-        <img src="${img.url}" alt="${service.title} ${idx+1}" loading="lazy" />
-        <div class="slide-price-tag">
-          <input class="price-edit-input" type="text" value="${img.price}" 
-            placeholder="Prix en FCFA"
-            onchange="updateSlidePrice(${id}, ${idx}, this.value)"
-            onclick="event.stopPropagation()"
-          />
-        </div>
-      </div>`
-    ).join('');
-
-    // Add-image placeholder (up to 20 images)
-    if (imgs.length < 20) {
-      slidesHtml += `<div class="card-gallery-slide">
-        <div class="slide-img-add" onclick="triggerAddImage(${id})">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.5)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-          <span>Ajouter une image</span>
-          <span style="font-size:0.62rem;opacity:0.6">${imgs.length}/20 images</span>
-        </div>
-      </div>`;
-    }
-
-    const totalSlots = imgs.length < 20 ? imgs.length + 1 : imgs.length;
-    const dotsHtml = imgs.map((_, idx) =>
-      `<div class="gallery-dot ${idx === currentIdx ? 'active' : ''}" onclick="goToSlide(${id}, ${idx})"></div>`
-    ).join('');
-
-    return `
-    <div class="service-card" data-id="${id}" data-category="${service.category}" data-title="${service.title.toLowerCase()}">
-      <div class="card-gallery" id="gallery_${id}">
-        <div class="card-gallery-slides" id="slides_${id}" style="transform:translateX(-${currentIdx * 100}%)">
-          ${slidesHtml}
-        </div>
-
-        <!-- Nav buttons -->
-        ${totalSlots > 1 ? `
-        <button class="gallery-nav-btn gallery-nav-prev" onclick="prevSlide(${id})">‹</button>
-        <button class="gallery-nav-btn gallery-nav-next" onclick="nextSlide(${id})">›</button>
-        ` : ''}
-
-        <!-- Dots -->
-        <div class="gallery-dots" id="dots_${id}">${dotsHtml}</div>
-
-        <!-- Counter -->
-        <div class="gallery-counter" id="counter_${id}">${currentIdx+1} / ${imgs.length}</div>
-
-        <!-- Add image button -->
-        <button class="add-img-fab" onclick="triggerAddImage(${id})" title="Ajouter une image">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          Photo
-        </button>
-
-        <!-- Hidden file input -->
-        <input type="file" id="imgInput_${id}" class="hidden-input" accept="image/*" multiple onchange="handleImageUpload(${id}, this)" />
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg">
+    <img id="heroBgImg" class="hero-bg-img"
+      src="https://images.pexels.com/photos/7598019/pexels-photo-7598019.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200"
+      alt="Studio PLUME & PIXEL" />
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="hero-content fade-in">
+    <div class="hero-badge">✦ Catalogue Officiel 2025 ✦</div>
+    <h1 class="hero-title">PLUME & PIXEL</h1>
+    <p class="hero-slogan">« <span>L'art de créer</span>, la puissance d'imprimer. »</p>
+    <div class="hero-cover-upload">
+      <label for="heroBgUpload">
+        📷 Changer la photo de couverture
+      </label>
+      <input type="file" id="heroBgUpload" accept="image/*" style="display:none" onchange="handleHeroUpload(this)" />
+    </div>
+    <div class="hero-cta-row">
+      <a href="#catalogue" class="btn-primary">
+        📦 Voir nos services
+      </a>
+      <a id="heroWaBtn" href="#" class="btn-outline">
+        💬 Nous contacter
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">13+</div>
+        <div class="stat-label">Services</div>
       </div>
+      <div class="stat-item">
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Clients satisfaits</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">5+</div>
+        <div class="stat-label">Ans d'expérience</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Made in Cameroun</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <div class="card-body">
-        <div class="edit-indicator">✏️ Mode édition actif — cliquez sur le texte pour modifier</div>
-        <span class="card-category">${service.categoryLabel}</span>
-        <div class="card-title" id="title_${id}" contenteditable="false" spellcheck="false">${service.title}</div>
-        <div class="card-desc" id="desc_${id}" contenteditable="false" spellcheck="false">${service.desc}</div>
-
-        <div class="card-options">
-          <div class="card-options-title">Options disponibles</div>
-          ${optionsHtml}
-        </div>
-
-        <div class="card-meta">
-          <div class="meta-item">
-            <div class="meta-label">Délai</div>
-            <div class="meta-value" id="delai_${id}" contenteditable="false">${service.delai}</div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-label">Qté minimale</div>
-            <div class="meta-value" id="qte_${id}" contenteditable="false">${service.qteMin}</div>
-          </div>
-        </div>
-
-        <div class="card-remarks" id="remarques_${id}" contenteditable="false">💡 ${service.remarques}</div>
-
-        <a href="${waLink(null, service.title)}" target="_blank" rel="noopener" class="btn-whatsapp" id="waBtn_${id}">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-          Commander sur WhatsApp
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header fade-in">
+    <span class="section-eyebrow">Notre Identité</span>
+    <h2 class="section-title">Qui sommes-nous ?</h2>
+    <p class="section-desc">PLUME & PIXEL est votre partenaire créatif de confiance à Yaoundé. Nous allions design, impression et technologie pour donner vie à vos projets.</p>
+    <div class="gold-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-card fade-in fade-in-delay-1">
+      <h3>📍 Localisation</h3>
+      <p>Jouvence – Yaoundé, Cameroun<br/>Nouvelle route Tam-tam, face Snack Bar Le Click Plus</p>
+      <ul style="margin-top:20px;">
+        <li>Design graphique professionnel</li>
+        <li>Impression numérique & offset</li>
+        <li>Identité visuelle & branding</li>
+        <li>Gravure laser & découpe CNC</li>
+        <li>Sérigraphie & signalétique</li>
+        <li>Déco intérieure & habillage d'espaces</li>
+      </ul>
+    </div>
+    <div class="about-card fade-in fade-in-delay-2">
+      <h3>💳 Paiements acceptés</h3>
+      <p>Nous acceptons plusieurs moyens de paiement pour votre confort :</p>
+      <div class="payment-icons">
+        <span class="payment-badge">💵 Cash</span>
+        <span class="payment-badge">🟠 Orange Money</span>
+        <span class="payment-badge">📱 MoMo</span>
+      </div>
+      <h3 style="margin-top:24px;">📱 Nos réseaux sociaux</h3>
+      <div class="social-row">
+        <a href="https://facebook.com/plumeetpixel" target="_blank" class="social-badge">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          Facebook
+        </a>
+        <a href="https://instagram.com/plumeetpixel" target="_blank" class="social-badge">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          Instagram
+        </a>
+        <a href="https://tiktok.com/@plumeetpixel" target="_blank" class="social-badge">
+          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.28 8.28 0 0 0 4.84 1.54V6.78a4.85 4.85 0 0 1-1.07-.09z"/></svg>
+          TikTok
         </a>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEARCH -->
+<div id="search-section">
+  <div class="search-wrap">
+    <svg viewBox="0 0 24 24"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" stroke="#A09890" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+    <input type="text" id="searchInput" placeholder="Rechercher un service (ex: impression, logo, invitation…)" oninput="handleSearch(this.value)" />
+    <div class="search-clear" id="searchClear" onclick="clearSearch()">✕</div>
+  </div>
+  <div class="search-results-count" id="searchCount"></div>
+  <div class="filter-tags">
+    <button class="filter-tag active" onclick="filterByTag('all', this)">Tous</button>
+    <button class="filter-tag" onclick="filterByTag('création', this)">Création</button>
+    <button class="filter-tag" onclick="filterByTag('impression', this)">Impression</button>
+    <button class="filter-tag" onclick="filterByTag('événement', this)">Événement</button>
+    <button class="filter-tag" onclick="filterByTag('technologie', this)">Technologie</button>
+    <button class="filter-tag" onclick="filterByTag('publicité', this)">Publicité</button>
+    <button class="filter-tag" onclick="filterByTag('décoration', this)">Décoration</button>
+  </div>
+</div>
+
+<!-- CATALOGUE -->
+<section id="catalogue">
+  <div class="section-header fade-in">
+    <span class="section-eyebrow">Nos Services</span>
+    <h2 class="section-title">Catalogue Complet</h2>
+    <p class="section-desc">Découvrez l'ensemble de nos prestations. Cliquez sur « Commander sur WhatsApp » pour démarrer votre projet.</p>
+    <div class="gold-line"></div>
+  </div>
+  <div class="catalogue-grid" id="catalogueGrid">
+    <!-- Cards will be injected by JS -->
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header fade-in">
+    <span class="section-eyebrow">Contactez-nous</span>
+    <h2 class="section-title">Parlons de votre projet</h2>
+    <p class="section-desc">Notre équipe est disponible 7j/7 pour répondre à vos questions et vous accompagner.</p>
+    <div class="gold-line"></div>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-card fade-in fade-in-delay-1">
+      <h3>📞 Informations de contact</h3>
+      <div class="contact-info-row">
+        <div class="contact-icon">📍</div>
+        <div class="contact-text">
+          <strong>Adresse</strong>
+          Jouvence – Yaoundé, Cameroun<br/>
+          Nouvelle route Tam-tam, face Snack Bar Le Click Plus
+        </div>
+      </div>
+      <div class="contact-info-row">
+        <div class="contact-icon">📱</div>
+        <div class="contact-text">
+          <strong>WhatsApp / Téléphone</strong>
+          +237 672 434 547
+        </div>
+      </div>
+      <div class="contact-info-row">
+        <div class="contact-icon">🕐</div>
+        <div class="contact-text">
+          <strong>Horaires</strong>
+          Lun – Sam : 8h00 – 20h00<br/>
+          Dimanche : Sur rendez-vous
+        </div>
+      </div>
+      <div class="contact-info-row">
+        <div class="contact-icon">💳</div>
+        <div class="contact-text">
+          <strong>Paiements</strong>
+          Cash · Orange Money · MoMo
+        </div>
+      </div>
+      <a id="contactWaMain" href="#" class="wa-btn-large" style="margin-top:24px;">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+        Démarrer une conversation
+      </a>
+    </div>
+    <div class="contact-card fade-in fade-in-delay-2">
+      <h3>💬 Commander rapidement</h3>
+      <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:18px;">Choisissez un sujet et commencez directement sur WhatsApp :</p>
+      <div class="wa-options-form" id="waOptionsForm">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">PLUME & PIXEL</div>
+    <div class="footer-tagline">« L'art de créer, la puissance d'imprimer. »</div>
+    <div class="footer-divider"></div>
+    <div class="footer-links">
+      <a href="#hero">Accueil</a>
+      <a href="#about">À propos</a>
+      <a href="#catalogue">Services</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-copy">
+      © 2025 PLUME & PIXEL · Yaoundé, Cameroun · Tous droits réservés
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   ▶ CONFIGURATION — MODIFIEZ UNIQUEMENT CE BLOC ◀
+   ══════════════════════════════════════════════════════════ */
+const WA_NUMBER = "237672434547"; // Format international sans +, espaces ni tirets
+const COMPANY_NAME = "PLUME & PIXEL";
+/* ══════════════════════════════════════════════════════════ */
+
+/* ── Helpers WhatsApp ── */
+function waLink(msg) {
+  return "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(msg);
+}
+function waMsg(serviceName, options) {
+  const selected = options.filter(o => o.checked).map(o => o.label);
+  const optStr = selected.length > 0 ? "\nOptions choisies : " + selected.join(", ") : "";
+  return "Bonjour " + COMPANY_NAME + " ! 👋\n\nJe suis intéressé(e) par le service : *" + serviceName + "*" + optStr + "\n\nPouvez-vous me donner plus d'informations ? Merci !";
+}
+
+/* ── Données services ── */
+const SERVICES = [
+  {
+    id: "design-graphique",
+    title: "Design Graphique",
+    category: "CRÉATION",
+    tag: "création",
+    price: "À partir de 5 000 FCFA",
+    imgPrice: "5 000 FCFA",
+    desc: "Création de flyers, affiches, cartes de visite, brochures et tout support visuel professionnel adapté à votre image de marque.",
+    delay: "24h – 5 jours",
+    qty: "Aucun minimum",
+    remark: "Fichiers livrés en PDF haute résolution, PNG et formats imprimables. Révisions incluses.",
+    images: ["https://images.pexels.com/photos/7661185/pexels-photo-7661185.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=600"],
+    options: ["Standard","Express","Avec livraison","Avec design inclus","Avec personnalisation"]
+  },
+  {
+    id: "impression-numerique",
+    title: "Impression Numérique & Offset",
+    category: "IMPRESSION",
+    tag: "impression",
+    price: "À partir de 3 000 FCFA",
+    imgPrice: "3 000 FCFA",
+    desc: "Impression haute qualité sur papier couché, mat ou brillant. Petites et grandes séries disponibles. Couleurs fidèles et rendu impeccable.",
+    delay: "24h – 72h",
+    qty: "1 exemplaire minimum",
+    remark: "Offset recommandé pour grandes séries. Numérique pour petites quantités. Papiers certifiés disponibles.",
+    images: ["https://images.pexels.com/photos/7661492/pexels-photo-7661492.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=600"],
+    options: ["Standard","Express","Avec livraison","Avec design inclus","Avec personnalisation"]
+  },
+  {
+    id: "identite-visuelle",
+    title: "Création d'Identité Visuelle",
+    category: "CRÉATION",
+    tag: "création",
+    price: "À partir de 50 000 FCFA",
+    imgPrice: "50 000 FCFA",
+    desc: "Conception complète de votre identité de marque : logo, charte graphique, palette de couleurs, typographies et guide d'utilisation.",
+    delay: "5 – 15 jours",
+    qty: "Aucun minimum",
+    remark: "Pack identité complet livré avec tous les fichiers sources. Charte graphique PDF incluse.",
+    images: ["https://images.pexels.com/photos/7598019/pexels-photo-7598019.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=600"],
+    options: ["Standard","Express","Avec livraison","Avec design inclus","Avec personnalisation"]
+  },
+  {
+    id: "packaging",
+    title: "Packaging & Étiquettes Produits",
+    category: "IMPRESSION",
+    tag: "impression",
+    price: "À partir de 15 000 FCFA",
+    imgPrice: "15 000 FCFA",
+    desc: "Conception et impression d'emballages, boîtes, sachets et étiquettes personnalisées pour valoriser vos produits en rayon.",
+    delay: "3 – 7 jours",
+    qty: "50 exemplaires minimum",
+    remark: "Pelliculage mat ou brillant disponible. Découpe à la forme sur demande. Échantillon possible.",
+    images: ["https://images.pexels.com/photos/9421350/pexels-photo-9421350.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=600"],
+    options: ["Standard","Express","Avec livraison","Avec design inclus","Avec personnalisation"]
+  },
+  {
+    id: "invitations",
+    title: "Invitations Personnalisées",
+    category: "ÉVÉNEMENT",
+    tag: "événement",
+    price: "À partir de 8 000 FCFA",
+    imgPrice: "8 000 FCFA",
+    desc: "Cartons d'invitation sur mesure pour mariages, baptêmes, anniversaires, obsèques et tout événement. Design élégant et impression soignée.",
+    delay: "48h – 4 jours",
+    qty: "20 exemplaires minimum",
+    remark: "Enveloppes assorties disponibles. Dorure et gaufrage en option. Dépose à domicile possible.",
+    images: ["https://images.pexels.com/photos/38703041/pexels-photo-38703041.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=600","https://images.pexels.com/photos/19950474/pexels-photo-19950474.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=600"],
+    options: ["Standard","Express","Avec livraison","Avec design inclus","Avec personnalisation"]
+  },
+  {
+    id: "objets-publicitaires",
+    title: "Objets Publicitaires Personnalisés",
+    category: "PUBLICITÉ",
+    tag: "publicité",
+    price: "À partir de 2 500 FCFA",
+    imgPrice: "2 500 FCFA",
+    desc: "Personnalisation de stylos, mugs, tee-shirts, casquettes, sacs, briquets, clés USB et bien d'autres supports publicitaires pour votre communication.",
+    delay: "3 – 10 jours",
+    qty: "10 pièces minimum",
+    remark: "Prix dégressif selon quantité. Devis gratuit pour les commandes > 100 pièces.",
+    images: ["https://images.pexels.com/photos/7180492/pexels-photo-7180492.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=600"],
+    options: ["Standard","Express","Avec livraison","Avec design inclus","Avec personnalisation"]
+  },
+  {
+    id: "gravure-laser",
+    title: "Gravure Laser",
+    category: "TECHNOLOGIE",
+    tag: "technologie",
+    price: "À partir de 3 500 FCFA",
+    imgPrice: "3 500 FCFA",
+    desc: "Gravure laser de précision sur bois, métal, cuir, acrylique, verre et plastique. Résultat permanent, fin et professionnel.",
+    delay: "24h – 3 jours",
+    qty: "Aucun minimum",
+    remark: "Fichiers vectoriels acceptés. Travaux sur matériaux du client acceptés. Devis selon complexité.",
+    images: ["https://images.pexels.com/photos/7254422/pexels-photo-7254422.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=600","https://images.pexels.com/photos/7254429/pexels-photo-7254429.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=600"],
+    options: ["Standard","Express","Avec livraison","Avec design inclus","Avec personnalisation"]
+  },
+  {
+    id: "decoupe-cnc",
+    title: "Découpe CNC",
+    category: "TECHNOLOGIE",
+    tag: "technologie",
+    price: "À partir de 5 000 FCFA",
+    imgPrice: "5 000 FCFA",
+    desc: "Découpe numérique de précision sur bois, MDF, acrylique, aluminium et autres matériaux. Idéal pour décoration, PLV et prototypage.",
+    delay: "48h – 5 jours",
+    qty: "Aucun minimum",
+    remark: "Finition possible : peinture, vernis, dorure. Plans DXF/CDR requis ou design pris en charge.",
+    images: [],
+    options: ["Standard","Express","Avec livraison","Avec design inclus","Avec personnalisation"]
+  },
+  {
+    id: "serigraphie",
+    title: "Sérigraphie",
+    category: "IMPRESSION",
+    tag: "impression",
+    price: "À partir de 4 500 FCFA",
+    imgPrice: "4 500 FCFA",
+    desc: "Impression sérigraphique sur textiles, sacs, tee-shirts, polos et supports souples. Couleurs vives et durabilité garantie au lavage.",
+    delay: "3 – 7 jours",
+    qty: "30 pièces minimum",
+    remark: "Prix dégressif à partir de 100 pièces. Pantone possible. Impression recto/verso disponible.",
+    images: [],
+    options: ["Standard","Express","Avec livraison","Avec design inclus","Avec personnalisation"]
+  },
+  {
+    id: "signaletique",
+    title: "Signalétique",
+    category: "PUBLICITÉ",
+    tag: "publicité",
+    price: "À partir de 20 000 FCFA",
+    imgPrice: "20 000 FCFA",
+    desc: "Conception et réalisation de panneaux, enseignes lumineuses, banderoles, roll-up, bâches et signalétique directionnelle pour entreprises.",
+    delay: "3 – 10 jours",
+    qty: "Aucun minimum",
+    remark: "Pose et installation incluses dans un rayon de Yaoundé. Bâches grand format disponibles.",
+    images: [],
+    options: ["Standard","Express","Avec livraison","Avec design inclus","Avec personnalisation"]
+  },
+  {
+    id: "decoration",
+    title: "Décoration Intérieure & Habillage d'Espaces",
+    category: "DÉCORATION",
+    tag: "décoration",
+    price: "Sur devis",
+    imgPrice: "Sur devis",
+    desc: "Habillage mural, impression sur toile, stickers décoratifs, papiers peints personnalisés, dalles acoustiques et aménagement d'espaces professionnels.",
+    delay: "5 – 21 jours",
+    qty: "Aucun minimum",
+    remark: "Visite de chantier gratuite. Devis personnalisé sous 24h. Références disponibles sur demande.",
+    images: ["https://images.pexels.com/photos/4977448/pexels-photo-4977448.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=600","https://images.pexels.com/photos/38139753/pexels-photo-38139753.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=600"],
+    options: ["Standard","Express","Avec livraison","Avec design inclus","Avec personnalisation"]
+  },
+  {
+    id: "trophees",
+    title: "Trophées, Médailles & Récompenses",
+    category: "ÉVÉNEMENT",
+    tag: "événement",
+    price: "À partir de 10 000 FCFA",
+    imgPrice: "10 000 FCFA",
+    desc: "Création de trophées, médailles, plaques et récompenses personnalisées pour vos cérémonies, compétitions et événements d'entreprise.",
+    delay: "3 – 7 jours",
+    qty: "1 pièce minimum",
+    remark: "Gravure incluse. Matériaux : cristal, résine, métal, bois. Boîte cadeau disponible.",
+    images: ["https://images.pexels.com/photos/28277338/pexels-photo-28277338.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=600"],
+    options: ["Standard","Express","Avec livraison","Avec design inclus","Avec personnalisation"]
+  },
+  {
+    id: "facturiers",
+    title: "Facturiers & Documents Commerciaux",
+    category: "IMPRESSION",
+    tag: "impression",
+    price: "À partir de 7 000 FCFA",
+    imgPrice: "7 000 FCFA",
+    desc: "Impression de carnets de factures, bons de commande, bons de livraison, reçus numérotés et tous documents commerciaux à votre effigie.",
+    delay: "48h – 4 jours",
+    qty: "50 carnets minimum",
+    remark: "Numérotation automatique disponible. Papier autocopiant (duplicata/triplicata). Couverture rigide en option.",
+    images: [],
+    options: ["Standard","Express","Avec livraison","Avec design inclus","Avec personnalisation"]
+  },
+  {
+    id: "contenus-sociaux",
+    title: "Création de Contenus Réseaux Sociaux",
+    category: "CRÉATION",
+    tag: "création",
+    price: "À partir de 25 000 FCFA/mois",
+    imgPrice: "25 000 FCFA",
+    desc: "Création de visuels, stories, reels, posts et carrousels optimisés pour Facebook, Instagram, TikTok et LinkedIn. Calendrier éditorial inclus.",
+    delay: "48h – 7 jours",
+    qty: "Pack de 8 visuels minimum",
+    remark: "Retouche illimitée. Livrables aux formats natifs. Option gestion de page disponible.",
+    images: ["https://images.pexels.com/photos/7661410/pexels-photo-7661410.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=600"],
+    options: ["Standard","Express","Avec livraison","Avec design inclus","Avec personnalisation"]
+  }
+];
+
+/* ── State ── */
+let currentEditCardId = null;
+let activeFilter = "all";
+let searchQuery = "";
+
+/* ── Render helpers ── */
+function buildWaBtn(serviceName, cardEl) {
+  const checks = cardEl ? cardEl.querySelectorAll(".option-check") : [];
+  const options = Array.from(checks).map(c => ({
+    label: c.querySelector(".opt-label").textContent,
+    checked: c.classList.contains("checked")
+  }));
+  return waLink(waMsg(serviceName, options));
+}
+
+function renderGallery(svc, galleryEl, slideEl, dotsEl, counterEl) {
+  const imgs = (svc._images || svc.images || []).filter(Boolean);
+  if (imgs.length === 0) {
+    slideEl.innerHTML = `
+      <div class="slide">
+        <div class="gallery-placeholder">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
+          <span>Cliquez + pour ajouter une image</span>
+        </div>
+      </div>`;
+    dotsEl.innerHTML = "";
+    if (counterEl) counterEl.style.display = "none";
+    return;
+  }
+  slideEl.innerHTML = imgs.map((src, i) => `
+    <div class="slide" style="position:relative;">
+      <img src="${src}" alt="Image ${i+1}" loading="lazy" />
+      <div class="img-price-overlay">${svc.imgPrice || svc.price}</div>
+    </div>`).join("");
+  dotsEl.innerHTML = imgs.map((_, i) => `<span class="g-dot ${i===0?'active':''}" data-idx="${i}" onclick="goSlide(this.closest('.card-gallery'), ${i})"></span>`).join("");
+  if (counterEl) {
+    counterEl.textContent = `1 / ${imgs.length}`;
+    counterEl.style.display = imgs.length > 1 ? "block" : "none";
+  }
+  galleryEl.dataset.current = 0;
+  galleryEl.dataset.total = imgs.length;
+}
+
+function goSlide(galleryEl, idx) {
+  const slides = galleryEl.querySelector(".gallery-slides");
+  const total = parseInt(galleryEl.dataset.total) || 1;
+  const newIdx = ((idx % total) + total) % total;
+  slides.style.transform = `translateX(-${newIdx * 100}%)`;
+  galleryEl.dataset.current = newIdx;
+  galleryEl.querySelectorAll(".g-dot").forEach((d, i) => d.classList.toggle("active", i === newIdx));
+  const counter = galleryEl.querySelector(".gallery-counter");
+  if (counter) counter.textContent = `${newIdx+1} / ${total}`;
+}
+
+function buildCard(svc) {
+  const card = document.createElement("div");
+  card.className = "service-card fade-in";
+  card.dataset.id = svc.id;
+  card.dataset.tag = svc.tag;
+  card.dataset.search = (svc.title + " " + svc.desc + " " + svc.category).toLowerCase();
+
+  const imgs = svc._images || svc.images || [];
+
+  card.innerHTML = `
+    <div class="card-gallery" data-current="0" data-total="${Math.max(imgs.length,1)}">
+      <div class="gallery-slides"></div>
+      <div class="gallery-nav">
+        <button class="gallery-btn" onclick="prevSlide(this.closest('.card-gallery'))" title="Précédent">◀</button>
+        <button class="gallery-btn" onclick="nextSlide(this.closest('.card-gallery'))" title="Suivant">▶</button>
+      </div>
+      <div class="gallery-dots"></div>
+      <div class="gallery-counter" style="display:none;"></div>
+      <button class="edit-trigger" onclick="openEditPanel('${svc.id}')" title="Modifier ce service">✏️</button>
+    </div>
+    <div class="card-upload-row" id="uploadRow_${svc.id}"></div>
+    <div class="card-body">
+      <div class="card-category">${svc.category}</div>
+      <div class="card-title-row">
+        <div class="card-title">${svc.title}</div>
+        <div class="card-price-main">${svc.price}</div>
+      </div>
+      <p class="card-desc">${svc.desc}</p>
+      <div class="card-options">
+        <div class="card-options-title">Options souhaitées :</div>
+        <div class="options-grid">
+          ${svc.options.map(opt => `
+            <label class="option-check" onclick="toggleCheck(this);updateWaBtn('${svc.id}')">
+              <input type="checkbox" />
+              <div class="checkmark"></div>
+              <span class="opt-label">${opt}</span>
+            </label>`).join("")}
+        </div>
+      </div>
+      <div class="card-meta">
+        <div class="meta-pill">⏱️ Délai : <span>&nbsp;${svc.delay}</span></div>
+        ${svc.qty !== "Aucun minimum" ? `<div class="meta-pill">📦 Qté min. : <span>&nbsp;${svc.qty}</span></div>` : ""}
+      </div>
+      <div class="card-remark">💡 ${svc.remark}</div>
+    </div>
+    <div class="card-footer">
+      <a id="waBtn_${svc.id}" href="${waLink(waMsg(svc.title, []))}" target="_blank" rel="noopener" class="wa-btn">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+        Commander sur WhatsApp
+      </a>
     </div>`;
-  }
 
-  function renderAllCards(filter = 'all', search = '') {
-    const grid = document.getElementById('servicesGrid');
-    const noRes = document.getElementById('noResults');
-    const searchLow = search.toLowerCase().trim();
+  // Render gallery
+  const galleryEl = card.querySelector(".card-gallery");
+  const slideEl = card.querySelector(".gallery-slides");
+  const dotsEl = card.querySelector(".gallery-dots");
+  const counterEl = card.querySelector(".gallery-counter");
+  renderGallery(svc, galleryEl, slideEl, dotsEl, counterEl);
 
-    let visible = 0;
-    let html = '';
+  // Upload row (up to 20 slots)
+  buildUploadRow(card, svc);
 
-    SERVICES.forEach(s => {
-      const matchCat = filter === 'all' || s.category === filter;
-      const matchSearch = !searchLow || 
-        s.title.toLowerCase().includes(searchLow) ||
-        s.desc.toLowerCase().includes(searchLow) ||
-        s.categoryLabel.toLowerCase().includes(searchLow);
-      
-      if (matchCat && matchSearch) {
-        html += renderCard(s);
-        visible++;
-      }
-    });
+  return card;
+}
 
-    grid.innerHTML = html;
-    noRes.style.display = visible === 0 ? 'block' : 'none';
+function buildUploadRow(card, svc) {
+  const row = card.querySelector(`#uploadRow_${svc.id}`);
+  if (!row) return;
+  const imgs = svc._images || svc.images || [];
+  const MAX = 20;
+  row.innerHTML = "";
 
-    // Apply edit mode state
-    if (editMode) applyEditMode();
-  }
-
-  // ============================================================
-  //   GALLERY CONTROLS
-  // ============================================================
-
-  function goToSlide(id, idx) {
-    const imgs = cardImages[id];
-    if (idx < 0) idx = 0;
-    if (idx >= imgs.length) idx = imgs.length - 1;
-    cardCurrentSlide[id] = idx;
-
-    const track = document.getElementById(`slides_${id}`);
-    if (track) track.style.transform = `translateX(-${idx * 100}%)`;
-
-    // Update dots
-    const dotsEl = document.getElementById(`dots_${id}`);
-    if (dotsEl) {
-      const dots = dotsEl.querySelectorAll('.gallery-dot');
-      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-    }
-
-    // Update counter
-    const counter = document.getElementById(`counter_${id}`);
-    if (counter) counter.textContent = `${idx+1} / ${imgs.length}`;
-  }
-
-  function prevSlide(id) {
-    goToSlide(id, (cardCurrentSlide[id] || 0) - 1);
-  }
-  function nextSlide(id) {
-    goToSlide(id, (cardCurrentSlide[id] || 0) + 1);
-  }
-
-  function triggerAddImage(id) {
-    const input = document.getElementById(`imgInput_${id}`);
-    if (input) input.click();
-  }
-
-  function handleImageUpload(id, input) {
-    const files = Array.from(input.files);
-    if (!files.length) return;
-
-    const maxAdd = 20 - cardImages[id].length;
-    const toAdd = files.slice(0, maxAdd);
-
-    let processed = 0;
-    toAdd.forEach(file => {
-      const reader = new FileReader();
-      reader.onload = e => {
-        cardImages[id].push({ url: e.target.result, price: "Prix à définir" });
-        processed++;
-        if (processed === toAdd.length) {
-          const currentFilter = document.querySelector('.filter-tab.active')?.dataset.filter || 'all';
-          const search = document.getElementById('searchInput').value;
-          renderAllCards(currentFilter, search);
-          setTimeout(() => goToSlide(id, cardImages[id].length - 1), 50);
-          showToast(`${toAdd.length} image(s) ajoutée(s) !`);
-        }
-      };
-      reader.readAsDataURL(file);
-    });
-
-    if (files.length > maxAdd) showToast(`Maximum 20 images par service atteint.`);
-    input.value = '';
-  }
-
-  function updateSlidePrice(id, idx, value) {
-    if (cardImages[id] && cardImages[id][idx]) {
-      cardImages[id][idx].price = value;
-    }
-  }
-
-  // ============================================================
-  //   SEARCH & FILTER
-  // ============================================================
-
-  let activeFilter = 'all';
-
-  document.getElementById('searchInput').addEventListener('input', function() {
-    const val = this.value;
-    document.getElementById('clearSearch').style.display = val ? 'block' : 'none';
-    renderAllCards(activeFilter, val);
-  });
-
-  document.getElementById('clearSearch').addEventListener('click', function() {
-    document.getElementById('searchInput').value = '';
-    this.style.display = 'none';
-    renderAllCards(activeFilter, '');
-  });
-
-  document.getElementById('filterTabs').addEventListener('click', function(e) {
-    const tab = e.target.closest('.filter-tab');
-    if (!tab) return;
-    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-    activeFilter = tab.dataset.filter;
-    renderAllCards(activeFilter, document.getElementById('searchInput').value);
-  });
-
-  // ============================================================
-  //   EDIT MODE
-  // ============================================================
-
-  function applyEditMode() {
-    const fields = document.querySelectorAll('.card-title, .card-desc, .meta-value, .card-remarks');
-    fields.forEach(f => {
-      f.setAttribute('contenteditable', editMode ? 'true' : 'false');
-    });
-  }
-
-  document.getElementById('editModeToggle').addEventListener('click', function() {
-    editMode = !editMode;
-    document.body.classList.toggle('edit-mode', editMode);
-    this.classList.toggle('active', editMode);
-    this.innerHTML = editMode 
-      ? `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Fin d'édition`
-      : `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Mode Édition`;
-    applyEditMode();
-    showToast(editMode ? '✏️ Mode édition activé' : '✅ Modifications sauvegardées');
-  });
-
-  // ============================================================
-  //   IMAGE UPLOADS (HERO & ABOUT)
-  // ============================================================
-
-  // Cover
-  document.getElementById('heroUploadBtn').addEventListener('click', () => {
-    document.getElementById('heroCoverInput').click();
-  });
-  document.getElementById('heroCoverInput').addEventListener('change', function() {
-    if (!this.files[0]) return;
-    const reader = new FileReader();
-    reader.onload = e => {
-      document.getElementById('hero-bg-img').src = e.target.result;
-      showToast('Photo de couverture mise à jour !');
+  imgs.forEach((src, i) => {
+    const btn = document.createElement("div");
+    btn.className = "upload-thumb-btn";
+    btn.title = `Image ${i+1} — cliquez pour modifier`;
+    btn.innerHTML = `<img src="${src}" alt="" />`;
+    btn.onclick = () => {
+      const inp = document.createElement("input");
+      inp.type = "file"; inp.accept = "image/*";
+      inp.onchange = () => { if (inp.files[0]) replaceCardImage(svc.id, i, inp.files[0], card); };
+      inp.click();
     };
-    reader.readAsDataURL(this.files[0]);
-    this.value = '';
+    row.appendChild(btn);
   });
 
-  // Logo
-  document.getElementById('heroLogoArea').addEventListener('click', () => {
-    document.getElementById('heroLogoInput').click();
-  });
-  document.getElementById('heroLogoInput').addEventListener('change', function() {
-    if (!this.files[0]) return;
-    const reader = new FileReader();
-    reader.onload = e => {
-      const img = document.getElementById('heroLogoImg');
-      const placeholder = document.getElementById('logoPlaceholder');
-      img.src = e.target.result;
-      img.style.display = 'block';
-      placeholder.style.display = 'none';
-      showToast('Logo importé avec succès !');
+  if (imgs.length < MAX) {
+    const add = document.createElement("div");
+    add.className = "upload-add-btn";
+    add.title = "Ajouter une image";
+    add.textContent = "+";
+    add.onclick = () => {
+      const inp = document.createElement("input");
+      inp.type = "file"; inp.accept = "image/*";
+      inp.onchange = () => { if (inp.files[0]) addCardImage(svc.id, inp.files[0], card); };
+      inp.click();
     };
-    reader.readAsDataURL(this.files[0]);
-    this.value = '';
-  });
-
-  // About
-  document.getElementById('aboutImgWrap').addEventListener('click', () => {
-    document.getElementById('aboutImgInput').click();
-  });
-  document.getElementById('aboutImgInput').addEventListener('change', function() {
-    if (!this.files[0]) return;
-    const reader = new FileReader();
-    reader.onload = e => {
-      document.getElementById('aboutImg').src = e.target.result;
-      showToast('Photo mise à jour !');
-    };
-    reader.readAsDataURL(this.files[0]);
-    this.value = '';
-  });
-
-  // ============================================================
-  //   WHATSAPP LINKS — INITIALISATION
-  // ============================================================
-
-  function initWhatsappLinks() {
-    const mainLink = waLink(WHATSAPP_DEFAULT_MSG);
-    const devisLink = waLink(WHATSAPP_DEVIS_MSG);
-
-    document.getElementById('heroWhatsapp').href = mainLink;
-    document.getElementById('heroWhatsapp').target = '_blank';
-    document.getElementById('heroWhatsapp').rel = 'noopener';
-
-    document.getElementById('navWhatsapp').href = mainLink;
-    document.getElementById('navWhatsapp').target = '_blank';
-    document.getElementById('navWhatsapp').rel = 'noopener';
-
-    document.getElementById('floatWhatsapp').href = mainLink;
-    document.getElementById('floatWhatsapp').target = '_blank';
-
-    document.getElementById('ctaWhatsappMain').href = mainLink;
-    document.getElementById('ctaWhatsappMain').target = '_blank';
-    document.getElementById('ctaWhatsappMain').rel = 'noopener';
-
-    document.getElementById('ctaWhatsappDevis').href = devisLink;
-    document.getElementById('ctaWhatsappDevis').target = '_blank';
-    document.getElementById('ctaWhatsappDevis').rel = 'noopener';
-
-    document.getElementById('contactWhatsappDisplay').textContent = `+${WHATSAPP_NUMBER.replace(/(\d{3})(\d{3})(\d{3})(\d{3})/, '$1 $2 $3 $4')}`;
+    row.appendChild(add);
   }
+}
 
-  // ============================================================
-  //   IMAGE MODAL
-  // ============================================================
+function replaceCardImage(id, idx, file, card) {
+  const svc = SERVICES.find(s => s.id === id);
+  if (!svc) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    if (!svc._images) svc._images = [...(svc.images || [])];
+    svc._images[idx] = e.target.result;
+    refreshCard(svc, card);
+    showToast("Image remplacée ✓");
+  };
+  reader.readAsDataURL(file);
+}
 
-  document.getElementById('imgModal').addEventListener('click', function(e) {
-    if (e.target === this || e.target.id === 'closeModal') {
-      this.classList.remove('open');
-    }
-  });
-  document.getElementById('closeModal').addEventListener('click', () => {
-    document.getElementById('imgModal').classList.remove('open');
-  });
+function addCardImage(id, file, card) {
+  const svc = SERVICES.find(s => s.id === id);
+  if (!svc) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    if (!svc._images) svc._images = [...(svc.images || [])];
+    if (svc._images.length >= 20) { showToast("Maximum 20 images par service"); return; }
+    svc._images.push(e.target.result);
+    refreshCard(svc, card);
+    showToast("Image ajoutée ✓");
+  };
+  reader.readAsDataURL(file);
+}
 
-  // ============================================================
-  //   TOAST
-  // ============================================================
+function refreshCard(svc, card) {
+  const imgs = svc._images || svc.images || [];
+  const galleryEl = card.querySelector(".card-gallery");
+  const slideEl = card.querySelector(".gallery-slides");
+  const dotsEl = card.querySelector(".gallery-dots");
+  const counterEl = card.querySelector(".gallery-counter");
+  galleryEl.dataset.total = Math.max(imgs.length, 1);
+  renderGallery(svc, galleryEl, slideEl, dotsEl, counterEl);
+  buildUploadRow(card, svc);
+}
 
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2800);
+function prevSlide(galleryEl) {
+  const cur = parseInt(galleryEl.dataset.current) || 0;
+  const total = parseInt(galleryEl.dataset.total) || 1;
+  goSlide(galleryEl, cur - 1);
+}
+function nextSlide(galleryEl) {
+  const cur = parseInt(galleryEl.dataset.current) || 0;
+  const total = parseInt(galleryEl.dataset.total) || 1;
+  goSlide(galleryEl, cur + 1);
+}
+
+function toggleCheck(el) {
+  el.classList.toggle("checked");
+}
+
+function updateWaBtn(id) {
+  const card = document.querySelector(`[data-id="${id}"]`);
+  const btn = document.getElementById("waBtn_" + id);
+  if (!card || !btn) return;
+  const svc = SERVICES.find(s => s.id === id);
+  if (!svc) return;
+  const checks = card.querySelectorAll(".option-check");
+  const options = Array.from(checks).map(c => ({
+    label: c.querySelector(".opt-label").textContent,
+    checked: c.classList.contains("checked")
+  }));
+  btn.href = waLink(waMsg(svc.title, options));
+}
+
+/* ── Edit Panel ── */
+function openEditPanel(id) {
+  currentEditCardId = id;
+  const svc = SERVICES.find(s => s.id === id);
+  if (!svc) return;
+  document.getElementById("ep_title").value = svc.title;
+  document.getElementById("ep_cat").value = svc.category;
+  document.getElementById("ep_price").value = svc.price;
+  document.getElementById("ep_desc").value = svc.desc;
+  document.getElementById("ep_delay").value = svc.delay;
+  document.getElementById("ep_qty").value = svc.qty;
+  document.getElementById("ep_remark").value = svc.remark;
+  document.getElementById("editPanel").classList.add("open");
+  document.getElementById("panelOverlay").classList.add("open");
+}
+
+function closeEditPanel() {
+  document.getElementById("editPanel").classList.remove("open");
+  document.getElementById("panelOverlay").classList.remove("open");
+  currentEditCardId = null;
+}
+
+function saveCardEdit() {
+  const id = currentEditCardId;
+  if (!id) return;
+  const svc = SERVICES.find(s => s.id === id);
+  if (!svc) return;
+  svc.title = document.getElementById("ep_title").value;
+  svc.category = document.getElementById("ep_cat").value;
+  svc.price = document.getElementById("ep_price").value;
+  svc.desc = document.getElementById("ep_desc").value;
+  svc.delay = document.getElementById("ep_delay").value;
+  svc.qty = document.getElementById("ep_qty").value;
+  svc.remark = document.getElementById("ep_remark").value;
+  svc.imgPrice = svc.price.replace("À partir de ","").replace("/mois","");
+  svc.tag = svc.tag; // keep
+
+  // Re-render card
+  const oldCard = document.querySelector(`[data-id="${id}"]`);
+  if (oldCard) {
+    const newCard = buildCard(svc);
+    oldCard.replaceWith(newCard);
+    observeCards();
   }
+  closeEditPanel();
+  showToast("Service mis à jour ✓");
+}
 
-  // ============================================================
-  //   SMOOTH SCROLL
-  // ============================================================
+/* ── Search & Filter ── */
+function handleSearch(q) {
+  searchQuery = q.toLowerCase().trim();
+  document.getElementById("searchClear").style.display = searchQuery ? "flex" : "none";
+  applyFilters();
+}
 
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', function(e) {
-      const href = this.getAttribute('href');
-      if (href === '#') return;
-      const target = document.querySelector(href);
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
+function clearSearch() {
+  document.getElementById("searchInput").value = "";
+  searchQuery = "";
+  document.getElementById("searchClear").style.display = "none";
+  applyFilters();
+}
+
+function filterByTag(tag, el) {
+  activeFilter = tag;
+  document.querySelectorAll(".filter-tag").forEach(t => t.classList.remove("active"));
+  el.classList.add("active");
+  applyFilters();
+}
+
+function applyFilters() {
+  const cards = document.querySelectorAll(".service-card");
+  let visible = 0;
+  cards.forEach(card => {
+    const matchTag = activeFilter === "all" || card.dataset.tag === activeFilter;
+    const matchSearch = !searchQuery || card.dataset.search.includes(searchQuery);
+    const show = matchTag && matchSearch;
+    card.style.display = show ? "" : "none";
+    if (show) visible++;
   });
+  const noRes = document.querySelector(".no-results");
+  if (noRes) noRes.style.display = visible === 0 ? "flex" : "none";
+  const countEl = document.getElementById("searchCount");
+  if (searchQuery || activeFilter !== "all") {
+    countEl.textContent = `${visible} service${visible !== 1 ? "s" : ""} trouvé${visible !== 1 ? "s" : ""}`;
+  } else {
+    countEl.textContent = "";
+  }
+}
 
-  // ============================================================
-  //   TOUCH SWIPE FOR GALLERIES
-  // ============================================================
+/* ── Upload hero cover ── */
+function handleHeroUpload(input) {
+  if (!input.files[0]) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    document.getElementById("heroBgImg").src = e.target.result;
+    showToast("Photo de couverture mise à jour ✓");
+  };
+  reader.readAsDataURL(input.files[0]);
+}
 
-  let touchStartX = 0;
-  let touchServiceId = null;
+/* ── Upload logo ── */
+function handleLogoUpload(input) {
+  if (!input.files[0]) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = document.getElementById("navLogoImg");
+    img.src = e.target.result;
+    img.style.display = "block";
+    const wrap = document.getElementById("navLogoWrap");
+    wrap.style.color = "transparent";
+    showToast("Logo mis à jour ✓");
+  };
+  reader.readAsDataURL(input.files[0]);
+}
 
-  document.addEventListener('touchstart', e => {
-    const gallery = e.target.closest('[id^="gallery_"]');
-    if (!gallery) return;
-    touchServiceId = parseInt(gallery.id.replace('gallery_', ''));
-    touchStartX = e.touches[0].clientX;
-  }, { passive: true });
+/* ── Contact WA quick options ── */
+function buildContactOptions() {
+  const shortcuts = [
+    { icon: "🎨", label: "Demander un devis design" },
+    { icon: "🖨️", label: "Commander une impression" },
+    { icon: "💍", label: "Commander des invitations" },
+    { icon: "🏆", label: "Commander un trophée" },
+    { icon: "🔤", label: "Créer mon identité visuelle" },
+    { icon: "📱", label: "Créer des contenus réseaux sociaux" },
+    { icon: "🔆", label: "Gravure laser / Découpe CNC" },
+    { icon: "📋", label: "Renseignements généraux" },
+  ];
+  const container = document.getElementById("waOptionsForm");
+  if (!container) return;
+  container.innerHTML = shortcuts.map(s => `
+    <a href="${waLink("Bonjour " + COMPANY_NAME + " ! 👋\n\n" + s.label + "\n\nPouvez-vous m'aider ? Merci !")}"
+       target="_blank" rel="noopener" class="wa-option-row">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+      <span class="wa-option-label">${s.icon} ${s.label}</span>
+    </a>`).join("");
+}
 
-  document.addEventListener('touchend', e => {
-    if (!touchServiceId) return;
-    const dx = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(dx) > 40) {
-      if (dx < 0) nextSlide(touchServiceId);
-      else prevSlide(touchServiceId);
-    }
-    touchServiceId = null;
-  }, { passive: true });
+/* ── Render all cards ── */
+function renderCatalogue() {
+  const grid = document.getElementById("catalogueGrid");
+  grid.innerHTML = "";
+  SERVICES.forEach(svc => {
+    const card = buildCard(svc);
+    grid.appendChild(card);
+  });
+  // No results placeholder
+  const noRes = document.createElement("div");
+  noRes.className = "no-results"; noRes.style.display = "none";
+  noRes.innerHTML = `<div class="icon">🔍</div><p>Aucun service trouvé pour votre recherche.<br/>Essayez un autre mot-clé.</p>`;
+  grid.appendChild(noRes);
+  observeCards();
+}
 
-  // ============================================================
-  //   INIT
-  // ============================================================
+/* ── IntersectionObserver for fade-in ── */
+function observeCards() {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visible"); observer.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll(".fade-in:not(.visible)").forEach(el => observer.observe(el));
+}
 
-  initWhatsappLinks();
-  renderAllCards();
+/* ── Mobile menu ── */
+function toggleMobileMenu() {
+  document.getElementById("mobileMenu").classList.toggle("open");
+}
+function closeMobileMenu() {
+  document.getElementById("mobileMenu").classList.remove("open");
+}
+
+/* ── Scroll events ── */
+window.addEventListener("scroll", () => {
+  const scrollTop = document.getElementById("scrollTop");
+  if (window.scrollY > 400) scrollTop.classList.add("visible");
+  else scrollTop.classList.remove("visible");
+});
+
+/* ── Toast ── */
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 2800);
+}
+
+/* ── Init ── */
+document.addEventListener("DOMContentLoaded", () => {
+  // Hide loader
+  setTimeout(() => {
+    const loader = document.getElementById("loader");
+    loader.style.opacity = "0";
+    setTimeout(() => loader.style.display = "none", 600);
+  }, 2000);
+
+  // Set WA links
+  const generalMsg = "Bonjour " + COMPANY_NAME + " ! 👋\nJe souhaite obtenir des informations sur vos services. Merci !";
+  document.getElementById("heroWaBtn").href = waLink(generalMsg);
+  document.getElementById("contactWaMain").href = waLink(generalMsg);
+
+  // Render
+  renderCatalogue();
+  buildContactOptions();
+
+  // Observe all fade-in elements
+  observeCards();
+  document.querySelectorAll(".fade-in").forEach(el => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visible"); observer.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    observer.observe(el);
+  });
+});
 </script>
 </body>
 </html>
