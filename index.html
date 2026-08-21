@@ -1,0 +1,1828 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PLUME & PIXEL — Catalogue de Services</title>
+  <meta name="description" content="PLUME & PIXEL — L'art de créer, la puissance d'imprimer. Yaoundé, Cameroun. Design graphique, impression, identité visuelle, gravure laser, sérigraphie et plus." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    /* ===== VARIABLES & BASE ===== */
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8C97A;
+      --gold-dark: #A07830;
+      --noir: #0A0A0A;
+      --dark: #111111;
+      --dark2: #1A1A1A;
+      --dark3: #222222;
+      --cream: #FAF7F2;
+      --white: #FFFFFF;
+      --gray: #6B6B6B;
+      --gray-light: #E5E5E5;
+      --whatsapp: #25D366;
+      --whatsapp-dark: #128C7E;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--dark);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, .font-display {
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--dark2); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+    /* ===== GOLD GRADIENT ===== */
+    .gold-gradient {
+      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-light) 50%, var(--gold-dark) 100%);
+    }
+    .gold-text {
+      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-light) 50%, var(--gold-dark) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .gold-border { border-color: var(--gold) !important; }
+
+    /* ===== HERO / COVER ===== */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    #hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background: linear-gradient(135deg, #0A0A0A 0%, #1a0e05 40%, #0A0A0A 100%);
+    }
+
+    #hero-bg-img {
+      position: absolute; inset: 0; z-index: 1;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.25;
+      transition: opacity 0.5s;
+    }
+
+    #hero-bg-overlay {
+      position: absolute; inset: 0; z-index: 2;
+      background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.6) 60%, rgba(0,0,0,0.9) 100%);
+    }
+
+    #hero-content {
+      position: relative; z-index: 3;
+      text-align: center;
+      padding: 2rem 1.5rem;
+    }
+
+    .hero-logo-area {
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      border: 3px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 2rem;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 0 30px rgba(201,168,76,0.3);
+    }
+    .hero-logo-area:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 50px rgba(201,168,76,0.5);
+    }
+    .hero-logo-area img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-logo-placeholder {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      color: var(--gold); font-size: 0.65rem; font-weight: 500; text-align: center; padding: 10px;
+    }
+    .hero-logo-placeholder svg { width: 36px; height: 36px; }
+    .logo-edit-btn {
+      position: absolute; bottom: 6px; right: 6px;
+      background: var(--gold); border-radius: 50%;
+      width: 26px; height: 26px; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; opacity: 0; transition: opacity 0.2s;
+    }
+    .hero-logo-area:hover .logo-edit-btn { opacity: 1; }
+
+    .hero-brand-name {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-ampersand { color: var(--gold); }
+
+    .hero-slogan {
+      font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+      color: rgba(255,255,255,0.7);
+      font-style: italic;
+      letter-spacing: 0.12em;
+      margin-bottom: 2rem;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .divider-gold {
+      width: 80px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 1.2rem auto;
+    }
+
+    .hero-location {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      color: rgba(255,255,255,0.5); font-size: 0.8rem;
+    }
+
+    .hero-scroll {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); z-index: 3;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce { 0%,100%{ transform: translateX(-50%) translateY(0); } 50%{ transform: translateX(-50%) translateY(8px); } }
+
+    .hero-cover-upload {
+      position: absolute; top: 1rem; right: 1rem; z-index: 10;
+    }
+
+    .btn-upload {
+      background: rgba(0,0,0,0.6);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 0.4rem 0.9rem;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .btn-upload:hover { background: var(--gold); color: var(--dark); }
+
+    /* ===== NAVIGATION ===== */
+    #navbar {
+      position: sticky; top: 0; z-index: 999;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+      padding: 0.8rem 1rem;
+    }
+
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    /* ===== SEARCH BAR ===== */
+    .search-wrap {
+      flex: 1; max-width: 420px;
+      position: relative;
+    }
+
+    #searchInput {
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(201,168,76,0.3);
+      color: var(--white);
+      padding: 0.55rem 1rem 0.55rem 2.6rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    #searchInput::placeholder { color: rgba(255,255,255,0.35); }
+    #searchInput:focus {
+      border-color: var(--gold);
+      background: rgba(255,255,255,0.09);
+    }
+
+    .search-icon {
+      position: absolute; left: 0.85rem; top: 50%; transform: translateY(-50%);
+      color: var(--gold); pointer-events: none;
+    }
+
+    #clearSearch {
+      position: absolute; right: 0.85rem; top: 50%; transform: translateY(-50%);
+      color: rgba(255,255,255,0.4); cursor: pointer; display: none;
+      background: none; border: none; font-size: 1rem; line-height: 1;
+    }
+    #clearSearch:hover { color: var(--gold); }
+
+    .nav-whatsapp {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--whatsapp);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .nav-whatsapp:hover { background: var(--whatsapp-dark); transform: scale(1.04); }
+
+    /* ===== SECTIONS ===== */
+    section { padding: 4rem 1rem; }
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+    .section-sub {
+      text-align: center;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.9rem;
+      margin-bottom: 3rem;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+
+    /* ===== ABOUT SECTION ===== */
+    #about { background: var(--dark2); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; }
+    }
+
+    .about-img-wrap {
+      position: relative; border-radius: 16px; overflow: hidden;
+      border: 1px solid rgba(201,168,76,0.2);
+      aspect-ratio: 4/3;
+      cursor: pointer;
+    }
+    .about-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .about-img-overlay {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.5); opacity: 0; transition: opacity 0.3s;
+      font-size: 0.8rem; color: var(--gold); gap: 6px;
+      flex-direction: column;
+    }
+    .about-img-wrap:hover .about-img-overlay { opacity: 1; }
+
+    .about-text h2 { font-size: 1.8rem; margin-bottom: 1rem; }
+    .about-text p {
+      color: rgba(255,255,255,0.65);
+      line-height: 1.8;
+      font-size: 0.93rem;
+      margin-bottom: 1rem;
+    }
+
+    .about-badges {
+      display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem;
+    }
+    .badge {
+      background: rgba(201,168,76,0.12);
+      border: 1px solid rgba(201,168,76,0.3);
+      color: var(--gold-light);
+      padding: 0.35rem 0.85rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    /* ===== PAYMENT STRIP ===== */
+    .payment-strip {
+      background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      margin-top: 1.5rem;
+      display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
+    }
+    .payment-strip span { font-size: 0.8rem; color: rgba(255,255,255,0.6); }
+    .payment-pill {
+      background: rgba(201,168,76,0.2);
+      border-radius: 20px;
+      padding: 0.3rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--gold-light);
+    }
+
+    /* ===== CATALOGUE GRID ===== */
+    #catalogue { background: var(--dark); }
+
+    .filter-tabs {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      justify-content: center; margin-bottom: 2.5rem;
+    }
+    .filter-tab {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.6);
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .filter-tab.active, .filter-tab:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--dark);
+      font-weight: 600;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    @media (max-width: 480px) {
+      .services-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== SERVICE CARD ===== */
+    .service-card {
+      background: var(--dark2);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+      display: flex; flex-direction: column;
+    }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,76,0.2);
+      border-color: rgba(201,168,76,0.2);
+    }
+
+    /* Card image gallery */
+    .card-gallery {
+      position: relative;
+      aspect-ratio: 16/9;
+      background: var(--dark3);
+      overflow: hidden;
+    }
+
+    .card-gallery-slides {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.4s ease;
+    }
+
+    .card-gallery-slide {
+      min-width: 100%;
+      height: 100%;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .card-gallery-slide img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .slide-price-tag {
+      position: absolute;
+      bottom: 8px; left: 8px;
+      background: rgba(0,0,0,0.75);
+      border: 1px solid rgba(201,168,76,0.4);
+      backdrop-filter: blur(6px);
+      border-radius: 8px;
+      padding: 0.25rem 0.6rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--gold-light);
+    }
+
+    .slide-img-add {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      border: 2px dashed rgba(201,168,76,0.3);
+      cursor: pointer;
+      gap: 6px;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .slide-img-add:hover {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.05);
+    }
+    .slide-img-add span { color: rgba(255,255,255,0.4); font-size: 0.72rem; }
+
+    .gallery-nav-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.15);
+      color: white; border-radius: 50%; width: 30px; height: 30px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; z-index: 5; font-size: 0.8rem;
+      transition: background 0.2s, opacity 0.2s;
+      opacity: 0;
+    }
+    .card-gallery:hover .gallery-nav-btn { opacity: 1; }
+    .gallery-nav-btn:hover { background: var(--gold); border-color: var(--gold); color: var(--dark); }
+    .gallery-nav-prev { left: 8px; }
+    .gallery-nav-next { right: 8px; }
+
+    .gallery-dots {
+      position: absolute; bottom: 8px; right: 8px;
+      display: flex; gap: 4px;
+    }
+    .gallery-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(255,255,255,0.4); cursor: pointer; transition: background 0.2s;
+    }
+    .gallery-dot.active { background: var(--gold); }
+
+    .gallery-counter {
+      position: absolute; top: 8px; right: 8px;
+      background: rgba(0,0,0,0.6); border-radius: 10px;
+      padding: 2px 8px; font-size: 0.68rem; color: rgba(255,255,255,0.7);
+    }
+
+    .add-img-fab {
+      position: absolute; top: 8px; left: 8px;
+      background: rgba(0,0,0,0.65);
+      border: 1px solid rgba(201,168,76,0.5);
+      color: var(--gold);
+      border-radius: 8px;
+      padding: 0.25rem 0.55rem;
+      font-size: 0.68rem;
+      cursor: pointer;
+      display: flex; align-items: center; gap: 4px;
+      transition: all 0.2s;
+      z-index: 5;
+    }
+    .add-img-fab:hover { background: var(--gold); color: var(--dark); }
+
+    /* Card Body */
+    .card-body {
+      padding: 1.2rem;
+      flex: 1;
+      display: flex; flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .card-category {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(201,168,76,0.1);
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--white);
+    }
+
+    .card-desc {
+      font-size: 0.83rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.65;
+    }
+
+    /* Options checkboxes */
+    .card-options {
+      display: flex; flex-direction: column; gap: 0.35rem;
+    }
+    .card-options-title {
+      font-size: 0.72rem; font-weight: 600; color: var(--gold);
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.1rem;
+    }
+    .option-row {
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .option-row input[type="checkbox"] {
+      accent-color: var(--gold);
+      width: 14px; height: 14px; cursor: pointer; flex-shrink: 0;
+    }
+    .option-row label {
+      font-size: 0.78rem; color: rgba(255,255,255,0.65); cursor: pointer;
+      user-select: none;
+    }
+
+    /* Meta row */
+    .card-meta {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
+    .meta-item {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 0.5rem 0.7rem;
+    }
+    .meta-label {
+      font-size: 0.62rem; color: rgba(255,255,255,0.35);
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 2px;
+    }
+    .meta-value {
+      font-size: 0.78rem; color: rgba(255,255,255,0.8); font-weight: 500;
+    }
+
+    /* Remarks */
+    .card-remarks {
+      background: rgba(201,168,76,0.06);
+      border-left: 2px solid var(--gold);
+      padding: 0.5rem 0.75rem;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.5);
+      font-style: italic;
+    }
+
+    /* WhatsApp Button */
+    .btn-whatsapp {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--whatsapp);
+      color: white;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+      margin-top: auto;
+      box-shadow: 0 4px 15px rgba(37,211,102,0.2);
+    }
+    .btn-whatsapp:hover {
+      background: var(--whatsapp-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(37,211,102,0.35);
+    }
+    .btn-whatsapp svg { flex-shrink: 0; }
+
+    /* No results */
+    #noResults {
+      text-align: center;
+      padding: 4rem 1rem;
+      color: rgba(255,255,255,0.4);
+      display: none;
+    }
+    #noResults svg { margin: 0 auto 1rem; opacity: 0.3; }
+
+    /* ===== CONTACT SECTION ===== */
+    #contact {
+      background: linear-gradient(180deg, var(--dark) 0%, #0D0900 100%);
+      border-top: 1px solid rgba(201,168,76,0.15);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    @media (max-width: 768px) {
+      .contact-grid { grid-template-columns: 1fr; }
+      .nav-whatsapp span { display: none; }
+    }
+
+    .contact-card {
+      background: var(--dark2);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 20px;
+      padding: 2rem;
+    }
+
+    .contact-info-item {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      margin-bottom: 1.2rem;
+    }
+    .contact-info-icon {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: rgba(201,168,76,0.12);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; color: var(--gold);
+    }
+    .contact-info-text { font-size: 0.83rem; color: rgba(255,255,255,0.65); line-height: 1.5; }
+    .contact-info-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold); margin-bottom: 2px; font-weight: 600; }
+
+    .social-row {
+      display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.5rem;
+    }
+    .social-pill {
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.7);
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .social-pill:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.08); }
+
+    .cta-box {
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+
+    .btn-whatsapp-lg {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      background: var(--whatsapp);
+      color: white;
+      padding: 1.1rem 1.5rem;
+      border-radius: 14px;
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+      box-shadow: 0 6px 30px rgba(37,211,102,0.3);
+    }
+    .btn-whatsapp-lg:hover {
+      background: var(--whatsapp-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(37,211,102,0.45);
+    }
+
+    .btn-outline-gold {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      background: transparent;
+      border: 1.5px solid var(--gold);
+      color: var(--gold);
+      padding: 0.85rem 1.5rem;
+      border-radius: 14px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .btn-outline-gold:hover { background: var(--gold); color: var(--dark); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--noir);
+      border-top: 1px solid rgba(201,168,76,0.1);
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    footer .footer-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; font-weight: 700; margin-bottom: 0.4rem;
+    }
+    footer p { font-size: 0.75rem; color: rgba(255,255,255,0.3); margin-top: 0.3rem; }
+
+    /* ===== MODAL IMAGE VIEWER ===== */
+    #imgModal {
+      display: none;
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,0.92);
+      align-items: center; justify-content: center;
+    }
+    #imgModal.open { display: flex; }
+    #imgModal img { max-width: 90vw; max-height: 90vh; border-radius: 8px; }
+    #imgModal .close-modal {
+      position: absolute; top: 1rem; right: 1.5rem;
+      font-size: 2rem; color: white; cursor: pointer; z-index: 1;
+    }
+
+    /* ===== NOTIFICATION TOAST ===== */
+    #toast {
+      position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+      background: var(--gold); color: var(--dark);
+      padding: 0.65rem 1.5rem; border-radius: 30px;
+      font-size: 0.82rem; font-weight: 600;
+      z-index: 9998; opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+      white-space: nowrap;
+    }
+    #toast.show { opacity: 1; }
+
+    /* ===== HIDDEN FILE INPUTS ===== */
+    .hidden-input { display: none; }
+
+    /* ===== EDIT CONTACT PANEL ===== */
+    .edit-contact-panel {
+      background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-top: 0.5rem;
+      display: none;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .edit-contact-panel.open { display: flex; }
+    .edit-contact-panel input, .edit-contact-panel textarea {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(201,168,76,0.25);
+      color: white;
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      outline: none;
+      width: 100%;
+      transition: border-color 0.3s;
+    }
+    .edit-contact-panel input:focus, .edit-contact-panel textarea:focus { border-color: var(--gold); }
+    .edit-contact-panel textarea { resize: vertical; min-height: 60px; }
+    .edit-panel-btns { display: flex; gap: 0.5rem; }
+    .btn-save {
+      background: var(--gold); color: var(--dark);
+      border: none; border-radius: 8px; padding: 0.45rem 1rem;
+      font-size: 0.78rem; font-weight: 700; cursor: pointer; transition: background 0.2s;
+    }
+    .btn-save:hover { background: var(--gold-light); }
+    .btn-cancel {
+      background: transparent; color: rgba(255,255,255,0.5);
+      border: 1px solid rgba(255,255,255,0.15); border-radius: 8px;
+      padding: 0.45rem 1rem; font-size: 0.78rem; cursor: pointer; transition: all 0.2s;
+    }
+    .btn-cancel:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ===== PRICE EDIT ===== */
+    .price-edit-wrap {
+      display: flex; align-items: center; gap: 6px;
+    }
+    .price-edit-input {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid transparent;
+      color: var(--gold-light);
+      font-size: 0.75rem; font-weight: 600;
+      width: 100%; outline: none;
+      transition: border-color 0.2s;
+    }
+    .price-edit-input:focus { border-color: var(--gold); }
+
+    /* ===== EDIT MODE TOGGLE ===== */
+    #editModeToggle {
+      position: fixed; bottom: 5rem; right: 1rem; z-index: 100;
+      background: var(--dark2); border: 1px solid var(--gold);
+      color: var(--gold); padding: 0.55rem 1rem;
+      border-radius: 20px; font-size: 0.75rem; font-weight: 600;
+      cursor: pointer; display: flex; align-items: center; gap: 6px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      transition: all 0.3s;
+    }
+    #editModeToggle.active { background: var(--gold); color: var(--dark); }
+    #editModeToggle:hover { transform: scale(1.05); }
+
+    .edit-indicator {
+      display: none;
+      background: rgba(201,168,76,0.1);
+      border: 1px dashed var(--gold);
+      border-radius: 8px;
+      padding: 0.3rem 0.5rem;
+      font-size: 0.7rem;
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+    body.edit-mode .edit-indicator { display: block; }
+    body.edit-mode .card-title[contenteditable] { 
+      border-bottom: 1px dashed var(--gold);
+      outline: none;
+      cursor: text;
+    }
+    body.edit-mode .card-desc[contenteditable] {
+      border-bottom: 1px dashed rgba(201,168,76,0.4);
+      outline: none;
+      cursor: text;
+    }
+    body.edit-mode .meta-value[contenteditable] {
+      border-bottom: 1px dashed rgba(201,168,76,0.4);
+      outline: none;
+      cursor: text;
+    }
+    body.edit-mode .card-remarks[contenteditable] {
+      outline: none;
+      cursor: text;
+    }
+
+    /* ===== FLOATING WHATSAPP ===== */
+    #floatWhatsapp {
+      position: fixed; bottom: 1.5rem; right: 1rem; z-index: 100;
+      width: 54px; height: 54px;
+      background: var(--whatsapp);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      text-decoration: none;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    #floatWhatsapp:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(37,211,102,0.6); }
+    .float-pulse {
+      position: absolute; inset: -4px;
+      border-radius: 50%;
+      border: 2px solid rgba(37,211,102,0.4);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%{ transform: scale(1); opacity: 1; } 100%{ transform: scale(1.5); opacity: 0; } }
+
+    /* ===== CATEGORIES STRIP ===== */
+    .categories-strip {
+      display: flex; gap: 0.75rem; overflow-x: auto;
+      padding: 0.5rem 0; margin-bottom: 1.5rem;
+      scrollbar-width: none;
+    }
+    .categories-strip::-webkit-scrollbar { display: none; }
+
+    /* Responsive tweaks */
+    @media (max-width: 640px) {
+      section { padding: 3rem 1rem; }
+      .contact-card { padding: 1.5rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== HIDDEN FILE INPUTS ===== -->
+<input type="file" id="heroCoverInput" class="hidden-input" accept="image/*" />
+<input type="file" id="heroLogoInput" class="hidden-input" accept="image/*" />
+<input type="file" id="aboutImgInput" class="hidden-input" accept="image/*" />
+
+<!-- ===== HERO / COUVERTURE ===== -->
+<section id="hero">
+  <div id="hero-bg"></div>
+  <img id="hero-bg-img" src="https://images.pexels.com/photos/7014405/pexels-photo-7014405.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200" alt="Couverture PLUME & PIXEL" />
+  <div id="hero-bg-overlay"></div>
+
+  <!-- Upload cover button -->
+  <div class="hero-cover-upload">
+    <button class="btn-upload" id="heroUploadBtn">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      Photo de couverture
+    </button>
+  </div>
+
+  <div id="hero-content">
+    <!-- Logo importable -->
+    <div class="hero-logo-area" id="heroLogoArea" title="Cliquer pour changer le logo">
+      <div class="hero-logo-placeholder" id="logoPlaceholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+        </svg>
+        <span>Votre Logo</span>
+        <span style="font-size:0.55rem;opacity:0.6">Cliquer pour importer</span>
+      </div>
+      <img id="heroLogoImg" src="" alt="Logo" style="display:none;width:100%;height:100%;object-fit:contain;padding:10px;" />
+      <div class="logo-edit-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+      </div>
+    </div>
+
+    <h1 class="hero-brand-name">PLUME <span class="hero-ampersand">&</span> PIXEL</h1>
+    <div class="divider-gold"></div>
+    <p class="hero-slogan">« L'art de créer, la puissance d'imprimer. »</p>
+
+    <div class="hero-location" style="margin-bottom:1.5rem;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Jouvence — Yaoundé, Cameroun
+    </div>
+
+    <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
+      <a href="#catalogue" class="btn-outline-gold" style="padding:0.6rem 1.2rem;border-radius:30px;font-size:0.82rem;">
+        Voir nos services
+      </a>
+      <a id="heroWhatsapp" href="#" class="btn-whatsapp" style="border-radius:30px;padding:0.6rem 1.2rem;font-size:0.82rem;margin-top:0;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+        Nous contacter
+      </a>
+    </div>
+  </div>
+
+  <!-- Scroll arrow -->
+  <div class="hero-scroll">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.6)" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+</section>
+
+<!-- ===== NAVBAR ===== -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <span class="gold-text">PLUME</span> <span style="color:rgba(255,255,255,0.3)">&</span> <span class="gold-text">PIXEL</span>
+    </div>
+    <div class="search-wrap">
+      <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchInput" placeholder="Rechercher un service..." autocomplete="off" />
+      <button id="clearSearch">×</button>
+    </div>
+    <a id="navWhatsapp" href="#" class="nav-whatsapp">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+      <span>WhatsApp</span>
+    </a>
+  </div>
+</nav>
+
+<!-- ===== ABOUT ===== -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-wrap" id="aboutImgWrap" title="Cliquer pour changer la photo">
+        <img id="aboutImg" src="https://images.pexels.com/photos/7180492/pexels-photo-7180492.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200" alt="Notre atelier" />
+        <div class="about-img-overlay">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <span style="font-size:0.75rem;">Changer la photo</span>
+        </div>
+      </div>
+      <div class="about-text">
+        <h2><span class="gold-text">Qui sommes-nous ?</span></h2>
+        <p>
+          <strong style="color:white;">PLUME & PIXEL</strong> est une agence créative multidisciplinaire basée à Yaoundé, Cameroun. Nous conjuguons design graphique, impression numérique et fabrication sur-mesure pour donner vie à vos projets les plus ambitieux.
+        </p>
+        <p>
+          De la carte de visite au panneau publicitaire, du packaging élégant à la gravure laser, notre équipe passionnée met son expertise au service de votre image de marque avec une qualité irréprochable.
+        </p>
+        <p>
+          Situés à <strong style="color:rgba(255,255,255,0.8);">Jouvence — Nouvelle route Tam-tam, face snack bar Le Click Plus</strong>, nous recevons sur rendez-vous et répondons à toutes vos demandes par WhatsApp.
+        </p>
+
+        <div class="about-badges">
+          <span class="badge">Design Graphique</span>
+          <span class="badge">Impression Offset</span>
+          <span class="badge">Gravure Laser</span>
+          <span class="badge">Découpe CNC</span>
+          <span class="badge">Sérigraphie</span>
+          <span class="badge">Signalétique</span>
+          <span class="badge">Packaging</span>
+          <span class="badge">Décoration</span>
+        </div>
+
+        <div class="payment-strip">
+          <span>Moyens de paiement :</span>
+          <span class="payment-pill">💵 Cash</span>
+          <span class="payment-pill">🟠 Orange Money</span>
+          <span class="payment-pill">📱 MoMo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CATALOGUE ===== -->
+<section id="catalogue">
+  <div class="container">
+    <p class="section-sub" style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;">NOS SERVICES</p>
+    <h2 class="section-title">Catalogue Complet</h2>
+    <div class="divider-gold" style="margin-bottom:2rem;"></div>
+
+    <!-- Filter tabs -->
+    <div class="filter-tabs" id="filterTabs">
+      <button class="filter-tab active" data-filter="all">Tout voir</button>
+      <button class="filter-tab" data-filter="design">Design</button>
+      <button class="filter-tab" data-filter="impression">Impression</button>
+      <button class="filter-tab" data-filter="fabrication">Fabrication</button>
+      <button class="filter-tab" data-filter="communication">Communication</button>
+      <button class="filter-tab" data-filter="evenement">Événementiel</button>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="services-grid" id="servicesGrid">
+      <!-- Cards injected by JS -->
+    </div>
+
+    <!-- No results -->
+    <div id="noResults">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <p style="font-size:1rem;margin-bottom:0.5rem;">Aucun service trouvé</p>
+      <p style="font-size:0.8rem;">Essayez un autre terme de recherche</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact">
+  <div class="container">
+    <p class="section-sub" style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;">NOUS TROUVER</p>
+    <h2 class="section-title">Contact & Localisation</h2>
+    <div class="divider-gold" style="margin-bottom:2.5rem;"></div>
+
+    <div class="contact-grid">
+      <!-- Infos -->
+      <div class="contact-card">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:1.5rem;">
+          <span class="gold-text">Informations</span>
+        </h3>
+
+        <div class="contact-info-item">
+          <div class="contact-info-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="contact-info-label">Adresse</div>
+            <div class="contact-info-text">Jouvence — Yaoundé, Cameroun<br/>Nouvelle route Tam-tam, face snack bar Le Click Plus</div>
+          </div>
+        </div>
+
+        <div class="contact-info-item">
+          <div class="contact-info-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+          </div>
+          <div>
+            <div class="contact-info-label">WhatsApp</div>
+            <div class="contact-info-text" id="contactWhatsappDisplay">+237 672 434 547</div>
+          </div>
+        </div>
+
+        <div class="contact-info-item">
+          <div class="contact-info-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <div class="contact-info-label">Horaires</div>
+            <div class="contact-info-text">Lun – Sam : 08h00 – 18h00<br/>Dimanche : Sur rendez-vous</div>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid rgba(255,255,255,0.07);padding-top:1.2rem;margin-top:0.3rem;">
+          <div class="contact-info-label" style="margin-bottom:0.75rem;">Réseaux Sociaux</div>
+          <div class="social-row">
+            <a href="https://www.facebook.com/plumeetpixel" target="_blank" rel="noopener" class="social-pill">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              Facebook
+            </a>
+            <a href="https://www.instagram.com/plumeetpixel" target="_blank" rel="noopener" class="social-pill">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              Instagram
+            </a>
+            <a href="https://www.tiktok.com/@plumeetpixel" target="_blank" rel="noopener" class="social-pill">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.29 6.29 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
+              TikTok
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="contact-card" style="display:flex;flex-direction:column;justify-content:space-between;">
+        <div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:0.75rem;">
+            <span class="gold-text">Commandez maintenant</span>
+          </h3>
+          <p style="color:rgba(255,255,255,0.55);font-size:0.85rem;line-height:1.7;margin-bottom:1.5rem;">
+            Décrivez votre projet, nous vous répondons dans les plus brefs délais avec un devis personnalisé. Aucun projet n'est trop grand ou trop petit pour nous !
+          </p>
+
+          <div class="cta-box">
+            <a id="ctaWhatsappMain" href="#" class="btn-whatsapp-lg">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+              Démarrer une conversation WhatsApp
+            </a>
+            <a id="ctaWhatsappDevis" href="#" class="btn-outline-gold">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+              Demander un devis gratuit
+            </a>
+          </div>
+        </div>
+
+        <div style="margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,0.07);">
+          <div class="contact-info-label" style="margin-bottom:0.75rem;">Paiement accepté</div>
+          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+            <span class="payment-pill">💵 Cash</span>
+            <span class="payment-pill">🟠 Orange Money</span>
+            <span class="payment-pill">📱 MTN MoMo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-brand"><span class="gold-text">PLUME</span> <span style="color:rgba(255,255,255,0.25)">&</span> <span class="gold-text">PIXEL</span></div>
+  <p style="font-style:italic;color:rgba(255,255,255,0.4);font-family:'Playfair Display',serif;">« L'art de créer, la puissance d'imprimer. »</p>
+  <p style="margin-top:0.75rem;">© 2025 PLUME & PIXEL — Yaoundé, Cameroun. Tous droits réservés.</p>
+</footer>
+
+<!-- ===== FLOATING WHATSAPP ===== -->
+<a id="floatWhatsapp" href="#" title="Contactez-nous sur WhatsApp" target="_blank" rel="noopener">
+  <div class="float-pulse"></div>
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+</a>
+
+<!-- ===== EDIT MODE TOGGLE ===== -->
+<button id="editModeToggle" title="Activer/désactiver le mode édition">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+  Mode Édition
+</button>
+
+<!-- ===== IMAGE MODAL ===== -->
+<div id="imgModal">
+  <span class="close-modal" id="closeModal">×</span>
+  <img id="modalImg" src="" alt="Aperçu" />
+</div>
+
+<!-- ===== TOAST ===== -->
+<div id="toast">✓ Action effectuée</div>
+
+<script>
+  // ============================================================
+  // ██████████████████████████████████████████████████████
+  //   CONFIGURATION — MODIFIER ICI UNIQUEMENT
+  // ██████████████████████████████████████████████████████
+  // ============================================================
+
+  /**
+   * NUMÉRO WHATSAPP
+   * Format international sans +, sans espaces, sans tirets
+   * Exemple : 237672434547 pour +237 672 434 547
+   */
+  const WHATSAPP_NUMBER = "237672434547";
+
+  /**
+   * MESSAGE PAR DÉFAUT (sera encodé automatiquement)
+   */
+  const WHATSAPP_DEFAULT_MSG = "Bonjour PLUME & PIXEL 👋\nJe souhaite obtenir des informations sur vos services.\nMerci !";
+
+  /**
+   * MESSAGE DEVIS
+   */
+  const WHATSAPP_DEVIS_MSG = "Bonjour PLUME & PIXEL 👋\nJe souhaite demander un devis gratuit pour mon projet.\nPourriez-vous me contacter ? Merci !";
+
+  // ============================================================
+  //   FIN CONFIGURATION
+  // ============================================================
+
+  /**
+   * Génère un lien wa.me valide
+   * @param {string} message - message non encodé
+   * @param {string} [service] - nom du service optionnel
+   */
+  function waLink(message, service) {
+    let msg = message;
+    if (service) {
+      msg = `Bonjour PLUME & PIXEL 👋\nJe suis intéressé(e) par votre service : *${service}*.\nPourriez-vous me donner plus d'informations et un devis ? Merci !`;
+    }
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+  }
+
+  // ============================================================
+  //   DONNÉES DES SERVICES
+  // ============================================================
+
+  const SERVICES = [
+    {
+      id: 1,
+      category: "design",
+      categoryLabel: "Design",
+      title: "Design Graphique",
+      desc: "Création de visuels percutants : flyers, affiches, bannières, cartes de visite, brochures et tous supports imprimés ou numériques sur mesure.",
+      images: [
+        { url: "https://images.pexels.com/photos/31862222/pexels-photo-31862222.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "À partir de 5 000 FCFA" },
+        { url: "https://images.pexels.com/photos/16313664/pexels-photo-16313664.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Flyer A4 : 15 000 FCFA" }
+      ],
+      delai: "24h – 72h",
+      qteMin: "1 exemplaire",
+      remarques: "Fichiers HD fournis en PDF, PNG et AI. Corrections illimitées incluses.",
+      options: ["Standard", "Express (+50%)", "Avec livraison", "Design inclus", "Personnalisation avancée"]
+    },
+    {
+      id: 2,
+      category: "impression",
+      categoryLabel: "Impression",
+      title: "Impression Numérique & Offset",
+      desc: "Impression haute définition sur papier couché, bâche, vinyle, tissu et autres supports. Finitions vernis, pelliculage mat ou brillant disponibles.",
+      images: [
+        { url: "https://images.pexels.com/photos/7014405/pexels-photo-7014405.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Flyer 500 ex : 35 000 FCFA" },
+        { url: "https://images.pexels.com/photos/7014400/pexels-photo-7014400.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Poster A3 : 8 000 FCFA" }
+      ],
+      delai: "48h – 5 jours",
+      qteMin: "50 exemplaires",
+      remarques: "Tarifs dégressifs selon quantité. Fichiers en CMJN requis.",
+      options: ["Standard", "Express (+50%)", "Avec livraison", "Design inclus", "Personnalisation avancée"]
+    },
+    {
+      id: 3,
+      category: "design",
+      categoryLabel: "Design",
+      title: "Création d'Identité Visuelle",
+      desc: "Conception complète de votre identité de marque : logo, charte graphique, palette de couleurs, typographies et guide d'utilisation.",
+      images: [
+        { url: "https://images.pexels.com/photos/7180492/pexels-photo-7180492.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Pack Logo : 50 000 FCFA" },
+        { url: "https://images.pexels.com/photos/37326538/pexels-photo-37326538.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Charte complète : 150 000 FCFA" }
+      ],
+      delai: "5 – 15 jours ouvrables",
+      qteMin: "N/A",
+      remarques: "3 propositions de logo incluses. Révisions illimitées jusqu'à validation.",
+      options: ["Standard", "Express (+50%)", "Avec livraison", "Design inclus", "Personnalisation avancée"]
+    },
+    {
+      id: 4,
+      category: "fabrication",
+      categoryLabel: "Fabrication",
+      title: "Packaging & Étiquettes Produits",
+      desc: "Conception et fabrication de boîtes, sachets, étiquettes adhésives et emballages personnalisés pour valoriser vos produits.",
+      images: [
+        { url: "https://images.pexels.com/photos/9594420/pexels-photo-9594420.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Étiquettes 100 ex : 20 000 FCFA" },
+        { url: "https://images.pexels.com/photos/9594419/pexels-photo-9594419.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Packaging sur devis" }
+      ],
+      delai: "3 – 10 jours",
+      qteMin: "50 unités",
+      remarques: "Prototypage gratuit avant lancement de la production.",
+      options: ["Standard", "Express (+50%)", "Avec livraison", "Design inclus", "Personnalisation avancée"]
+    },
+    {
+      id: 5,
+      category: "evenement",
+      categoryLabel: "Événementiel",
+      title: "Invitations Personnalisées",
+      desc: "Cartons d'invitation sur mesure pour mariages, baptêmes, anniversaires, obsèques, conférences. Formats variés : pliés, dépliants, avec enveloppe.",
+      images: [
+        { url: "https://images.pexels.com/photos/17259710/pexels-photo-17259710.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "50 invitations : 25 000 FCFA" },
+        { url: "https://images.pexels.com/photos/36617802/pexels-photo-36617802.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "100 invitations : 45 000 FCFA" }
+      ],
+      delai: "48h – 5 jours",
+      qteMin: "20 exemplaires",
+      remarques: "Papier premium, dorure à chaud et découpe à la forme disponibles.",
+      options: ["Standard", "Express (+50%)", "Avec livraison", "Design inclus", "Personnalisation avancée"]
+    },
+    {
+      id: 6,
+      category: "communication",
+      categoryLabel: "Communication",
+      title: "Objets Publicitaires Personnalisés",
+      desc: "Impression et personnalisation de stylos, mugs, t-shirts, casquettes, carnets, sacs, clés USB et tout type de goodies pour votre communication.",
+      images: [
+        { url: "https://images.pexels.com/photos/9902807/pexels-photo-9902807.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "T-shirt (lot 10) : 45 000 FCFA" }
+      ],
+      delai: "5 – 15 jours",
+      qteMin: "10 pièces",
+      remarques: "Tarifs dégressifs à partir de 50 pièces. Échantillon fourni sur demande.",
+      options: ["Standard", "Express (+50%)", "Avec livraison", "Design inclus", "Personnalisation avancée"]
+    },
+    {
+      id: 7,
+      category: "fabrication",
+      categoryLabel: "Fabrication",
+      title: "Gravure Laser",
+      desc: "Gravure laser de précision sur bois, métal, acrylique, cuir, verre. Idéale pour trophées, plaques, cadeaux d'entreprise et objets personnalisés.",
+      images: [
+        { url: "https://images.pexels.com/photos/6345332/pexels-photo-6345332.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Plaque bois : 8 000 FCFA" },
+        { url: "https://images.pexels.com/photos/7005503/pexels-photo-7005503.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Trophée gravé : 15 000 FCFA" }
+      ],
+      delai: "24h – 72h",
+      qteMin: "1 pièce",
+      remarques: "Fichiers vectoriels (SVG, AI, DXF) requis pour une gravure optimale.",
+      options: ["Standard", "Express (+50%)", "Avec livraison", "Design inclus", "Personnalisation avancée"]
+    },
+    {
+      id: 8,
+      category: "fabrication",
+      categoryLabel: "Fabrication",
+      title: "Découpe CNC",
+      desc: "Découpe CNC de précision pour enseignes, lettres volumétriques, éléments décoratifs, présentoirs et structures en bois, MDF, acrylique et PVC.",
+      images: [
+        { url: "https://images.pexels.com/photos/28271096/pexels-photo-28271096.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Sur devis selon dimensions" }
+      ],
+      delai: "3 – 10 jours",
+      qteMin: "1 pièce",
+      remarques: "Plans techniques ou fichiers DXF nécessaires. Devis sur mesure.",
+      options: ["Standard", "Express (+50%)", "Avec livraison", "Design inclus", "Personnalisation avancée"]
+    },
+    {
+      id: 9,
+      category: "impression",
+      categoryLabel: "Impression",
+      title: "Sérigraphie",
+      desc: "Impression sérigraphique pour textiles (t-shirts, polos, blouses), sacs, bâches et supports rigides. Encres durables, couleurs vives et fidèles.",
+      images: [
+        { url: "https://images.pexels.com/photos/4347654/pexels-photo-4347654.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "T-shirt (50 pièces) : 120 000 FCFA" }
+      ],
+      delai: "5 – 15 jours",
+      qteMin: "20 pièces",
+      remarques: "Prix par couleur. Tarifs spéciaux pour les grandes séries.",
+      options: ["Standard", "Express (+50%)", "Avec livraison", "Design inclus", "Personnalisation avancée"]
+    },
+    {
+      id: 10,
+      category: "communication",
+      categoryLabel: "Communication",
+      title: "Signalétique",
+      desc: "Conception et fabrication de toutes vos signalisations : panneaux directionnels, enseignes lumineuses, kakémonos, roll-up, banderoles et affiches grand format.",
+      images: [
+        { url: "https://images.pexels.com/photos/33690927/pexels-photo-33690927.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Roll-up 80x200 : 45 000 FCFA" }
+      ],
+      delai: "48h – 7 jours",
+      qteMin: "1 pièce",
+      remarques: "Installation comprise dans Yaoundé sur devis. Structures aluminium disponibles.",
+      options: ["Standard", "Express (+50%)", "Avec livraison", "Design inclus", "Personnalisation avancée"]
+    },
+    {
+      id: 11,
+      category: "fabrication",
+      categoryLabel: "Fabrication",
+      title: "Décoration & Habillage d'Espaces",
+      desc: "Habillage mural, stickers décoratifs, impressions sur toile, tableaux personnalisés, papiers peints sur mesure et mise en scène de vos espaces professionnels.",
+      images: [
+        { url: "https://images.pexels.com/photos/9784204/pexels-photo-9784204.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Sticker mural : à partir de 20 000 FCFA" }
+      ],
+      delai: "5 – 20 jours",
+      qteMin: "N/A",
+      remarques: "Visite sur site recommandée pour les grands projets. Devis gratuit.",
+      options: ["Standard", "Express (+50%)", "Avec livraison", "Design inclus", "Personnalisation avancée"]
+    },
+    {
+      id: 12,
+      category: "fabrication",
+      categoryLabel: "Fabrication",
+      title: "Trophées, Médailles & Récompenses",
+      desc: "Fabrication de trophées, médailles, boucliers et distinctions personnalisées pour cérémonies, concours sportifs, événements d'entreprise et remises de prix.",
+      images: [
+        { url: "https://images.pexels.com/photos/6345332/pexels-photo-6345332.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Médaille gravée : 5 000 FCFA" },
+        { url: "https://images.pexels.com/photos/7005503/pexels-photo-7005503.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Trophée premium : 25 000 FCFA" }
+      ],
+      delai: "3 – 10 jours",
+      qteMin: "1 pièce",
+      remarques: "Personnalisation : nom, logo, date, message gravé. Coffret cadeau disponible.",
+      options: ["Standard", "Express (+50%)", "Avec livraison", "Design inclus", "Personnalisation avancée"]
+    },
+    {
+      id: 13,
+      category: "impression",
+      categoryLabel: "Impression",
+      title: "Facturiers & Documents Commerciaux",
+      desc: "Impression de carnets de factures, bons de commande, reçus, tickets de caisse personnalisés avec logo et en-tête de votre entreprise.",
+      images: [
+        { url: "https://images.pexels.com/photos/9594430/pexels-photo-9594430.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Carnet 50 feuillets : 15 000 FCFA" }
+      ],
+      delai: "48h – 4 jours",
+      qteMin: "50 feuillets",
+      remarques: "Disponibles en duplicata, triplicata avec ou sans carbone. Numérotation incluse.",
+      options: ["Standard", "Express (+50%)", "Avec livraison", "Design inclus", "Personnalisation avancée"]
+    },
+    {
+      id: 14,
+      category: "communication",
+      categoryLabel: "Communication",
+      title: "Création de Contenus Réseaux Sociaux",
+      desc: "Création de visuels, stories, reels, carousels et templates animés pour vos réseaux sociaux. Stratégie éditoriale et calendrier de publication disponibles.",
+      images: [
+        { url: "https://images.pexels.com/photos/31862222/pexels-photo-31862222.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Pack 10 visuels : 30 000 FCFA" },
+        { url: "https://images.pexels.com/photos/9902807/pexels-photo-9902807.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700", price: "Abonnement mensuel : 80 000 FCFA" }
+      ],
+      delai: "24h – 5 jours",
+      qteMin: "N/A",
+      remarques: "Formats livrés pour Instagram, Facebook, TikTok et LinkedIn. Droits de publication inclus.",
+      options: ["Standard", "Express (+50%)", "Avec livraison", "Design inclus", "Personnalisation avancée"]
+    }
+  ];
+
+  // ============================================================
+  //   STATE
+  // ============================================================
+
+  let cardImages = {}; // { serviceId: [ { url, price }, ... ] }
+  let cardCurrentSlide = {}; // { serviceId: number }
+  let editMode = false;
+
+  // ============================================================
+  //   INITIALISE IMAGES PAR SERVICE
+  // ============================================================
+
+  SERVICES.forEach(s => {
+    cardImages[s.id] = [...s.images];
+    cardCurrentSlide[s.id] = 0;
+  });
+
+  // ============================================================
+  //   RENDU DES CARTES
+  // ============================================================
+
+  function renderCard(service) {
+    const id = service.id;
+    const imgs = cardImages[id];
+    const currentIdx = cardCurrentSlide[id] || 0;
+    const optionsHtml = service.options.map((opt, i) =>
+      `<div class="option-row">
+        <input type="checkbox" id="opt_${id}_${i}" name="opt_${id}_${i}" />
+        <label for="opt_${id}_${i}">${opt}</label>
+      </div>`
+    ).join('');
+
+    // Build slides
+    let slidesHtml = imgs.map((img, idx) =>
+      `<div class="card-gallery-slide" data-slide-idx="${idx}">
+        <img src="${img.url}" alt="${service.title} ${idx+1}" loading="lazy" />
+        <div class="slide-price-tag">
+          <input class="price-edit-input" type="text" value="${img.price}" 
+            placeholder="Prix en FCFA"
+            onchange="updateSlidePrice(${id}, ${idx}, this.value)"
+            onclick="event.stopPropagation()"
+          />
+        </div>
+      </div>`
+    ).join('');
+
+    // Add-image placeholder (up to 20 images)
+    if (imgs.length < 20) {
+      slidesHtml += `<div class="card-gallery-slide">
+        <div class="slide-img-add" onclick="triggerAddImage(${id})">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.5)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+          <span>Ajouter une image</span>
+          <span style="font-size:0.62rem;opacity:0.6">${imgs.length}/20 images</span>
+        </div>
+      </div>`;
+    }
+
+    const totalSlots = imgs.length < 20 ? imgs.length + 1 : imgs.length;
+    const dotsHtml = imgs.map((_, idx) =>
+      `<div class="gallery-dot ${idx === currentIdx ? 'active' : ''}" onclick="goToSlide(${id}, ${idx})"></div>`
+    ).join('');
+
+    return `
+    <div class="service-card" data-id="${id}" data-category="${service.category}" data-title="${service.title.toLowerCase()}">
+      <div class="card-gallery" id="gallery_${id}">
+        <div class="card-gallery-slides" id="slides_${id}" style="transform:translateX(-${currentIdx * 100}%)">
+          ${slidesHtml}
+        </div>
+
+        <!-- Nav buttons -->
+        ${totalSlots > 1 ? `
+        <button class="gallery-nav-btn gallery-nav-prev" onclick="prevSlide(${id})">‹</button>
+        <button class="gallery-nav-btn gallery-nav-next" onclick="nextSlide(${id})">›</button>
+        ` : ''}
+
+        <!-- Dots -->
+        <div class="gallery-dots" id="dots_${id}">${dotsHtml}</div>
+
+        <!-- Counter -->
+        <div class="gallery-counter" id="counter_${id}">${currentIdx+1} / ${imgs.length}</div>
+
+        <!-- Add image button -->
+        <button class="add-img-fab" onclick="triggerAddImage(${id})" title="Ajouter une image">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Photo
+        </button>
+
+        <!-- Hidden file input -->
+        <input type="file" id="imgInput_${id}" class="hidden-input" accept="image/*" multiple onchange="handleImageUpload(${id}, this)" />
+      </div>
+
+      <div class="card-body">
+        <div class="edit-indicator">✏️ Mode édition actif — cliquez sur le texte pour modifier</div>
+        <span class="card-category">${service.categoryLabel}</span>
+        <div class="card-title" id="title_${id}" contenteditable="false" spellcheck="false">${service.title}</div>
+        <div class="card-desc" id="desc_${id}" contenteditable="false" spellcheck="false">${service.desc}</div>
+
+        <div class="card-options">
+          <div class="card-options-title">Options disponibles</div>
+          ${optionsHtml}
+        </div>
+
+        <div class="card-meta">
+          <div class="meta-item">
+            <div class="meta-label">Délai</div>
+            <div class="meta-value" id="delai_${id}" contenteditable="false">${service.delai}</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Qté minimale</div>
+            <div class="meta-value" id="qte_${id}" contenteditable="false">${service.qteMin}</div>
+          </div>
+        </div>
+
+        <div class="card-remarks" id="remarques_${id}" contenteditable="false">💡 ${service.remarques}</div>
+
+        <a href="${waLink(null, service.title)}" target="_blank" rel="noopener" class="btn-whatsapp" id="waBtn_${id}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+          Commander sur WhatsApp
+        </a>
+      </div>
+    </div>`;
+  }
+
+  function renderAllCards(filter = 'all', search = '') {
+    const grid = document.getElementById('servicesGrid');
+    const noRes = document.getElementById('noResults');
+    const searchLow = search.toLowerCase().trim();
+
+    let visible = 0;
+    let html = '';
+
+    SERVICES.forEach(s => {
+      const matchCat = filter === 'all' || s.category === filter;
+      const matchSearch = !searchLow || 
+        s.title.toLowerCase().includes(searchLow) ||
+        s.desc.toLowerCase().includes(searchLow) ||
+        s.categoryLabel.toLowerCase().includes(searchLow);
+      
+      if (matchCat && matchSearch) {
+        html += renderCard(s);
+        visible++;
+      }
+    });
+
+    grid.innerHTML = html;
+    noRes.style.display = visible === 0 ? 'block' : 'none';
+
+    // Apply edit mode state
+    if (editMode) applyEditMode();
+  }
+
+  // ============================================================
+  //   GALLERY CONTROLS
+  // ============================================================
+
+  function goToSlide(id, idx) {
+    const imgs = cardImages[id];
+    if (idx < 0) idx = 0;
+    if (idx >= imgs.length) idx = imgs.length - 1;
+    cardCurrentSlide[id] = idx;
+
+    const track = document.getElementById(`slides_${id}`);
+    if (track) track.style.transform = `translateX(-${idx * 100}%)`;
+
+    // Update dots
+    const dotsEl = document.getElementById(`dots_${id}`);
+    if (dotsEl) {
+      const dots = dotsEl.querySelectorAll('.gallery-dot');
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    }
+
+    // Update counter
+    const counter = document.getElementById(`counter_${id}`);
+    if (counter) counter.textContent = `${idx+1} / ${imgs.length}`;
+  }
+
+  function prevSlide(id) {
+    goToSlide(id, (cardCurrentSlide[id] || 0) - 1);
+  }
+  function nextSlide(id) {
+    goToSlide(id, (cardCurrentSlide[id] || 0) + 1);
+  }
+
+  function triggerAddImage(id) {
+    const input = document.getElementById(`imgInput_${id}`);
+    if (input) input.click();
+  }
+
+  function handleImageUpload(id, input) {
+    const files = Array.from(input.files);
+    if (!files.length) return;
+
+    const maxAdd = 20 - cardImages[id].length;
+    const toAdd = files.slice(0, maxAdd);
+
+    let processed = 0;
+    toAdd.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = e => {
+        cardImages[id].push({ url: e.target.result, price: "Prix à définir" });
+        processed++;
+        if (processed === toAdd.length) {
+          const currentFilter = document.querySelector('.filter-tab.active')?.dataset.filter || 'all';
+          const search = document.getElementById('searchInput').value;
+          renderAllCards(currentFilter, search);
+          setTimeout(() => goToSlide(id, cardImages[id].length - 1), 50);
+          showToast(`${toAdd.length} image(s) ajoutée(s) !`);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+
+    if (files.length > maxAdd) showToast(`Maximum 20 images par service atteint.`);
+    input.value = '';
+  }
+
+  function updateSlidePrice(id, idx, value) {
+    if (cardImages[id] && cardImages[id][idx]) {
+      cardImages[id][idx].price = value;
+    }
+  }
+
+  // ============================================================
+  //   SEARCH & FILTER
+  // ============================================================
+
+  let activeFilter = 'all';
+
+  document.getElementById('searchInput').addEventListener('input', function() {
+    const val = this.value;
+    document.getElementById('clearSearch').style.display = val ? 'block' : 'none';
+    renderAllCards(activeFilter, val);
+  });
+
+  document.getElementById('clearSearch').addEventListener('click', function() {
+    document.getElementById('searchInput').value = '';
+    this.style.display = 'none';
+    renderAllCards(activeFilter, '');
+  });
+
+  document.getElementById('filterTabs').addEventListener('click', function(e) {
+    const tab = e.target.closest('.filter-tab');
+    if (!tab) return;
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    activeFilter = tab.dataset.filter;
+    renderAllCards(activeFilter, document.getElementById('searchInput').value);
+  });
+
+  // ============================================================
+  //   EDIT MODE
+  // ============================================================
+
+  function applyEditMode() {
+    const fields = document.querySelectorAll('.card-title, .card-desc, .meta-value, .card-remarks');
+    fields.forEach(f => {
+      f.setAttribute('contenteditable', editMode ? 'true' : 'false');
+    });
+  }
+
+  document.getElementById('editModeToggle').addEventListener('click', function() {
+    editMode = !editMode;
+    document.body.classList.toggle('edit-mode', editMode);
+    this.classList.toggle('active', editMode);
+    this.innerHTML = editMode 
+      ? `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Fin d'édition`
+      : `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Mode Édition`;
+    applyEditMode();
+    showToast(editMode ? '✏️ Mode édition activé' : '✅ Modifications sauvegardées');
+  });
+
+  // ============================================================
+  //   IMAGE UPLOADS (HERO & ABOUT)
+  // ============================================================
+
+  // Cover
+  document.getElementById('heroUploadBtn').addEventListener('click', () => {
+    document.getElementById('heroCoverInput').click();
+  });
+  document.getElementById('heroCoverInput').addEventListener('change', function() {
+    if (!this.files[0]) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      document.getElementById('hero-bg-img').src = e.target.result;
+      showToast('Photo de couverture mise à jour !');
+    };
+    reader.readAsDataURL(this.files[0]);
+    this.value = '';
+  });
+
+  // Logo
+  document.getElementById('heroLogoArea').addEventListener('click', () => {
+    document.getElementById('heroLogoInput').click();
+  });
+  document.getElementById('heroLogoInput').addEventListener('change', function() {
+    if (!this.files[0]) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = document.getElementById('heroLogoImg');
+      const placeholder = document.getElementById('logoPlaceholder');
+      img.src = e.target.result;
+      img.style.display = 'block';
+      placeholder.style.display = 'none';
+      showToast('Logo importé avec succès !');
+    };
+    reader.readAsDataURL(this.files[0]);
+    this.value = '';
+  });
+
+  // About
+  document.getElementById('aboutImgWrap').addEventListener('click', () => {
+    document.getElementById('aboutImgInput').click();
+  });
+  document.getElementById('aboutImgInput').addEventListener('change', function() {
+    if (!this.files[0]) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      document.getElementById('aboutImg').src = e.target.result;
+      showToast('Photo mise à jour !');
+    };
+    reader.readAsDataURL(this.files[0]);
+    this.value = '';
+  });
+
+  // ============================================================
+  //   WHATSAPP LINKS — INITIALISATION
+  // ============================================================
+
+  function initWhatsappLinks() {
+    const mainLink = waLink(WHATSAPP_DEFAULT_MSG);
+    const devisLink = waLink(WHATSAPP_DEVIS_MSG);
+
+    document.getElementById('heroWhatsapp').href = mainLink;
+    document.getElementById('heroWhatsapp').target = '_blank';
+    document.getElementById('heroWhatsapp').rel = 'noopener';
+
+    document.getElementById('navWhatsapp').href = mainLink;
+    document.getElementById('navWhatsapp').target = '_blank';
+    document.getElementById('navWhatsapp').rel = 'noopener';
+
+    document.getElementById('floatWhatsapp').href = mainLink;
+    document.getElementById('floatWhatsapp').target = '_blank';
+
+    document.getElementById('ctaWhatsappMain').href = mainLink;
+    document.getElementById('ctaWhatsappMain').target = '_blank';
+    document.getElementById('ctaWhatsappMain').rel = 'noopener';
+
+    document.getElementById('ctaWhatsappDevis').href = devisLink;
+    document.getElementById('ctaWhatsappDevis').target = '_blank';
+    document.getElementById('ctaWhatsappDevis').rel = 'noopener';
+
+    document.getElementById('contactWhatsappDisplay').textContent = `+${WHATSAPP_NUMBER.replace(/(\d{3})(\d{3})(\d{3})(\d{3})/, '$1 $2 $3 $4')}`;
+  }
+
+  // ============================================================
+  //   IMAGE MODAL
+  // ============================================================
+
+  document.getElementById('imgModal').addEventListener('click', function(e) {
+    if (e.target === this || e.target.id === 'closeModal') {
+      this.classList.remove('open');
+    }
+  });
+  document.getElementById('closeModal').addEventListener('click', () => {
+    document.getElementById('imgModal').classList.remove('open');
+  });
+
+  // ============================================================
+  //   TOAST
+  // ============================================================
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  // ============================================================
+  //   SMOOTH SCROLL
+  // ============================================================
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href === '#') return;
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // ============================================================
+  //   TOUCH SWIPE FOR GALLERIES
+  // ============================================================
+
+  let touchStartX = 0;
+  let touchServiceId = null;
+
+  document.addEventListener('touchstart', e => {
+    const gallery = e.target.closest('[id^="gallery_"]');
+    if (!gallery) return;
+    touchServiceId = parseInt(gallery.id.replace('gallery_', ''));
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+
+  document.addEventListener('touchend', e => {
+    if (!touchServiceId) return;
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 40) {
+      if (dx < 0) nextSlide(touchServiceId);
+      else prevSlide(touchServiceId);
+    }
+    touchServiceId = null;
+  }, { passive: true });
+
+  // ============================================================
+  //   INIT
+  // ============================================================
+
+  initWhatsappLinks();
+  renderAllCards();
+</script>
+</body>
+</html>
