@@ -1,1633 +1,432 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PLUME & PIXEL — Catalogue des Services</title>
-  <meta name="description" content="PLUME & PIXEL — L'art de créer, la puissance d'imprimer. Yaoundé, Cameroun." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PLUME & PIXEL | Catalogue Officiel</title>
+  <meta name="description" content="Catalogue officiel PLUME & PIXEL - L'art de créer, la puissance d'imprimer. Yaoundé, Cameroun.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* ─── VARIABLES & RESET ─── */
     :root {
-      --gold: #C9A84C;
-      --gold-light: #E8C96A;
-      --gold-dark: #9A7730;
-      --dark: #0E0E0E;
-      --dark2: #1A1A1A;
-      --dark3: #242424;
-      --dark4: #2E2E2E;
-      --text: #F0EDE8;
-      --text-muted: #A09890;
-      --white: #FFFFFF;
-      --green-wa: #25D366;
-      --green-wa-dark: #128C7E;
-      --radius: 16px;
-      --shadow: 0 8px 32px rgba(0,0,0,0.45);
-      --transition: all 0.3s cubic-bezier(.4,0,.2,1);
+      --primary: #d97706;
+      --primary-hover: #b45309;
+      --secondary: #0f172a;
+      --wa-green: #25d366;
+      --wa-green-hover: #1eb854;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 14px;
     }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      font-family: 'Inter', sans-serif;
-      background: var(--dark);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
       color: var(--text);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-    h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
-    a { text-decoration: none; color: inherit; }
-    img { max-width: 100%; display: block; }
-    button { cursor: pointer; border: none; background: none; font-family: inherit; }
-    input, textarea, select { font-family: inherit; }
-
-    /* ─── SCROLLBAR ─── */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: var(--dark2); }
-    ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
-
-    /* ─── LOADER ─── */
-    #loader {
-      position: fixed; inset: 0; background: var(--dark);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      z-index: 9999; transition: opacity 0.6s ease;
-    }
-    #loader .logo-anim {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.2rem; font-weight: 900;
-      background: linear-gradient(135deg, var(--gold), var(--gold-light), var(--gold));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: pulse 1.5s ease infinite;
-    }
-    #loader .bar {
-      margin-top: 20px; width: 180px; height: 3px;
-      background: var(--dark4); border-radius: 3px; overflow: hidden;
-    }
-    #loader .bar-inner {
-      height: 100%; width: 0;
-      background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
-      border-radius: 3px;
-      animation: load 1.8s ease forwards;
-    }
-    @keyframes load { to { width: 100%; } }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.6} }
-
-    /* ─── NAVIGATION ─── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      background: rgba(14,14,14,0.92);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(201,168,76,0.15);
-      padding: 0 20px;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 68px;
-      transition: var(--transition);
-    }
-    .nav-brand {
-      display: flex; align-items: center; gap: 10px;
-    }
-    .nav-brand .brand-logo-wrap {
-      width: 42px; height: 42px; border-radius: 10px;
-      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem; font-weight: 900; color: var(--dark);
-      overflow: hidden; position: relative;
-    }
-    .nav-brand .brand-logo-wrap img.logo-img {
-      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-    }
-    .nav-brand .brand-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.15rem; font-weight: 700;
-      background: linear-gradient(135deg, var(--gold), var(--gold-light));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .nav-links {
-      display: flex; gap: 6px; align-items: center;
-    }
-    .nav-links a {
-      font-size: 0.78rem; font-weight: 500; padding: 7px 13px;
-      border-radius: 8px; color: var(--text-muted);
-      transition: var(--transition); white-space: nowrap;
-    }
-    .nav-links a:hover { color: var(--gold); background: rgba(201,168,76,0.08); }
-    .nav-hamburger {
-      display: none; flex-direction: column; gap: 5px;
-      padding: 6px; border-radius: 8px;
-      background: rgba(201,168,76,0.1);
-    }
-    .nav-hamburger span {
-      display: block; width: 22px; height: 2px;
-      background: var(--gold); border-radius: 2px; transition: var(--transition);
-    }
-    .mobile-menu {
-      display: none; position: fixed; top: 68px; left: 0; right: 0;
-      background: rgba(14,14,14,0.98); backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(201,168,76,0.15);
-      padding: 16px; z-index: 999; flex-direction: column; gap: 4px;
-    }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a {
-      padding: 14px 16px; border-radius: 10px; font-weight: 500;
-      color: var(--text-muted); transition: var(--transition);
-      border: 1px solid transparent;
-    }
-    .mobile-menu a:hover { color: var(--gold); border-color: rgba(201,168,76,0.2); background: rgba(201,168,76,0.06); }
-
-    /* ─── HERO / COVER ─── */
-    #hero {
-      min-height: 100vh;
-      position: relative; display: flex; align-items: center; justify-content: center;
-      overflow: hidden;
-    }
-    .hero-bg {
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, #0E0E0E 0%, #1A1208 50%, #0E0E0E 100%);
-    }
-    .hero-bg-img {
-      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-      opacity: 0.35;
-    }
-    .hero-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to bottom, rgba(14,14,14,0.3) 0%, rgba(14,14,14,0.7) 60%, rgba(14,14,14,1) 100%);
-    }
-    .hero-content {
-      position: relative; z-index: 2; text-align: center; padding: 120px 20px 80px;
-      max-width: 780px;
-    }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3);
-      border-radius: 50px; padding: 8px 20px; margin-bottom: 28px;
-      font-size: 0.78rem; font-weight: 600; color: var(--gold); letter-spacing: 2px; text-transform: uppercase;
-    }
-    .hero-title {
-      font-size: clamp(2.8rem, 8vw, 5.5rem);
-      font-weight: 900; line-height: 1.05;
-      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 40%, #FFF8E7 70%, var(--gold) 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      margin-bottom: 16px;
-    }
-    .hero-slogan {
-      font-size: clamp(1rem, 3vw, 1.35rem);
-      color: var(--text-muted); font-style: italic; margin-bottom: 36px;
-      font-weight: 300; letter-spacing: 0.5px;
-    }
-    .hero-slogan span { color: var(--gold); }
-    .hero-cover-upload {
-      display: flex; flex-direction: column; align-items: center; gap: 12px; margin-bottom: 40px;
-    }
-    .hero-cover-upload label {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(201,168,76,0.1); border: 1px dashed rgba(201,168,76,0.4);
-      border-radius: 12px; padding: 10px 22px; font-size: 0.82rem; color: var(--gold);
-      cursor: pointer; transition: var(--transition);
-    }
-    .hero-cover-upload label:hover { background: rgba(201,168,76,0.18); }
-    .hero-cta-row {
-      display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
-    }
-    .btn-primary {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
-      color: var(--dark); font-weight: 700; font-size: 0.92rem;
-      padding: 14px 28px; border-radius: 50px;
-      transition: var(--transition); box-shadow: 0 4px 24px rgba(201,168,76,0.35);
-    }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(201,168,76,0.5); }
-    .btn-outline {
-      display: inline-flex; align-items: center; gap: 8px;
-      border: 1px solid rgba(201,168,76,0.5); color: var(--gold);
-      font-weight: 600; font-size: 0.92rem;
-      padding: 14px 28px; border-radius: 50px;
-      transition: var(--transition); background: rgba(201,168,76,0.06);
-    }
-    .btn-outline:hover { background: rgba(201,168,76,0.14); border-color: var(--gold); }
-    .hero-stats {
-      display: flex; gap: 32px; justify-content: center; flex-wrap: wrap;
-      margin-top: 60px; padding-top: 40px;
-      border-top: 1px solid rgba(201,168,76,0.15);
-    }
-    .stat-item { text-align: center; }
-    .stat-num {
-      font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900;
-      background: linear-gradient(135deg, var(--gold), var(--gold-light));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .stat-label { font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; letter-spacing: 1px; text-transform: uppercase; }
-
-    /* ─── SECTION HEADER ─── */
-    .section-header {
-      text-align: center; padding: 80px 20px 48px; max-width: 700px; margin: 0 auto;
-    }
-    .section-eyebrow {
-      display: inline-block; font-size: 0.72rem; font-weight: 700;
-      letter-spacing: 3px; text-transform: uppercase; color: var(--gold);
-      margin-bottom: 14px;
-    }
-    .section-title {
-      font-size: clamp(1.9rem, 5vw, 3rem); font-weight: 900;
-      color: var(--text); line-height: 1.15; margin-bottom: 16px;
-    }
-    .section-desc { color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; }
-    .gold-line {
-      width: 60px; height: 3px; margin: 20px auto 0;
-      background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
-      border-radius: 3px;
+      line-height: 1.5;
+      padding-bottom: 90px;
     }
 
-    /* ─── ABOUT ─── */
-    #about { background: var(--dark2); padding-bottom: 80px; }
-    .about-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
-      max-width: 1100px; margin: 0 auto; padding: 0 20px;
-      align-items: start;
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 16px;
     }
-    .about-card {
-      background: var(--dark3); border: 1px solid rgba(201,168,76,0.12);
-      border-radius: var(--radius); padding: 32px; transition: var(--transition);
-    }
-    .about-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-4px); }
-    .about-card h3 {
-      font-size: 1.3rem; color: var(--gold); margin-bottom: 14px;
-    }
-    .about-card p { color: var(--text-muted); line-height: 1.75; font-size: 0.93rem; }
-    .about-card ul { list-style: none; margin-top: 12px; }
-    .about-card ul li {
-      padding: 8px 0; border-bottom: 1px solid rgba(201,168,76,0.08);
-      color: var(--text-muted); font-size: 0.88rem;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .about-card ul li:last-child { border-bottom: none; }
-    .about-card ul li::before { content: "✦"; color: var(--gold); font-size: 0.65rem; flex-shrink: 0; }
-    .payment-icons { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
-    .payment-badge {
-      background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.25);
-      border-radius: 8px; padding: 6px 14px; font-size: 0.8rem; color: var(--gold); font-weight: 600;
-    }
-    .social-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px; }
-    .social-badge {
-      display: flex; align-items: center; gap: 7px;
-      background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.2);
-      border-radius: 50px; padding: 8px 16px; font-size: 0.82rem; color: var(--text-muted);
-      transition: var(--transition);
-    }
-    .social-badge:hover { color: var(--gold); border-color: rgba(201,168,76,0.4); }
-    .social-badge svg { width: 16px; height: 16px; fill: var(--gold); }
 
-    /* ─── SEARCH ─── */
-    #search-section {
-      padding: 48px 20px;
-      background: var(--dark);
-      position: sticky; top: 68px; z-index: 900;
-      border-bottom: 1px solid rgba(201,168,76,0.1);
-    }
-    .search-wrap {
-      max-width: 680px; margin: 0 auto;
-      position: relative;
-    }
-    .search-wrap svg {
-      position: absolute; left: 18px; top: 50%; transform: translateY(-50%);
-      width: 20px; height: 20px; fill: var(--text-muted); pointer-events: none;
-    }
-    #searchInput {
-      width: 100%; padding: 16px 20px 16px 52px;
-      background: var(--dark3); border: 1px solid rgba(201,168,76,0.2);
-      border-radius: 50px; color: var(--text); font-size: 0.95rem;
-      outline: none; transition: var(--transition);
-    }
-    #searchInput::placeholder { color: var(--text-muted); }
-    #searchInput:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,168,76,0.12); }
-    .search-clear {
-      position: absolute; right: 18px; top: 50%; transform: translateY(-50%);
-      width: 24px; height: 24px; border-radius: 50%;
-      background: rgba(201,168,76,0.2); color: var(--gold);
-      display: none; align-items: center; justify-content: center;
-      cursor: pointer; font-size: 0.85rem; transition: var(--transition);
-    }
-    .search-clear:hover { background: rgba(201,168,76,0.35); }
-    .search-results-count {
-      text-align: center; margin-top: 12px; font-size: 0.83rem; color: var(--text-muted);
-    }
-    .filter-tags {
-      display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 16px;
-    }
-    .filter-tag {
-      padding: 6px 16px; border-radius: 50px; font-size: 0.78rem; font-weight: 600;
-      border: 1px solid rgba(201,168,76,0.2); color: var(--text-muted);
-      cursor: pointer; transition: var(--transition); background: transparent;
-    }
-    .filter-tag.active, .filter-tag:hover { background: rgba(201,168,76,0.15); color: var(--gold); border-color: var(--gold); }
+    header { padding: 24px 0 12px; }
 
-    /* ─── CATALOGUE GRID ─── */
-    #catalogue { padding: 20px 0 80px; background: var(--dark); }
-    .catalogue-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 28px; padding: 0 20px; max-width: 1300px; margin: 0 auto;
+    .header-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
     }
-    .no-results {
-      grid-column: 1/-1; text-align: center; padding: 80px 20px;
-    }
-    .no-results .icon { font-size: 3rem; margin-bottom: 16px; }
-    .no-results p { color: var(--text-muted); font-size: 1rem; }
 
-    /* ─── SERVICE CARD ─── */
-    .service-card {
-      background: var(--dark2);
-      border: 1px solid rgba(201,168,76,0.12);
+    .logo-container { margin-bottom: 14px; }
+    .logo-img { max-width: 240px; max-height: 95px; object-fit: contain; }
+    .brand-name { font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 900; color: var(--secondary); }
+    .brand-slogan { color: var(--primary); font-weight: 700; font-size: 1rem; margin-top: 4px; }
+    .brand-intro { color: var(--text-muted); font-size: 0.9rem; max-width: 650px; margin: 10px auto 16px; }
+
+    .badges { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; }
+    .badge {
+      background: #f1f5f9;
+      color: var(--secondary);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+    }
+
+    .search-wrap { margin: 18px 0; }
+    .search-input {
+      width: 100%;
+      padding: 14px 18px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 0.95rem;
+      font-family: inherit;
+      background: #ffffff;
+      outline: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+    .search-input:focus { border-color: var(--primary); }
+
+    .catalog-title { font-family: 'Outfit', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--secondary); margin-bottom: 16px; }
+    .grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+
+    @media (min-width: 680px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 980px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
       overflow: hidden;
-      transition: var(--transition);
-      display: flex; flex-direction: column;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .service-card:hover {
-      border-color: rgba(201,168,76,0.35);
-      transform: translateY(-6px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    .card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08); }
+
+    .card-img-zone {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: #0b1329;
+      position: relative;
+    }
+    .card-img-zone img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .card-price-pill {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(15, 23, 42, 0.9);
+      color: #fef08a;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 0.88rem;
+      padding: 4px 10px;
+      border-radius: 8px;
     }
 
-    /* Card image gallery */
-    .card-gallery {
-      position: relative; width: 100%; height: 220px;
-      background: var(--dark3); overflow: hidden;
-    }
-    .card-gallery .gallery-slides {
-      display: flex; height: 100%;
-      transition: transform 0.4s ease;
-    }
-    .card-gallery .slide {
-      min-width: 100%; height: 100%; position: relative; flex-shrink: 0;
-    }
-    .card-gallery .slide img {
-      width: 100%; height: 100%; object-fit: cover;
-    }
-    .gallery-placeholder {
-      width: 100%; height: 100%; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 10px;
-      background: linear-gradient(135deg, var(--dark3), var(--dark4));
-    }
-    .gallery-placeholder svg { width: 48px; height: 48px; fill: rgba(201,168,76,0.25); }
-    .gallery-placeholder span { font-size: 0.8rem; color: var(--text-muted); }
-    .gallery-nav {
-      position: absolute; top: 50%; transform: translateY(-50%);
-      display: flex; align-items: center; justify-content: space-between;
-      width: 100%; padding: 0 10px; pointer-events: none;
-    }
-    .gallery-btn {
-      pointer-events: all; width: 32px; height: 32px; border-radius: 50%;
-      background: rgba(14,14,14,0.7); border: 1px solid rgba(201,168,76,0.3);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--gold); font-size: 0.8rem; cursor: pointer;
-      transition: var(--transition); backdrop-filter: blur(4px);
-    }
-    .gallery-btn:hover { background: rgba(201,168,76,0.25); }
-    .gallery-dots {
-      position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
-      display: flex; gap: 5px;
-    }
-    .g-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: rgba(255,255,255,0.35); transition: var(--transition); cursor: pointer;
-    }
-    .g-dot.active { background: var(--gold); width: 16px; border-radius: 3px; }
-    .gallery-counter {
-      position: absolute; top: 10px; right: 10px;
-      background: rgba(0,0,0,0.6); border-radius: 6px;
-      padding: 3px 9px; font-size: 0.72rem; color: var(--text-muted);
-    }
+    .card-content { padding: 16px; display: flex; flex-direction: column; flex-grow: 1; }
+    .card-title { font-family: 'Outfit', sans-serif; font-size: 1.15rem; font-weight: 800; color: var(--secondary); margin-bottom: 6px; }
+    .card-desc { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px; flex-grow: 1; }
 
-    /* Image price overlay */
-    .img-price-overlay {
-      position: absolute; bottom: 8px; left: 10px;
-      background: rgba(14,14,14,0.8); backdrop-filter: blur(6px);
-      border: 1px solid rgba(201,168,76,0.4); border-radius: 8px;
-      padding: 4px 12px; font-size: 0.82rem; font-weight: 700; color: var(--gold);
+    .specs-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 0.78rem;
+      margin-bottom: 12px;
     }
+    .specs-line { display: flex; justify-content: space-between; padding: 2px 0; }
+    .specs-line span { color: var(--text-muted); }
+    .specs-line strong { color: var(--secondary); }
 
-    /* Upload row */
-    .card-upload-row {
-      display: flex; gap: 8px; padding: 10px 16px;
-      background: rgba(0,0,0,0.2); border-bottom: 1px solid rgba(201,168,76,0.08);
-      overflow-x: auto;
+    .btn-wa {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--wa-green);
+      color: #ffffff;
+      text-decoration: none;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.92rem;
+      padding: 11px 14px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
     }
-    .upload-thumb-btn {
-      flex-shrink: 0; width: 40px; height: 40px; border-radius: 8px;
-      background: rgba(201,168,76,0.08); border: 1px dashed rgba(201,168,76,0.3);
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; color: var(--gold); font-size: 1rem;
-      transition: var(--transition); position: relative; overflow: hidden;
-    }
-    .upload-thumb-btn:hover { background: rgba(201,168,76,0.18); }
-    .upload-thumb-btn img {
-      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-      border-radius: 7px;
-    }
-    .upload-add-btn {
-      flex-shrink: 0; width: 40px; height: 40px; border-radius: 8px;
-      background: rgba(201,168,76,0.06); border: 1px dashed rgba(201,168,76,0.2);
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; color: rgba(201,168,76,0.5); font-size: 1.1rem; font-weight: 700;
-      transition: var(--transition);
-    }
-    .upload-add-btn:hover { background: rgba(201,168,76,0.12); color: var(--gold); }
+    .btn-wa:hover { background: var(--wa-green-hover); }
 
-    /* Card body */
-    .card-body { padding: 22px 20px 8px; flex: 1; display: flex; flex-direction: column; }
-    .card-category {
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 2px;
-      text-transform: uppercase; color: var(--gold); margin-bottom: 10px;
+    footer { margin-top: 36px; }
+    .footer-card {
+      background: var(--secondary);
+      color: #ffffff;
+      border-radius: var(--radius);
+      padding: 28px 20px;
     }
-    .card-title-row {
-      display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;
-      margin-bottom: 10px;
-    }
-    .card-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.2rem; font-weight: 700; color: var(--text); line-height: 1.2;
-    }
-    .card-price-main {
-      flex-shrink: 0;
-      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-      border-radius: 8px; padding: 5px 12px;
-      font-size: 0.82rem; font-weight: 700; color: var(--dark); white-space: nowrap;
-    }
-    .card-desc {
-      font-size: 0.86rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 16px;
-      flex: 1;
-    }
-
-    /* Options checkboxes */
-    .card-options { margin-bottom: 16px; }
-    .card-options-title {
-      font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
-      color: var(--text-muted); margin-bottom: 10px;
-    }
-    .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-    .option-check {
-      display: flex; align-items: center; gap: 8px;
-      background: var(--dark3); border: 1px solid rgba(201,168,76,0.1);
-      border-radius: 8px; padding: 7px 10px; cursor: pointer;
-      transition: var(--transition); user-select: none;
-    }
-    .option-check input[type="checkbox"] { display: none; }
-    .option-check .checkmark {
-      width: 16px; height: 16px; border-radius: 4px; flex-shrink: 0;
-      border: 1.5px solid rgba(201,168,76,0.35);
-      display: flex; align-items: center; justify-content: center;
-      transition: var(--transition);
-    }
-    .option-check input:checked ~ .checkmark,
-    .option-check.checked .checkmark {
-      background: var(--gold); border-color: var(--gold);
-    }
-    .option-check input:checked ~ .checkmark::after,
-    .option-check.checked .checkmark::after {
-      content: "✓"; font-size: 0.7rem; color: var(--dark); font-weight: 900;
-    }
-    .option-check .opt-label { font-size: 0.77rem; color: var(--text-muted); }
-    .option-check:hover { border-color: rgba(201,168,76,0.3); background: rgba(201,168,76,0.05); }
-
-    /* Card meta */
-    .card-meta {
-      display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px;
-    }
-    .meta-pill {
-      display: flex; align-items: center; gap: 5px;
-      background: var(--dark3); border-radius: 6px;
-      padding: 5px 11px; font-size: 0.74rem; color: var(--text-muted);
-    }
-    .meta-pill span { font-weight: 600; color: var(--text); }
-
-    /* Remarks */
-    .card-remark {
-      background: rgba(201,168,76,0.05); border-left: 2px solid var(--gold-dark);
-      border-radius: 0 8px 8px 0; padding: 10px 14px;
-      font-size: 0.78rem; color: var(--text-muted); line-height: 1.5;
-      margin-bottom: 18px; font-style: italic;
-    }
-
-    /* Card footer */
-    .card-footer { padding: 0 20px 20px; }
-    .wa-btn {
-      display: flex; align-items: center; justify-content: center; gap: 10px;
-      width: 100%; padding: 14px;
-      background: linear-gradient(135deg, #128C7E, var(--green-wa));
-      border-radius: 12px; font-weight: 700; font-size: 0.9rem;
-      color: var(--white); transition: var(--transition);
-      box-shadow: 0 4px 16px rgba(37,211,102,0.25);
-    }
-    .wa-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(37,211,102,0.4); }
-    .wa-btn svg { width: 20px; height: 20px; fill: white; flex-shrink: 0; }
-
-    /* ─── CONTACT ─── */
-    #contact {
-      background: var(--dark2);
-      border-top: 1px solid rgba(201,168,76,0.12);
-    }
-    .contact-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
-      max-width: 1100px; margin: 0 auto; padding: 0 20px 80px;
-    }
-    .contact-card {
-      background: var(--dark3); border: 1px solid rgba(201,168,76,0.12);
-      border-radius: var(--radius); padding: 32px; transition: var(--transition);
-    }
-    .contact-card:hover { border-color: rgba(201,168,76,0.3); }
-    .contact-card h3 {
-      font-size: 1.25rem; color: var(--gold); margin-bottom: 20px;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .contact-info-row {
-      display: flex; align-items: flex-start; gap: 12px;
+    .footer-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
       margin-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 10px;
     }
-    .contact-icon {
-      width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
-      background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.2);
-      display: flex; align-items: center; justify-content: center; font-size: 1rem;
-    }
-    .contact-text { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
-    .contact-text strong { color: var(--text); display: block; margin-bottom: 2px; }
-    .wa-btn-large {
-      display: flex; align-items: center; justify-content: center; gap: 12px;
-      padding: 18px 28px; margin-top: 12px;
-      background: linear-gradient(135deg, #128C7E, var(--green-wa));
-      border-radius: 14px; font-weight: 700; font-size: 1rem;
-      color: var(--white); transition: var(--transition);
-      box-shadow: 0 4px 24px rgba(37,211,102,0.3);
-    }
-    .wa-btn-large:hover { transform: translateY(-3px); box-shadow: 0 10px 36px rgba(37,211,102,0.45); }
-    .wa-btn-large svg { width: 24px; height: 24px; fill: white; }
-    .wa-options-form {
-      display: flex; flex-direction: column; gap: 10px;
-    }
-    .wa-option-row {
-      display: flex; align-items: center; gap: 10px;
-      background: var(--dark4); border-radius: 10px; padding: 12px 14px;
-      cursor: pointer; transition: var(--transition);
-      border: 1px solid transparent;
-    }
-    .wa-option-row:hover { border-color: rgba(37,211,102,0.3); background: rgba(37,211,102,0.06); }
-    .wa-option-row .wa-option-label { font-size: 0.87rem; color: var(--text-muted); }
-    .wa-option-row svg { width: 20px; height: 20px; fill: var(--green-wa); flex-shrink: 0; }
+    .contact-line { margin-bottom: 12px; font-size: 0.9rem; color: #cbd5e1; }
+    .contact-line strong { color: #fde68a; display: block; font-size: 0.8rem; text-transform: uppercase; }
+    .contact-line a { color: #ffffff; font-weight: 700; }
 
-    /* ─── FOOTER ─── */
-    footer {
-      background: var(--dark); border-top: 1px solid rgba(201,168,76,0.12);
-      padding: 48px 20px;
-    }
-    .footer-inner {
-      max-width: 1100px; margin: 0 auto;
-      display: flex; flex-direction: column; align-items: center; gap: 24px;
-    }
-    .footer-logo {
-      font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900;
-      background: linear-gradient(135deg, var(--gold), var(--gold-light));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .footer-tagline { color: var(--text-muted); font-size: 0.85rem; font-style: italic; }
-    .footer-divider { width: 60px; height: 2px; background: linear-gradient(90deg, var(--gold-dark), var(--gold-light)); border-radius: 2px; }
-    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
-    .footer-links a { font-size: 0.82rem; color: var(--text-muted); transition: var(--transition); }
-    .footer-links a:hover { color: var(--gold); }
-    .footer-copy { font-size: 0.75rem; color: rgba(160,152,144,0.5); text-align: center; }
-
-    /* ─── EDIT PANEL ─── */
-    .edit-panel {
-      position: fixed; right: -380px; top: 0; width: 380px; height: 100vh;
-      background: var(--dark2); border-left: 1px solid rgba(201,168,76,0.2);
-      z-index: 2000; transition: right 0.35s ease; overflow-y: auto;
-      padding-bottom: 40px;
-    }
-    .edit-panel.open { right: 0; }
-    .edit-panel-header {
-      padding: 24px 20px; border-bottom: 1px solid rgba(201,168,76,0.12);
-      display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0;
-      background: var(--dark2); z-index: 1;
-    }
-    .edit-panel-header h3 { font-size: 1rem; color: var(--gold); }
-    .edit-close {
-      width: 32px; height: 32px; border-radius: 8px;
-      background: rgba(201,168,76,0.1); color: var(--gold); font-size: 1.1rem;
-      display: flex; align-items: center; justify-content: center; cursor: pointer;
-    }
-    .edit-form { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
-    .edit-field label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; letter-spacing: 1px; text-transform: uppercase; }
-    .edit-field input, .edit-field textarea, .edit-field select {
-      width: 100%; background: var(--dark3); border: 1px solid rgba(201,168,76,0.2);
-      border-radius: 10px; padding: 10px 14px; color: var(--text); font-size: 0.88rem;
-      outline: none; transition: var(--transition); resize: vertical;
-    }
-    .edit-field input:focus, .edit-field textarea:focus { border-color: var(--gold); }
-    .edit-save-btn {
-      width: 100%; padding: 14px; border-radius: 12px; font-weight: 700; font-size: 0.92rem;
-      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-      color: var(--dark); transition: var(--transition); margin-top: 8px;
-    }
-    .edit-save-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(201,168,76,0.35); }
-    .edit-trigger {
-      position: absolute; top: 12px; right: 12px; z-index: 10;
-      width: 32px; height: 32px; border-radius: 8px;
-      background: rgba(14,14,14,0.75); border: 1px solid rgba(201,168,76,0.35);
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; color: var(--gold); font-size: 0.9rem;
-      transition: var(--transition); backdrop-filter: blur(4px);
-    }
-    .edit-trigger:hover { background: rgba(201,168,76,0.2); }
-    .panel-overlay {
-      display: none; position: fixed; inset: 0; z-index: 1999;
-      background: rgba(0,0,0,0.5);
-    }
-    .panel-overlay.open { display: block; }
-
-    /* ─── SCROLL TO TOP ─── */
-    #scrollTop {
-      position: fixed; bottom: 24px; right: 24px; z-index: 800;
-      width: 46px; height: 46px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; box-shadow: 0 4px 16px rgba(201,168,76,0.4);
-      transition: var(--transition); opacity: 0; pointer-events: none;
-      color: var(--dark); font-size: 1.1rem;
-    }
-    #scrollTop.visible { opacity: 1; pointer-events: all; }
-    #scrollTop:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(201,168,76,0.55); }
-
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 900px) {
-      .about-grid, .contact-grid { grid-template-columns: 1fr; }
-      .catalogue-grid { grid-template-columns: 1fr; padding: 0 14px; }
-    }
-    @media (max-width: 640px) {
-      .nav-links { display: none; }
-      .nav-hamburger { display: flex; }
-      .hero-stats { gap: 20px; }
-      .options-grid { grid-template-columns: 1fr; }
-      .edit-panel { width: 100%; right: -100%; }
-      .hero-cta-row { flex-direction: column; align-items: center; }
-    }
-    @media (max-width: 400px) {
-      .nav-brand .brand-name { font-size: 0.95rem; }
+    .footer-btn-wa {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--wa-green);
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 12px 20px;
+      border-radius: 10px;
+      margin-top: 10px;
     }
 
-    /* ─── ANIMATIONS ─── */
-    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
-    .fade-in-delay-1 { transition-delay: 0.1s; }
-    .fade-in-delay-2 { transition-delay: 0.2s; }
-    .fade-in-delay-3 { transition-delay: 0.3s; }
-
-    /* ─── TOAST ─── */
-    #toast {
-      position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px);
-      background: var(--dark3); border: 1px solid rgba(201,168,76,0.3);
-      color: var(--text); padding: 12px 24px; border-radius: 50px;
-      font-size: 0.85rem; z-index: 9999; opacity: 0;
-      transition: all 0.3s ease; pointer-events: none;
+    .floating-wa {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--wa-green);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.9rem;
+      padding: 12px 18px;
+      border-radius: 999px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+      z-index: 100;
     }
-    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   </style>
 </head>
 <body>
 
-<!-- LOADER -->
-<div id="loader">
-  <div class="logo-anim">PLUME & PIXEL</div>
-  <div class="bar"><div class="bar-inner"></div></div>
-</div>
-
-<!-- TOAST -->
-<div id="toast"></div>
-
-<!-- SCROLL TOP -->
-<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Haut de page">▲</button>
-
-<!-- PANEL OVERLAY -->
-<div class="panel-overlay" id="panelOverlay" onclick="closeEditPanel()"></div>
-
-<!-- EDIT PANEL -->
-<div class="edit-panel" id="editPanel">
-  <div class="edit-panel-header">
-    <h3>✏️ Modifier le service</h3>
-    <button class="edit-close" onclick="closeEditPanel()">✕</button>
-  </div>
-  <div class="edit-form" id="editForm">
-    <div class="edit-field">
-      <label>Titre du service</label>
-      <input type="text" id="ep_title" placeholder="Ex: Design Graphique" />
-    </div>
-    <div class="edit-field">
-      <label>Catégorie</label>
-      <input type="text" id="ep_cat" placeholder="Ex: CRÉATION" />
-    </div>
-    <div class="edit-field">
-      <label>Prix à partir de (FCFA)</label>
-      <input type="text" id="ep_price" placeholder="Ex: 15 000 FCFA" />
-    </div>
-    <div class="edit-field">
-      <label>Description</label>
-      <textarea id="ep_desc" rows="4" placeholder="Description courte du service..."></textarea>
-    </div>
-    <div class="edit-field">
-      <label>Délai</label>
-      <input type="text" id="ep_delay" placeholder="Ex: 48h – 5 jours" />
-    </div>
-    <div class="edit-field">
-      <label>Quantité minimale</label>
-      <input type="text" id="ep_qty" placeholder="Ex: 50 exemplaires" />
-    </div>
-    <div class="edit-field">
-      <label>Remarques</label>
-      <textarea id="ep_remark" rows="3" placeholder="Informations supplémentaires..."></textarea>
-    </div>
-    <button class="edit-save-btn" onclick="saveCardEdit()">💾 Enregistrer</button>
-  </div>
-</div>
-
-<!-- NAVIGATION -->
-<nav id="navbar">
-  <div class="nav-brand">
-    <div class="nav-brand .brand-logo-wrap" id="navLogoWrap" style="width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,#9A7730,#C9A84C);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:#0E0E0E;overflow:hidden;position:relative;cursor:pointer;" onclick="document.getElementById('logoUploadInput').click()" title="Cliquez pour changer le logo">
-      P&P
-      <img id="navLogoImg" src="" alt="Logo" style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:10px;" />
-    </div>
-    <input type="file" id="logoUploadInput" accept="image/*" style="display:none" onchange="handleLogoUpload(this)" />
-    <span class="nav-brand .brand-name" style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;background:linear-gradient(135deg,#C9A84C,#E8C96A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">PLUME & PIXEL</span>
-  </div>
-  <div class="nav-links">
-    <a href="#hero">Accueil</a>
-    <a href="#about">À propos</a>
-    <a href="#catalogue">Services</a>
-    <a href="#contact">Contact</a>
-  </div>
-  <button class="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#hero" onclick="closeMobileMenu()">🏠 Accueil</a>
-  <a href="#about" onclick="closeMobileMenu()">ℹ️ À propos</a>
-  <a href="#catalogue" onclick="closeMobileMenu()">📦 Services</a>
-  <a href="#contact" onclick="closeMobileMenu()">📞 Contact</a>
-</div>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-bg">
-    <img id="heroBgImg" class="hero-bg-img"
-      src="https://images.pexels.com/photos/7598019/pexels-photo-7598019.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200"
-      alt="Studio PLUME & PIXEL" />
-    <div class="hero-overlay"></div>
-  </div>
-  <div class="hero-content fade-in">
-    <div class="hero-badge">✦ Catalogue Officiel 2025 ✦</div>
-    <h1 class="hero-title">PLUME & PIXEL</h1>
-    <p class="hero-slogan">« <span>L'art de créer</span>, la puissance d'imprimer. »</p>
-    <div class="hero-cover-upload">
-      <label for="heroBgUpload">
-        📷 Changer la photo de couverture
-      </label>
-      <input type="file" id="heroBgUpload" accept="image/*" style="display:none" onchange="handleHeroUpload(this)" />
-    </div>
-    <div class="hero-cta-row">
-      <a href="#catalogue" class="btn-primary">
-        📦 Voir nos services
-      </a>
-      <a id="heroWaBtn" href="#" class="btn-outline">
-        💬 Nous contacter
-      </a>
-    </div>
-    <div class="hero-stats">
-      <div class="stat-item">
-        <div class="stat-num">13+</div>
-        <div class="stat-label">Services</div>
+  <!-- EN-TÊTE & IDENTITÉ -->
+  <header class="container">
+    <div class="header-card">
+      <div class="logo-container">
+        <img src="images/logo.png" alt="PLUME & PIXEL" class="logo-img" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 240 70\' fill=\'%230f172a\'><rect width=\'240\' height=\'70\' rx=\'10\' fill=\'%230f172a\'/><text x=\'50%\' y=\'55%\' dominant-baseline=\'middle\' text-anchor=\\'middle\' font-family=\\'Arial, sans-serif\' font-weight=\\'bold\' font-size=\\'18\' fill=\'%23f59e0b\'>PLUME &amp; PIXEL</text></svg>'">
       </div>
-      <div class="stat-item">
-        <div class="stat-num">500+</div>
-        <div class="stat-label">Clients satisfaits</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">5+</div>
-        <div class="stat-label">Ans d'expérience</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">100%</div>
-        <div class="stat-label">Made in Cameroun</div>
+      <h1 class="brand-name">PLUME & PIXEL</h1>
+      <p class="brand-slogan">« L'art de créer, la puissance d'imprimer. »</p>
+      <p class="brand-intro">Votre atelier d'imprimerie offset & numérique, découpe laser & CNC, sérigraphie, décoration et objets personnalisés à Yaoundé.</p>
+      
+      <div class="badges">
+        <span class="badge">📍 Yaoundé - Jouvence</span>
+        <span class="badge">⚡ Délais Express</span>
+        <span class="badge">💳 Cash, Orange Money, MoMo</span>
       </div>
     </div>
-  </div>
-</section>
+  </header>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="section-header fade-in">
-    <span class="section-eyebrow">Notre Identité</span>
-    <h2 class="section-title">Qui sommes-nous ?</h2>
-    <p class="section-desc">PLUME & PIXEL est votre partenaire créatif de confiance à Yaoundé. Nous allions design, impression et technologie pour donner vie à vos projets.</p>
-    <div class="gold-line"></div>
-  </div>
-  <div class="about-grid">
-    <div class="about-card fade-in fade-in-delay-1">
-      <h3>📍 Localisation</h3>
-      <p>Jouvence – Yaoundé, Cameroun<br/>Nouvelle route Tam-tam, face Snack Bar Le Click Plus</p>
-      <ul style="margin-top:20px;">
-        <li>Design graphique professionnel</li>
-        <li>Impression numérique & offset</li>
-        <li>Identité visuelle & branding</li>
-        <li>Gravure laser & découpe CNC</li>
-        <li>Sérigraphie & signalétique</li>
-        <li>Déco intérieure & habillage d'espaces</li>
-      </ul>
-    </div>
-    <div class="about-card fade-in fade-in-delay-2">
-      <h3>💳 Paiements acceptés</h3>
-      <p>Nous acceptons plusieurs moyens de paiement pour votre confort :</p>
-      <div class="payment-icons">
-        <span class="payment-badge">💵 Cash</span>
-        <span class="payment-badge">🟠 Orange Money</span>
-        <span class="payment-badge">📱 MoMo</span>
-      </div>
-      <h3 style="margin-top:24px;">📱 Nos réseaux sociaux</h3>
-      <div class="social-row">
-        <a href="https://facebook.com/plumeetpixel" target="_blank" class="social-badge">
-          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-          Facebook
-        </a>
-        <a href="https://instagram.com/plumeetpixel" target="_blank" class="social-badge">
-          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          Instagram
-        </a>
-        <a href="https://tiktok.com/@plumeetpixel" target="_blank" class="social-badge">
-          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.28 8.28 0 0 0 4.84 1.54V6.78a4.85 4.85 0 0 1-1.07-.09z"/></svg>
-          TikTok
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
+  <!-- BARRE DE RECHERCHE -->
+  <section class="container search-wrap">
+    <input type="text" id="searchInput" class="search-input" placeholder="🔍 Rechercher un produit ou service (ex: facturier, horloge, trophée, étiquette...)" onkeyup="filterCatalog()">
+  </section>
 
-<!-- SEARCH -->
-<div id="search-section">
-  <div class="search-wrap">
-    <svg viewBox="0 0 24 24"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" stroke="#A09890" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
-    <input type="text" id="searchInput" placeholder="Rechercher un service (ex: impression, logo, invitation…)" oninput="handleSearch(this.value)" />
-    <div class="search-clear" id="searchClear" onclick="clearSearch()">✕</div>
-  </div>
-  <div class="search-results-count" id="searchCount"></div>
-  <div class="filter-tags">
-    <button class="filter-tag active" onclick="filterByTag('all', this)">Tous</button>
-    <button class="filter-tag" onclick="filterByTag('création', this)">Création</button>
-    <button class="filter-tag" onclick="filterByTag('impression', this)">Impression</button>
-    <button class="filter-tag" onclick="filterByTag('événement', this)">Événement</button>
-    <button class="filter-tag" onclick="filterByTag('technologie', this)">Technologie</button>
-    <button class="filter-tag" onclick="filterByTag('publicité', this)">Publicité</button>
-    <button class="filter-tag" onclick="filterByTag('décoration', this)">Décoration</button>
-  </div>
-</div>
+  <!-- CATALOGUE ÉPURÉ (8 GRANDES CATÉGORIES SANS DOUBLONS) -->
+  <main class="container">
+    <h2 class="catalog-title">Nos Prestations & Tarifs</h2>
 
-<!-- CATALOGUE -->
-<section id="catalogue">
-  <div class="section-header fade-in">
-    <span class="section-eyebrow">Nos Services</span>
-    <h2 class="section-title">Catalogue Complet</h2>
-    <p class="section-desc">Découvrez l'ensemble de nos prestations. Cliquez sur « Commander sur WhatsApp » pour démarrer votre projet.</p>
-    <div class="gold-line"></div>
-  </div>
-  <div class="catalogue-grid" id="catalogueGrid">
-    <!-- Cards will be injected by JS -->
-  </div>
-</section>
+    <div class="grid" id="catalogGrid">
 
-<!-- CONTACT -->
-<section id="contact">
-  <div class="section-header fade-in">
-    <span class="section-eyebrow">Contactez-nous</span>
-    <h2 class="section-title">Parlons de votre projet</h2>
-    <p class="section-desc">Notre équipe est disponible 7j/7 pour répondre à vos questions et vous accompagner.</p>
-    <div class="gold-line"></div>
-  </div>
-  <div class="contact-grid">
-    <div class="contact-card fade-in fade-in-delay-1">
-      <h3>📞 Informations de contact</h3>
-      <div class="contact-info-row">
-        <div class="contact-icon">📍</div>
-        <div class="contact-text">
-          <strong>Adresse</strong>
-          Jouvence – Yaoundé, Cameroun<br/>
-          Nouvelle route Tam-tam, face Snack Bar Le Click Plus
+      <!-- 1. Impression Numérique & Offset -->
+      <article class="card" data-title="impression numerique offset bache autocollant vinyle flyers affiches papier photo carnets autocopiants reçus bons de commande numerotes facturiers factures">
+        <div class="card-img-zone">
+          <img src="images/impression.jpg" alt="Impression Numérique et Offset" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 300\' fill=\'%231e293b\'><rect width=\'400\' height=\'300\' fill=\'%230f172a\'/><text x=\'50%\' y=\'50%\' dominant-baseline=\\'middle\' text-anchor=\\'middle\' font-family=\\'Arial\' font-weight=\\'bold\' font-size=\\'18\' fill=\'%23f59e0b\'>Impression &amp; Offset</text></svg>'">
+          <div class="card-price-pill">Dès 15 000 FCFA</div>
         </div>
-      </div>
-      <div class="contact-info-row">
-        <div class="contact-icon">📱</div>
-        <div class="contact-text">
-          <strong>WhatsApp / Téléphone</strong>
-          +237 672 434 547
+        <div class="card-content">
+          <h3 class="card-title">Impression Numérique & Offset</h3>
+          <p class="card-desc">Impression HD sur couché (80g à 350g), bâches, vinyles, carnets autocopiants, reçus et bons numérotés.</p>
+          <div class="specs-box">
+            <div class="specs-line"><span>Délai :</span> <strong>24h à 72h</strong></div>
+            <div class="specs-line"><span>Quantité min :</span> <strong>Selon tirage</strong></div>
+          </div>
+          <a href="https://wa.me/237672434547?text=Bonjour%20PLUME%20%26%20PIXEL%2C%20je%20souhaite%20un%20devis%20pour%20une%20Impression%20Num%C3%A9rique%2C%20Offset%20ou%20Carnets%20facturiers." class="btn-wa" target="_blank" rel="noopener noreferrer">💬 Commander sur WhatsApp</a>
         </div>
-      </div>
-      <div class="contact-info-row">
-        <div class="contact-icon">🕐</div>
-        <div class="contact-text">
-          <strong>Horaires</strong>
-          Lun – Sam : 8h00 – 20h00<br/>
-          Dimanche : Sur rendez-vous
+      </article>
+
+      <!-- 2. Gadgeterie -->
+      <article class="card" data-title="packaging, étiquettes, boites à dragées, porte-clés personnalisées, stickers cosmétique, agroalimentaire, bouteilles">
+        <div class="card-img-zone">
+          <img src="images/gadgeterie.jpg" alt="Gadgeterie" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 400 300\\' fill=\\'%231e293b\\'><rect width=\\'400\\' height=\\'300\\' fill=\\'%230f172a\\'/><text x=\\'50%\\' y=\\'50%\\' dominant-baseline=\\'middle\\' text-anchor=\\'middle\\' font-family=\\'Arial\\' font-weight=\\'bold\\' font-size=\\'18\\' fill=\\'%23f59e0b\\'>Gadgeterie</text></svg>'">
+          <div class="card-price-pill">Dès 15 000 FCFA</div>
         </div>
-      </div>
-      <div class="contact-info-row">
-        <div class="contact-icon">💳</div>
-        <div class="contact-text">
-          <strong>Paiements</strong>
-          Cash · Orange Money · MoMo
+        <div class="card-content">
+          <h3 class="card-title">Gadgeterie</h3>
+          <p class="card-desc">Packaging sur-mesure, étiquettes autocollantes découpées, boîtes à dragées, porte-clés et stickers étanches.</p>
+          <div class="specs-box">
+            <div class="specs-line"><span>Délai :</span> <strong>48h à 5 jours</strong></div>
+            <div class="specs-line"><span>Quantité min :</span> <strong>Selon produit</strong></div>
+          </div>
+          <a href="https://wa.me/237672434547?text=Bonjour%20PLUME%20%26%20PIXEL%2C%20je%20souhaite%20commander%20des%20articles%20de%20Gadgeterie%20(packaging%2C%20stickers%2C%20porte-cl%C3%A9s...)." class="btn-wa" target="_blank" rel="noopener noreferrer">💬 Commander sur WhatsApp</a>
         </div>
+      </article>
+
+      <!-- 3. Invitations Personnalisées -->
+      <article class="card" data-title="invitations faire-part mariage bapteme anniversaire obseques ceremonies gala">
+        <div class="card-img-zone">
+          <img src="images/invitations.jpg" alt="Invitations Personnalisées" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 400 300\\' fill=\\'%231e293b\\'><rect width=\\'400\\' height=\\'300\\' fill=\\'%230f172a\\'/><text x=\\'50%\\' y=\\'50%\\' dominant-baseline=\\'middle\\' text-anchor=\\'middle\\' font-family=\\'Arial\\' font-weight=\\'bold\\' font-size=\\'18\\' fill=\\'%23f59e0b\\'>Invitations Luxe</text></svg>'">
+          <div class="card-price-pill">Dès 500 FCFA / unité</div>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">Invitations Personnalisées</h3>
+          <p class="card-desc">Faire-part et cartons d'invitation de prestige pour mariages, baptêmes, anniversaires, obsèques et galas.</p>
+          <div class="specs-box">
+            <div class="specs-line"><span>Délai :</span> <strong>48h à 96h</strong></div>
+            <div class="specs-line"><span>Quantité min :</span> <strong>30 exemplaires</strong></div>
+          </div>
+          <a href="https://wa.me/237672434547?text=Bonjour%20PLUME%20%26%20PIXEL%2C%20je%20souhaite%20commander%20des%20invitations%20personnalis%C3%A9es." class="btn-wa" target="_blank" rel="noopener noreferrer">💬 Commander sur WhatsApp</a>
+        </div>
+      </article>
+
+      <!-- 4. Objets Publicitaires Personnalisés -->
+      <article class="card" data-title="objets publicitaires goodies mugs t-shirts polos casquettes stylos cles usb agendas">
+        <div class="card-img-zone">
+          <img src="images/goodies.jpg" alt="Objets Publicitaires" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 400 300\\' fill=\\'%231e293b\\'><rect width=\\'400\\' height=\\'300\\' fill=\\'%230f172a\\'/><text x=\\'50%\\' y=\\'50%\\' dominant-baseline=\\'middle\\' text-anchor=\\'middle\\' font-family=\\'Arial\\' font-weight=\\'bold\\' font-size=\\'18\\' fill=\\'%23f59e0b\\'>Goodies &amp; Objets</text></svg>'">
+          <div class="card-price-pill">Dès 3 500 FCFA</div>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">Objets Publicitaires Personnalisés</h3>
+          <p class="card-desc">Marquage et personnalisation sur mugs, polos, casquettes, stylos, clés USB et agendas d'entreprise.</p>
+          <div class="specs-box">
+            <div class="specs-line"><span>Délai :</span> <strong>3 à 6 jours</strong></div>
+            <div class="specs-line"><span>Quantité min :</span> <strong>10 pièces</strong></div>
+          </div>
+          <a href="https://wa.me/237672434547?text=Bonjour%20PLUME%20%26%20PIXEL%2C%20je%20souhaite%20commander%20des%20objets%20publicitaires%20personnalis%C3%A9s." class="btn-wa" target="_blank" rel="noopener noreferrer">💬 Commander sur WhatsApp</a>
+        </div>
+      </article>
+
+      <!-- 5. Découpe et gravure Laser et CNC -->
+      <article class="card" data-title="Trophées, Médailles et Récompenses, meuble, invitations, set de bureau, panneaux en bois, métal, plexiglas, alucobond">
+        <div class="card-img-zone">
+          <img src="images/laser-cnc.jpg" alt="Découpe et gravure Laser et CNC" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 400 300\\' fill=\\'%231e293b\\'><rect width=\\'400\\' height=\\'300\\' fill=\\'%230f172a\\'/><text x=\\'50%\\' y=\\'50%\\' dominant-baseline=\\'middle\\' text-anchor=\\'middle\\' font-family=\\'Arial\\' font-weight=\\'bold\\' font-size=\\'17\\' fill=\\'%23f59e0b\\'>Laser &amp; CNC</text></svg>'">
+          <div class="card-price-pill">Dès 12 000 FCFA</div>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">Découpe et gravure Laser et CNC</h3>
+          <p class="card-desc">Trophées, médailles, sets de bureau, meubles ajourés, découpe & gravure sur bois, métal, plexiglas et alucobond.</p>
+          <div class="specs-box">
+            <div class="specs-line"><span>Délai :</span> <strong>24h à 5 jours</strong></div>
+            <div class="specs-line"><span>Finition :</span> <strong>Précision millimétrique</strong></div>
+          </div>
+          <a href="https://wa.me/237672434547?text=Bonjour%20PLUME%20%26%20PIXEL%2C%20je%20souhaite%20un%20service%20de%20D%C3%A9coupe%20et%20gravure%20Laser%20et%20CNC." class="btn-wa" target="_blank" rel="noopener noreferrer">💬 Commander sur WhatsApp</a>
+        </div>
+      </article>
+
+      <!-- 6. Sérigraphie -->
+      <article class="card" data-title="serigraphie textile sacs tote bags carton signaletique rollup kakemo enseigne lumineuse panneau">
+        <div class="card-img-zone">
+          <img src="images/serigraphie.jpg" alt="Sérigraphie" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 400 300\\' fill=\\'%231e293b\\'><rect width=\\'400\\' height=\\'300\\' fill=\\'%230f172a\\'/><text x=\\'50%\\' y=\\'50%\\' dominant-baseline=\\'middle\\' text-anchor=\\'middle\\' font-family=\\'Arial\\' font-weight=\\'bold\\' font-size=\\'18\\' fill=\\'%23f59e0b\\'>S%C3%A9rigraphie &amp; Signal%C3%A9tique</text></svg>'">
+          <div class="card-price-pill">Dès 1 200 FCFA / unité</div>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">Sérigraphie</h3>
+          <p class="card-desc">Impression sérigraphique sur textiles, sacs en tissu, carton, ainsi que confection de roll-ups et enseignes.</p>
+          <div class="specs-box">
+            <div class="specs-line"><span>Délai :</span> <strong>3 à 7 jours</strong></div>
+            <div class="specs-line"><span>Quantité min :</span> <strong>Selon support</strong></div>
+          </div>
+          <a href="https://wa.me/237672434547?text=Bonjour%20PLUME%20%26%20PIXEL%2C%20je%20souhaite%20commander%20en%20S%C3%A9rigraphie%20%2F%20Signal%C3%A9tique." class="btn-wa" target="_blank" rel="noopener noreferrer">💬 Commander sur WhatsApp</a>
+        </div>
+      </article>
+
+      <!-- 7. Décoration Intérieure et Habillage -->
+      <article class="card" data-title="horloge murale, agrandissement photo, toile, coussin, set de table, rideaux">
+        <div class="card-img-zone">
+          <img src="images/deco.jpg" alt="Décoration Intérieure et Habillage" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 400 300\\' fill=\\'%231e293b\\'><rect width=\\'400\\' height=\\'300\\' fill=\\'%230f172a\\'/><text x=\\'50%\\' y=\\'50%\\' dominant-baseline=\\'middle\\' text-anchor=\\'middle\\' font-family=\\'Arial\\' font-weight=\\'bold\\' font-size=\\'18\\' fill=\\'%23f59e0b\\'>D%C3%A9coration</text></svg>'">
+          <div class="card-price-pill">Dès 15 000 FCFA</div>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">Décoration Intérieure et Habillage</h3>
+          <p class="card-desc">Toiles canvas, horloges murales personnalisées, coussins, agrandissements photo, sets de table et rideaux imprimés.</p>
+          <div class="specs-box">
+            <div class="specs-line"><span>Délai :</span> <strong>3 à 6 jours</strong></div>
+            <div class="specs-line"><span>Pose :</span> <strong>Disponible à Yaoundé</strong></div>
+          </div>
+          <a href="https://wa.me/237672434547?text=Bonjour%20PLUME%20%26%20PIXEL%2C%20je%20souhaite%20un%20article%20de%20D%C3%A9coration%20Int%C3%A9rieure%20(toile%2C%20horloge%2C%20coussin...)." class="btn-wa" target="_blank" rel="noopener noreferrer">💬 Commander sur WhatsApp</a>
+        </div>
+      </article>
+
+      <!-- 8. Création de contenus pour les réseaux sociaux -->
+      <article class="card" data-title="creation de contenus pour les reseaux sociaux facebook instagram tiktok visuels publication bannières">
+        <div class="card-img-zone">
+          <img src="images/social.jpg" alt="Création Contenus Réseaux Sociaux" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 400 300\\' fill=\\'%231e293b\\'><rect width=\\'400\\' height=\\'300\\' fill=\\'%230f172a\\'/><text x=\\'50%\\' y=\\'50%\\' dominant-baseline=\\'middle\\' text-anchor=\\'middle\\' font-family=\\'Arial\\' font-weight=\\'bold\\' font-size=\\'18\\' fill=\\'%23f59e0b\\'>R%C3%A9seaux Sociaux</text></svg>'">
+          <div class="card-price-pill">25 000 FCFA / 5 visuels</div>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">Création de contenus pour les réseaux sociaux</h3>
+          <p class="card-desc">Packs de visuels dynamiques pour Facebook, Instagram, TikTok et statuts WhatsApp optimisés pour les ventes.</p>
+          <div class="specs-box">
+            <div class="specs-line"><span>Délai :</span> <strong>24h à 72h</strong></div>
+            <div class="specs-line"><span>Pack min :</span> <strong>5 visuels</strong></div>
+          </div>
+          <a href="https://wa.me/237672434547?text=Bonjour%20PLUME%20%26%20PIXEL%2C%20je%20souhaite%20un%20Pack%20de%20visuels%20pour%20les%20R%C3%A9seaux%20Sociaux." class="btn-wa" target="_blank" rel="noopener noreferrer">💬 Commander sur WhatsApp</a>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <!-- COORDONNÉES ET CONTACT -->
+  <footer class="container">
+    <div class="footer-card">
+      <h2 class="footer-title">Contact & Commandes Directes</h2>
+      
+      <div class="contact-line">
+        <strong>📍 Atelier & Localisation</strong>
+        Jouvence - Yaoundé / Cameroun (Nouvelle route Tam-tam face snack bar Le Click Plus)
       </div>
-      <a id="contactWaMain" href="#" class="wa-btn-large" style="margin-top:24px;">
-        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-        Démarrer une conversation
+
+      <div class="contact-line">
+        <strong>📞 Ligne WhatsApp Directe</strong>
+        <a href="https://wa.me/237672434547" target="_blank" rel="noopener noreferrer">+237 672 43 45 47</a>
+      </div>
+
+      <div class="contact-line">
+        <strong>🌐 Réseaux Sociaux</strong>
+        Facebook, Instagram, TikTok : PLUME & PIXEL
+      </div>
+
+      <div class="contact-line">
+        <strong>💳 Paiements Acceptés</strong>
+        Cash à l'atelier • Orange Money • MTN MoMo
+      </div>
+
+      <a href="https://wa.me/237672434547?text=Bonjour%20PLUME%20%26%20PIXEL%2C%20je%20souhaite%20un%20devis%20personnalis%C3%A9." class="footer-btn-wa" target="_blank" rel="noopener noreferrer">
+        💬 Demander un devis sur WhatsApp
       </a>
     </div>
-    <div class="contact-card fade-in fade-in-delay-2">
-      <h3>💬 Commander rapidement</h3>
-      <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:18px;">Choisissez un sujet et commencez directement sur WhatsApp :</p>
-      <div class="wa-options-form" id="waOptionsForm">
-        <!-- Injected by JS -->
-      </div>
-    </div>
-  </div>
-</section>
+  </footer>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-logo">PLUME & PIXEL</div>
-    <div class="footer-tagline">« L'art de créer, la puissance d'imprimer. »</div>
-    <div class="footer-divider"></div>
-    <div class="footer-links">
-      <a href="#hero">Accueil</a>
-      <a href="#about">À propos</a>
-      <a href="#catalogue">Services</a>
-      <a href="#contact">Contact</a>
-    </div>
-    <div class="footer-copy">
-      © 2025 PLUME & PIXEL · Yaoundé, Cameroun · Tous droits réservés
-    </div>
-  </div>
-</footer>
+  <!-- BOUTON FLOTTANT FIXE -->
+  <aside>
+    <a href="https://wa.me/237672434547?text=Bonjour%20PLUME%20%26%20PIXEL%2C%20je%20souhaite%20un%20renseignement." class="floating-wa" target="_blank" rel="noopener noreferrer">
+      💬 WhatsApp
+    </a>
+  </aside>
 
-<script>
-/* ══════════════════════════════════════════════════════════
-   ▶ CONFIGURATION — MODIFIEZ UNIQUEMENT CE BLOC ◀
-   ══════════════════════════════════════════════════════════ */
-const WA_NUMBER = "237672434547"; // Format international sans +, espaces ni tirets
-const COMPANY_NAME = "PLUME & PIXEL";
-/* ══════════════════════════════════════════════════════════ */
+  <!-- SCRIPT DE RECHERCHE RAPIDE -->
+  <script>
+    function filterCatalog() {
+      const input = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.querySelectorAll('#catalogGrid .card');
+      
+      cards.forEach(card => {
+        const text = (card.getAttribute('data-title') + ' ' + card.innerText).toLowerCase();
+        if (text.includes(input)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
 
-/* ── Helpers WhatsApp ── */
-function waLink(msg) {
-  return "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(msg);
-}
-function waMsg(serviceName, options) {
-  const selected = options.filter(o => o.checked).map(o => o.label);
-  const optStr = selected.length > 0 ? "\nOptions choisies : " + selected.join(", ") : "";
-  return "Bonjour " + COMPANY_NAME + " ! 👋\n\nJe suis intéressé(e) par le service : *" + serviceName + "*" + optStr + "\n\nPouvez-vous me donner plus d'informations ? Merci !";
-}
-
-/* ── Données services ── */
-const SERVICES = [
-  {
-    id: "design-graphique",
-    title: "Design Graphique",
-    category: "CRÉATION",
-    tag: "création",
-    price: "À partir de 5 000 FCFA",
-    imgPrice: "5 000 FCFA",
-    desc: "Création de flyers, affiches, cartes de visite, brochures et tout support visuel professionnel adapté à votre image de marque.",
-    delay: "24h – 5 jours",
-    qty: "Aucun minimum",
-    remark: "Fichiers livrés en PDF haute résolution, PNG et formats imprimables. Révisions incluses.",
-    images: ["https://images.pexels.com/photos/7661185/pexels-photo-7661185.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=600"],
-    options: ["Standard","Express","Avec livraison","Avec design inclus","Avec personnalisation"]
-  },
-  {
-    id: "impression-numerique",
-    title: "Impression Numérique & Offset",
-    category: "IMPRESSION",
-    tag: "impression",
-    price: "À partir de 3 000 FCFA",
-    imgPrice: "3 000 FCFA",
-    desc: "Impression haute qualité sur papier couché, mat ou brillant. Petites et grandes séries disponibles. Couleurs fidèles et rendu impeccable.",
-    delay: "24h – 72h",
-    qty: "1 exemplaire minimum",
-    remark: "Offset recommandé pour grandes séries. Numérique pour petites quantités. Papiers certifiés disponibles.",
-    images: ["https://images.pexels.com/photos/7661492/pexels-photo-7661492.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=600"],
-    options: ["Standard","Express","Avec livraison","Avec design inclus","Avec personnalisation"]
-  },
-  {
-    id: "identite-visuelle",
-    title: "Création d'Identité Visuelle",
-    category: "CRÉATION",
-    tag: "création",
-    price: "À partir de 50 000 FCFA",
-    imgPrice: "50 000 FCFA",
-    desc: "Conception complète de votre identité de marque : logo, charte graphique, palette de couleurs, typographies et guide d'utilisation.",
-    delay: "5 – 15 jours",
-    qty: "Aucun minimum",
-    remark: "Pack identité complet livré avec tous les fichiers sources. Charte graphique PDF incluse.",
-    images: ["https://images.pexels.com/photos/7598019/pexels-photo-7598019.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=600"],
-    options: ["Standard","Express","Avec livraison","Avec design inclus","Avec personnalisation"]
-  },
-  {
-    id: "packaging",
-    title: "Packaging & Étiquettes Produits",
-    category: "IMPRESSION",
-    tag: "impression",
-    price: "À partir de 15 000 FCFA",
-    imgPrice: "15 000 FCFA",
-    desc: "Conception et impression d'emballages, boîtes, sachets et étiquettes personnalisées pour valoriser vos produits en rayon.",
-    delay: "3 – 7 jours",
-    qty: "50 exemplaires minimum",
-    remark: "Pelliculage mat ou brillant disponible. Découpe à la forme sur demande. Échantillon possible.",
-    images: ["https://images.pexels.com/photos/9421350/pexels-photo-9421350.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=600"],
-    options: ["Standard","Express","Avec livraison","Avec design inclus","Avec personnalisation"]
-  },
-  {
-    id: "invitations",
-    title: "Invitations Personnalisées",
-    category: "ÉVÉNEMENT",
-    tag: "événement",
-    price: "À partir de 8 000 FCFA",
-    imgPrice: "8 000 FCFA",
-    desc: "Cartons d'invitation sur mesure pour mariages, baptêmes, anniversaires, obsèques et tout événement. Design élégant et impression soignée.",
-    delay: "48h – 4 jours",
-    qty: "20 exemplaires minimum",
-    remark: "Enveloppes assorties disponibles. Dorure et gaufrage en option. Dépose à domicile possible.",
-    images: ["https://images.pexels.com/photos/38703041/pexels-photo-38703041.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=600","https://images.pexels.com/photos/19950474/pexels-photo-19950474.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=600"],
-    options: ["Standard","Express","Avec livraison","Avec design inclus","Avec personnalisation"]
-  },
-  {
-    id: "objets-publicitaires",
-    title: "Objets Publicitaires Personnalisés",
-    category: "PUBLICITÉ",
-    tag: "publicité",
-    price: "À partir de 2 500 FCFA",
-    imgPrice: "2 500 FCFA",
-    desc: "Personnalisation de stylos, mugs, tee-shirts, casquettes, sacs, briquets, clés USB et bien d'autres supports publicitaires pour votre communication.",
-    delay: "3 – 10 jours",
-    qty: "10 pièces minimum",
-    remark: "Prix dégressif selon quantité. Devis gratuit pour les commandes > 100 pièces.",
-    images: ["https://images.pexels.com/photos/7180492/pexels-photo-7180492.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=600"],
-    options: ["Standard","Express","Avec livraison","Avec design inclus","Avec personnalisation"]
-  },
-  {
-    id: "gravure-laser",
-    title: "Gravure Laser",
-    category: "TECHNOLOGIE",
-    tag: "technologie",
-    price: "À partir de 3 500 FCFA",
-    imgPrice: "3 500 FCFA",
-    desc: "Gravure laser de précision sur bois, métal, cuir, acrylique, verre et plastique. Résultat permanent, fin et professionnel.",
-    delay: "24h – 3 jours",
-    qty: "Aucun minimum",
-    remark: "Fichiers vectoriels acceptés. Travaux sur matériaux du client acceptés. Devis selon complexité.",
-    images: ["https://images.pexels.com/photos/7254422/pexels-photo-7254422.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=600","https://images.pexels.com/photos/7254429/pexels-photo-7254429.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=600"],
-    options: ["Standard","Express","Avec livraison","Avec design inclus","Avec personnalisation"]
-  },
-  {
-    id: "decoupe-cnc",
-    title: "Découpe CNC",
-    category: "TECHNOLOGIE",
-    tag: "technologie",
-    price: "À partir de 5 000 FCFA",
-    imgPrice: "5 000 FCFA",
-    desc: "Découpe numérique de précision sur bois, MDF, acrylique, aluminium et autres matériaux. Idéal pour décoration, PLV et prototypage.",
-    delay: "48h – 5 jours",
-    qty: "Aucun minimum",
-    remark: "Finition possible : peinture, vernis, dorure. Plans DXF/CDR requis ou design pris en charge.",
-    images: [],
-    options: ["Standard","Express","Avec livraison","Avec design inclus","Avec personnalisation"]
-  },
-  {
-    id: "serigraphie",
-    title: "Sérigraphie",
-    category: "IMPRESSION",
-    tag: "impression",
-    price: "À partir de 4 500 FCFA",
-    imgPrice: "4 500 FCFA",
-    desc: "Impression sérigraphique sur textiles, sacs, tee-shirts, polos et supports souples. Couleurs vives et durabilité garantie au lavage.",
-    delay: "3 – 7 jours",
-    qty: "30 pièces minimum",
-    remark: "Prix dégressif à partir de 100 pièces. Pantone possible. Impression recto/verso disponible.",
-    images: [],
-    options: ["Standard","Express","Avec livraison","Avec design inclus","Avec personnalisation"]
-  },
-  {
-    id: "signaletique",
-    title: "Signalétique",
-    category: "PUBLICITÉ",
-    tag: "publicité",
-    price: "À partir de 20 000 FCFA",
-    imgPrice: "20 000 FCFA",
-    desc: "Conception et réalisation de panneaux, enseignes lumineuses, banderoles, roll-up, bâches et signalétique directionnelle pour entreprises.",
-    delay: "3 – 10 jours",
-    qty: "Aucun minimum",
-    remark: "Pose et installation incluses dans un rayon de Yaoundé. Bâches grand format disponibles.",
-    images: [],
-    options: ["Standard","Express","Avec livraison","Avec design inclus","Avec personnalisation"]
-  },
-  {
-    id: "decoration",
-    title: "Décoration Intérieure & Habillage d'Espaces",
-    category: "DÉCORATION",
-    tag: "décoration",
-    price: "Sur devis",
-    imgPrice: "Sur devis",
-    desc: "Habillage mural, impression sur toile, stickers décoratifs, papiers peints personnalisés, dalles acoustiques et aménagement d'espaces professionnels.",
-    delay: "5 – 21 jours",
-    qty: "Aucun minimum",
-    remark: "Visite de chantier gratuite. Devis personnalisé sous 24h. Références disponibles sur demande.",
-    images: ["https://images.pexels.com/photos/4977448/pexels-photo-4977448.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=600","https://images.pexels.com/photos/38139753/pexels-photo-38139753.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=600"],
-    options: ["Standard","Express","Avec livraison","Avec design inclus","Avec personnalisation"]
-  },
-  {
-    id: "trophees",
-    title: "Trophées, Médailles & Récompenses",
-    category: "ÉVÉNEMENT",
-    tag: "événement",
-    price: "À partir de 10 000 FCFA",
-    imgPrice: "10 000 FCFA",
-    desc: "Création de trophées, médailles, plaques et récompenses personnalisées pour vos cérémonies, compétitions et événements d'entreprise.",
-    delay: "3 – 7 jours",
-    qty: "1 pièce minimum",
-    remark: "Gravure incluse. Matériaux : cristal, résine, métal, bois. Boîte cadeau disponible.",
-    images: ["https://images.pexels.com/photos/28277338/pexels-photo-28277338.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=600"],
-    options: ["Standard","Express","Avec livraison","Avec design inclus","Avec personnalisation"]
-  },
-  {
-    id: "facturiers",
-    title: "Facturiers & Documents Commerciaux",
-    category: "IMPRESSION",
-    tag: "impression",
-    price: "À partir de 7 000 FCFA",
-    imgPrice: "7 000 FCFA",
-    desc: "Impression de carnets de factures, bons de commande, bons de livraison, reçus numérotés et tous documents commerciaux à votre effigie.",
-    delay: "48h – 4 jours",
-    qty: "50 carnets minimum",
-    remark: "Numérotation automatique disponible. Papier autocopiant (duplicata/triplicata). Couverture rigide en option.",
-    images: [],
-    options: ["Standard","Express","Avec livraison","Avec design inclus","Avec personnalisation"]
-  },
-  {
-    id: "contenus-sociaux",
-    title: "Création de Contenus Réseaux Sociaux",
-    category: "CRÉATION",
-    tag: "création",
-    price: "À partir de 25 000 FCFA/mois",
-    imgPrice: "25 000 FCFA",
-    desc: "Création de visuels, stories, reels, posts et carrousels optimisés pour Facebook, Instagram, TikTok et LinkedIn. Calendrier éditorial inclus.",
-    delay: "48h – 7 jours",
-    qty: "Pack de 8 visuels minimum",
-    remark: "Retouche illimitée. Livrables aux formats natifs. Option gestion de page disponible.",
-    images: ["https://images.pexels.com/photos/7661410/pexels-photo-7661410.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=600"],
-    options: ["Standard","Express","Avec livraison","Avec design inclus","Avec personnalisation"]
-  }
-];
-
-/* ── State ── */
-let currentEditCardId = null;
-let activeFilter = "all";
-let searchQuery = "";
-
-/* ── Render helpers ── */
-function buildWaBtn(serviceName, cardEl) {
-  const checks = cardEl ? cardEl.querySelectorAll(".option-check") : [];
-  const options = Array.from(checks).map(c => ({
-    label: c.querySelector(".opt-label").textContent,
-    checked: c.classList.contains("checked")
-  }));
-  return waLink(waMsg(serviceName, options));
-}
-
-function renderGallery(svc, galleryEl, slideEl, dotsEl, counterEl) {
-  const imgs = (svc._images || svc.images || []).filter(Boolean);
-  if (imgs.length === 0) {
-    slideEl.innerHTML = `
-      <div class="slide">
-        <div class="gallery-placeholder">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
-          <span>Cliquez + pour ajouter une image</span>
-        </div>
-      </div>`;
-    dotsEl.innerHTML = "";
-    if (counterEl) counterEl.style.display = "none";
-    return;
-  }
-  slideEl.innerHTML = imgs.map((src, i) => `
-    <div class="slide" style="position:relative;">
-      <img src="${src}" alt="Image ${i+1}" loading="lazy" />
-      <div class="img-price-overlay">${svc.imgPrice || svc.price}</div>
-    </div>`).join("");
-  dotsEl.innerHTML = imgs.map((_, i) => `<span class="g-dot ${i===0?'active':''}" data-idx="${i}" onclick="goSlide(this.closest('.card-gallery'), ${i})"></span>`).join("");
-  if (counterEl) {
-    counterEl.textContent = `1 / ${imgs.length}`;
-    counterEl.style.display = imgs.length > 1 ? "block" : "none";
-  }
-  galleryEl.dataset.current = 0;
-  galleryEl.dataset.total = imgs.length;
-}
-
-function goSlide(galleryEl, idx) {
-  const slides = galleryEl.querySelector(".gallery-slides");
-  const total = parseInt(galleryEl.dataset.total) || 1;
-  const newIdx = ((idx % total) + total) % total;
-  slides.style.transform = `translateX(-${newIdx * 100}%)`;
-  galleryEl.dataset.current = newIdx;
-  galleryEl.querySelectorAll(".g-dot").forEach((d, i) => d.classList.toggle("active", i === newIdx));
-  const counter = galleryEl.querySelector(".gallery-counter");
-  if (counter) counter.textContent = `${newIdx+1} / ${total}`;
-}
-
-function buildCard(svc) {
-  const card = document.createElement("div");
-  card.className = "service-card fade-in";
-  card.dataset.id = svc.id;
-  card.dataset.tag = svc.tag;
-  card.dataset.search = (svc.title + " " + svc.desc + " " + svc.category).toLowerCase();
-
-  const imgs = svc._images || svc.images || [];
-
-  card.innerHTML = `
-    <div class="card-gallery" data-current="0" data-total="${Math.max(imgs.length,1)}">
-      <div class="gallery-slides"></div>
-      <div class="gallery-nav">
-        <button class="gallery-btn" onclick="prevSlide(this.closest('.card-gallery'))" title="Précédent">◀</button>
-        <button class="gallery-btn" onclick="nextSlide(this.closest('.card-gallery'))" title="Suivant">▶</button>
-      </div>
-      <div class="gallery-dots"></div>
-      <div class="gallery-counter" style="display:none;"></div>
-      <button class="edit-trigger" onclick="openEditPanel('${svc.id}')" title="Modifier ce service">✏️</button>
-    </div>
-    <div class="card-upload-row" id="uploadRow_${svc.id}"></div>
-    <div class="card-body">
-      <div class="card-category">${svc.category}</div>
-      <div class="card-title-row">
-        <div class="card-title">${svc.title}</div>
-        <div class="card-price-main">${svc.price}</div>
-      </div>
-      <p class="card-desc">${svc.desc}</p>
-      <div class="card-options">
-        <div class="card-options-title">Options souhaitées :</div>
-        <div class="options-grid">
-          ${svc.options.map(opt => `
-            <label class="option-check" onclick="toggleCheck(this);updateWaBtn('${svc.id}')">
-              <input type="checkbox" />
-              <div class="checkmark"></div>
-              <span class="opt-label">${opt}</span>
-            </label>`).join("")}
-        </div>
-      </div>
-      <div class="card-meta">
-        <div class="meta-pill">⏱️ Délai : <span>&nbsp;${svc.delay}</span></div>
-        ${svc.qty !== "Aucun minimum" ? `<div class="meta-pill">📦 Qté min. : <span>&nbsp;${svc.qty}</span></div>` : ""}
-      </div>
-      <div class="card-remark">💡 ${svc.remark}</div>
-    </div>
-    <div class="card-footer">
-      <a id="waBtn_${svc.id}" href="${waLink(waMsg(svc.title, []))}" target="_blank" rel="noopener" class="wa-btn">
-        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-        Commander sur WhatsApp
-      </a>
-    </div>`;
-
-  // Render gallery
-  const galleryEl = card.querySelector(".card-gallery");
-  const slideEl = card.querySelector(".gallery-slides");
-  const dotsEl = card.querySelector(".gallery-dots");
-  const counterEl = card.querySelector(".gallery-counter");
-  renderGallery(svc, galleryEl, slideEl, dotsEl, counterEl);
-
-  // Upload row (up to 20 slots)
-  buildUploadRow(card, svc);
-
-  return card;
-}
-
-function buildUploadRow(card, svc) {
-  const row = card.querySelector(`#uploadRow_${svc.id}`);
-  if (!row) return;
-  const imgs = svc._images || svc.images || [];
-  const MAX = 20;
-  row.innerHTML = "";
-
-  imgs.forEach((src, i) => {
-    const btn = document.createElement("div");
-    btn.className = "upload-thumb-btn";
-    btn.title = `Image ${i+1} — cliquez pour modifier`;
-    btn.innerHTML = `<img src="${src}" alt="" />`;
-    btn.onclick = () => {
-      const inp = document.createElement("input");
-      inp.type = "file"; inp.accept = "image/*";
-      inp.onchange = () => { if (inp.files[0]) replaceCardImage(svc.id, i, inp.files[0], card); };
-      inp.click();
-    };
-    row.appendChild(btn);
-  });
-
-  if (imgs.length < MAX) {
-    const add = document.createElement("div");
-    add.className = "upload-add-btn";
-    add.title = "Ajouter une image";
-    add.textContent = "+";
-    add.onclick = () => {
-      const inp = document.createElement("input");
-      inp.type = "file"; inp.accept = "image/*";
-      inp.onchange = () => { if (inp.files[0]) addCardImage(svc.id, inp.files[0], card); };
-      inp.click();
-    };
-    row.appendChild(add);
-  }
-}
-
-function replaceCardImage(id, idx, file, card) {
-  const svc = SERVICES.find(s => s.id === id);
-  if (!svc) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    if (!svc._images) svc._images = [...(svc.images || [])];
-    svc._images[idx] = e.target.result;
-    refreshCard(svc, card);
-    showToast("Image remplacée ✓");
-  };
-  reader.readAsDataURL(file);
-}
-
-function addCardImage(id, file, card) {
-  const svc = SERVICES.find(s => s.id === id);
-  if (!svc) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    if (!svc._images) svc._images = [...(svc.images || [])];
-    if (svc._images.length >= 20) { showToast("Maximum 20 images par service"); return; }
-    svc._images.push(e.target.result);
-    refreshCard(svc, card);
-    showToast("Image ajoutée ✓");
-  };
-  reader.readAsDataURL(file);
-}
-
-function refreshCard(svc, card) {
-  const imgs = svc._images || svc.images || [];
-  const galleryEl = card.querySelector(".card-gallery");
-  const slideEl = card.querySelector(".gallery-slides");
-  const dotsEl = card.querySelector(".gallery-dots");
-  const counterEl = card.querySelector(".gallery-counter");
-  galleryEl.dataset.total = Math.max(imgs.length, 1);
-  renderGallery(svc, galleryEl, slideEl, dotsEl, counterEl);
-  buildUploadRow(card, svc);
-}
-
-function prevSlide(galleryEl) {
-  const cur = parseInt(galleryEl.dataset.current) || 0;
-  const total = parseInt(galleryEl.dataset.total) || 1;
-  goSlide(galleryEl, cur - 1);
-}
-function nextSlide(galleryEl) {
-  const cur = parseInt(galleryEl.dataset.current) || 0;
-  const total = parseInt(galleryEl.dataset.total) || 1;
-  goSlide(galleryEl, cur + 1);
-}
-
-function toggleCheck(el) {
-  el.classList.toggle("checked");
-}
-
-function updateWaBtn(id) {
-  const card = document.querySelector(`[data-id="${id}"]`);
-  const btn = document.getElementById("waBtn_" + id);
-  if (!card || !btn) return;
-  const svc = SERVICES.find(s => s.id === id);
-  if (!svc) return;
-  const checks = card.querySelectorAll(".option-check");
-  const options = Array.from(checks).map(c => ({
-    label: c.querySelector(".opt-label").textContent,
-    checked: c.classList.contains("checked")
-  }));
-  btn.href = waLink(waMsg(svc.title, options));
-}
-
-/* ── Edit Panel ── */
-function openEditPanel(id) {
-  currentEditCardId = id;
-  const svc = SERVICES.find(s => s.id === id);
-  if (!svc) return;
-  document.getElementById("ep_title").value = svc.title;
-  document.getElementById("ep_cat").value = svc.category;
-  document.getElementById("ep_price").value = svc.price;
-  document.getElementById("ep_desc").value = svc.desc;
-  document.getElementById("ep_delay").value = svc.delay;
-  document.getElementById("ep_qty").value = svc.qty;
-  document.getElementById("ep_remark").value = svc.remark;
-  document.getElementById("editPanel").classList.add("open");
-  document.getElementById("panelOverlay").classList.add("open");
-}
-
-function closeEditPanel() {
-  document.getElementById("editPanel").classList.remove("open");
-  document.getElementById("panelOverlay").classList.remove("open");
-  currentEditCardId = null;
-}
-
-function saveCardEdit() {
-  const id = currentEditCardId;
-  if (!id) return;
-  const svc = SERVICES.find(s => s.id === id);
-  if (!svc) return;
-  svc.title = document.getElementById("ep_title").value;
-  svc.category = document.getElementById("ep_cat").value;
-  svc.price = document.getElementById("ep_price").value;
-  svc.desc = document.getElementById("ep_desc").value;
-  svc.delay = document.getElementById("ep_delay").value;
-  svc.qty = document.getElementById("ep_qty").value;
-  svc.remark = document.getElementById("ep_remark").value;
-  svc.imgPrice = svc.price.replace("À partir de ","").replace("/mois","");
-  svc.tag = svc.tag; // keep
-
-  // Re-render card
-  const oldCard = document.querySelector(`[data-id="${id}"]`);
-  if (oldCard) {
-    const newCard = buildCard(svc);
-    oldCard.replaceWith(newCard);
-    observeCards();
-  }
-  closeEditPanel();
-  showToast("Service mis à jour ✓");
-}
-
-/* ── Search & Filter ── */
-function handleSearch(q) {
-  searchQuery = q.toLowerCase().trim();
-  document.getElementById("searchClear").style.display = searchQuery ? "flex" : "none";
-  applyFilters();
-}
-
-function clearSearch() {
-  document.getElementById("searchInput").value = "";
-  searchQuery = "";
-  document.getElementById("searchClear").style.display = "none";
-  applyFilters();
-}
-
-function filterByTag(tag, el) {
-  activeFilter = tag;
-  document.querySelectorAll(".filter-tag").forEach(t => t.classList.remove("active"));
-  el.classList.add("active");
-  applyFilters();
-}
-
-function applyFilters() {
-  const cards = document.querySelectorAll(".service-card");
-  let visible = 0;
-  cards.forEach(card => {
-    const matchTag = activeFilter === "all" || card.dataset.tag === activeFilter;
-    const matchSearch = !searchQuery || card.dataset.search.includes(searchQuery);
-    const show = matchTag && matchSearch;
-    card.style.display = show ? "" : "none";
-    if (show) visible++;
-  });
-  const noRes = document.querySelector(".no-results");
-  if (noRes) noRes.style.display = visible === 0 ? "flex" : "none";
-  const countEl = document.getElementById("searchCount");
-  if (searchQuery || activeFilter !== "all") {
-    countEl.textContent = `${visible} service${visible !== 1 ? "s" : ""} trouvé${visible !== 1 ? "s" : ""}`;
-  } else {
-    countEl.textContent = "";
-  }
-}
-
-/* ── Upload hero cover ── */
-function handleHeroUpload(input) {
-  if (!input.files[0]) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    document.getElementById("heroBgImg").src = e.target.result;
-    showToast("Photo de couverture mise à jour ✓");
-  };
-  reader.readAsDataURL(input.files[0]);
-}
-
-/* ── Upload logo ── */
-function handleLogoUpload(input) {
-  if (!input.files[0]) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    const img = document.getElementById("navLogoImg");
-    img.src = e.target.result;
-    img.style.display = "block";
-    const wrap = document.getElementById("navLogoWrap");
-    wrap.style.color = "transparent";
-    showToast("Logo mis à jour ✓");
-  };
-  reader.readAsDataURL(input.files[0]);
-}
-
-/* ── Contact WA quick options ── */
-function buildContactOptions() {
-  const shortcuts = [
-    { icon: "🎨", label: "Demander un devis design" },
-    { icon: "🖨️", label: "Commander une impression" },
-    { icon: "💍", label: "Commander des invitations" },
-    { icon: "🏆", label: "Commander un trophée" },
-    { icon: "🔤", label: "Créer mon identité visuelle" },
-    { icon: "📱", label: "Créer des contenus réseaux sociaux" },
-    { icon: "🔆", label: "Gravure laser / Découpe CNC" },
-    { icon: "📋", label: "Renseignements généraux" },
-  ];
-  const container = document.getElementById("waOptionsForm");
-  if (!container) return;
-  container.innerHTML = shortcuts.map(s => `
-    <a href="${waLink("Bonjour " + COMPANY_NAME + " ! 👋\n\n" + s.label + "\n\nPouvez-vous m'aider ? Merci !")}"
-       target="_blank" rel="noopener" class="wa-option-row">
-      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-      <span class="wa-option-label">${s.icon} ${s.label}</span>
-    </a>`).join("");
-}
-
-/* ── Render all cards ── */
-function renderCatalogue() {
-  const grid = document.getElementById("catalogueGrid");
-  grid.innerHTML = "";
-  SERVICES.forEach(svc => {
-    const card = buildCard(svc);
-    grid.appendChild(card);
-  });
-  // No results placeholder
-  const noRes = document.createElement("div");
-  noRes.className = "no-results"; noRes.style.display = "none";
-  noRes.innerHTML = `<div class="icon">🔍</div><p>Aucun service trouvé pour votre recherche.<br/>Essayez un autre mot-clé.</p>`;
-  grid.appendChild(noRes);
-  observeCards();
-}
-
-/* ── IntersectionObserver for fade-in ── */
-function observeCards() {
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visible"); observer.unobserve(e.target); } });
-  }, { threshold: 0.08 });
-  document.querySelectorAll(".fade-in:not(.visible)").forEach(el => observer.observe(el));
-}
-
-/* ── Mobile menu ── */
-function toggleMobileMenu() {
-  document.getElementById("mobileMenu").classList.toggle("open");
-}
-function closeMobileMenu() {
-  document.getElementById("mobileMenu").classList.remove("open");
-}
-
-/* ── Scroll events ── */
-window.addEventListener("scroll", () => {
-  const scrollTop = document.getElementById("scrollTop");
-  if (window.scrollY > 400) scrollTop.classList.add("visible");
-  else scrollTop.classList.remove("visible");
-});
-
-/* ── Toast ── */
-function showToast(msg) {
-  const t = document.getElementById("toast");
-  t.textContent = msg;
-  t.classList.add("show");
-  setTimeout(() => t.classList.remove("show"), 2800);
-}
-
-/* ── Init ── */
-document.addEventListener("DOMContentLoaded", () => {
-  // Hide loader
-  setTimeout(() => {
-    const loader = document.getElementById("loader");
-    loader.style.opacity = "0";
-    setTimeout(() => loader.style.display = "none", 600);
-  }, 2000);
-
-  // Set WA links
-  const generalMsg = "Bonjour " + COMPANY_NAME + " ! 👋\nJe souhaite obtenir des informations sur vos services. Merci !";
-  document.getElementById("heroWaBtn").href = waLink(generalMsg);
-  document.getElementById("contactWaMain").href = waLink(generalMsg);
-
-  // Render
-  renderCatalogue();
-  buildContactOptions();
-
-  // Observe all fade-in elements
-  observeCards();
-  document.querySelectorAll(".fade-in").forEach(el => {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visible"); observer.unobserve(e.target); } });
-    }, { threshold: 0.08 });
-    observer.observe(el);
-  });
-});
-</script>
 </body>
 </html>
