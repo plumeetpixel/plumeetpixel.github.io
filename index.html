@@ -100,18 +100,101 @@
     }
     .card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08); }
 
-    .card-img-zone {
+    /* CARROUSEL D'IMAGES */
+    .carousel {
+      position: relative;
       width: 100%;
       aspect-ratio: 4 / 3;
       background: #0b1329;
-      position: relative;
+      overflow: hidden;
     }
-    .card-img-zone img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.3s ease;
+      height: 100%;
+    }
+
+    .carousel-slide {
+      min-width: 100%;
+      height: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      height: 75%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .slide-info {
+      height: 25%;
+      background: rgba(15, 23, 42, 0.95);
+      color: #fff;
+      padding: 8px 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .slide-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+      color: #fef08a;
+    }
+
+    .slide-price {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: #fbbf24;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 40%;
+      transform: translateY(-50%);
+      background: rgba(15, 23, 42, 0.7);
+      color: #fff;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .carousel-btn:hover {
+      background: var(--primary);
+    }
+
+    .carousel-prev { left: 10px; }
+    .carousel-next { right: 10px; }
+
+    .carousel-counter {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(15, 23, 42, 0.85);
+      color: #fef08a;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      z-index: 10;
+    }
 
     .card-price-pill {
       position: absolute;
       bottom: 10px;
-      right: 10px;
+      left: 10px;
       background: rgba(15, 23, 42, 0.9);
       color: #fef08a;
       border: 1px solid rgba(245, 158, 11, 0.4);
@@ -120,6 +203,7 @@
       font-size: 0.88rem;
       padding: 4px 10px;
       border-radius: 8px;
+      z-index: 10;
     }
 
     .card-content { padding: 16px; display: flex; flex-direction: column; flex-grow: 1; }
@@ -209,7 +293,7 @@
   <header class="container">
     <div class="header-card">
       <div class="logo-container">
-        <img src="images/logo.png" alt="PLUME & PIXEL" class="logo-img" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 240 70\' fill=\'%230f172a\'><rect width=\'240\' height=\'70\' rx=\'10\' fill=\'%230f172a\'/><text x=\'50%\' y=\'55%\' dominant-baseline=\'middle\' text-anchor=\\'middle\' font-family=\\'Arial, sans-serif\' font-weight=\\'bold\' font-size=\\'18\' fill=\'%23f59e0b\'>PLUME &amp; PIXEL</text></svg>'">
+        <img src="images/logo.png" alt="PLUME & PIXEL" class="logo-img" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 240 70\' fill=\'%230f172a\'><rect width=\'240\' height=\'70\' rx=\'10\' fill=\'%230f172a\'/><text x=\'50%\' y=\'55%\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial, sans-serif\' font-weight=\'bold\' font-size=\'18\' fill=\'%23f59e0b\'>PLUME &amp; PIXEL</text></svg>'">
       </div>
       <h1 class="brand-name">PLUME & PIXEL</h1>
       <p class="brand-slogan">« L'art de créer, la puissance d'imprimer. »</p>
@@ -225,20 +309,23 @@
 
   <!-- BARRE DE RECHERCHE -->
   <section class="container search-wrap">
-    <input type="text" id="searchInput" class="search-input" placeholder="🔍 Rechercher un produit ou service (ex: facturier, horloge, trophée, étiquette...)" onkeyup="filterCatalog()">
+    <input type="text" id="searchInput" class="search-input" placeholder="🔍 Rechercher un produit ou service (ex: billet, flyer, trophée...)" onkeyup="filterCatalog()">
   </section>
 
-  <!-- CATALOGUE ÉPURÉ (8 GRANDES CATÉGORIES SANS DOUBLONS) -->
+  <!-- CATALOGUE AVEC CARROUSELS -->
   <main class="container">
     <h2 class="catalog-title">Nos Prestations & Tarifs</h2>
 
     <div class="grid" id="catalogGrid">
 
-      <!-- 1. Impression Numérique & Offset -->
+      <!-- 1. Impression -->
       <article class="card" data-title="impression numerique offset bache autocollant vinyle flyers affiches papier photo carnets autocopiants reçus bons de commande numerotes facturiers factures">
-        <div class="card-img-zone">
-          <img src="images/impression.jpg" alt="Impression Numérique et Offset" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 300\' fill=\'%231e293b\'><rect width=\'400\' height=\'300\' fill=\'%230f172a\'/><text x=\'50%\' y=\'50%\' dominant-baseline=\\'middle\' text-anchor=\\'middle\' font-family=\\'Arial\' font-weight=\\'bold\' font-size=\\'18\' fill=\'%23f59e0b\'>Impression &amp; Offset</text></svg>'">
-          <div class="card-price-pill">Dès 15 000 FCFA</div>
+        <div class="carousel" id="carousel-impression">
+          <div class="carousel-track"></div>
+          <button class="carousel-btn carousel-prev" onclick="moveCarousel('impression', -1)">❮</button>
+          <button class="carousel-btn carousel-next" onclick="moveCarousel('impression', 1)">❯</button>
+          <div class="carousel-counter">1 / 20</div>
+          <div class="card-price-pill">À partir de 500 FCFA</div>
         </div>
         <div class="card-content">
           <h3 class="card-title">Impression Numérique & Offset</h3>
@@ -253,9 +340,12 @@
 
       <!-- 2. Gadgeterie -->
       <article class="card" data-title="packaging, étiquettes, boites à dragées, porte-clés personnalisées, stickers cosmétique, agroalimentaire, bouteilles">
-        <div class="card-img-zone">
-          <img src="images/gadgeterie.jpg" alt="Gadgeterie" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 400 300\\' fill=\\'%231e293b\\'><rect width=\\'400\\' height=\\'300\\' fill=\\'%230f172a\\'/><text x=\\'50%\\' y=\\'50%\\' dominant-baseline=\\'middle\\' text-anchor=\\'middle\\' font-family=\\'Arial\\' font-weight=\\'bold\\' font-size=\\'18\\' fill=\\'%23f59e0b\\'>Gadgeterie</text></svg>'">
-          <div class="card-price-pill">Dès 15 000 FCFA</div>
+        <div class="carousel" id="carousel-gadgeterie">
+          <div class="carousel-track"></div>
+          <button class="carousel-btn carousel-prev" onclick="moveCarousel('gadgeterie', -1)">❮</button>
+          <button class="carousel-btn carousel-next" onclick="moveCarousel('gadgeterie', 1)">❯</button>
+          <div class="carousel-counter">1 / 20</div>
+          <div class="card-price-pill">À partir de 15 000 FCFA</div>
         </div>
         <div class="card-content">
           <h3 class="card-title">Gadgeterie</h3>
@@ -268,11 +358,14 @@
         </div>
       </article>
 
-      <!-- 3. Invitations Personnalisées -->
+      <!-- 3. Invitations -->
       <article class="card" data-title="invitations faire-part mariage bapteme anniversaire obseques ceremonies gala">
-        <div class="card-img-zone">
-          <img src="images/invitations.jpg" alt="Invitations Personnalisées" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 400 300\\' fill=\\'%231e293b\\'><rect width=\\'400\\' height=\\'300\\' fill=\\'%230f172a\\'/><text x=\\'50%\\' y=\\'50%\\' dominant-baseline=\\'middle\\' text-anchor=\\'middle\\' font-family=\\'Arial\\' font-weight=\\'bold\\' font-size=\\'18\\' fill=\\'%23f59e0b\\'>Invitations Luxe</text></svg>'">
-          <div class="card-price-pill">Dès 500 FCFA / unité</div>
+        <div class="carousel" id="carousel-invitations">
+          <div class="carousel-track"></div>
+          <button class="carousel-btn carousel-prev" onclick="moveCarousel('invitations', -1)">❮</button>
+          <button class="carousel-btn carousel-next" onclick="moveCarousel('invitations', 1)">❯</button>
+          <div class="carousel-counter">1 / 20</div>
+          <div class="card-price-pill">À partir de 500 FCFA</div>
         </div>
         <div class="card-content">
           <h3 class="card-title">Invitations Personnalisées</h3>
@@ -285,11 +378,14 @@
         </div>
       </article>
 
-      <!-- 4. Objets Publicitaires Personnalisés -->
+      <!-- 4. Goodies -->
       <article class="card" data-title="objets publicitaires goodies mugs t-shirts polos casquettes stylos cles usb agendas">
-        <div class="card-img-zone">
-          <img src="images/goodies.jpg" alt="Objets Publicitaires" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 400 300\\' fill=\\'%231e293b\\'><rect width=\\'400\\' height=\\'300\\' fill=\\'%230f172a\\'/><text x=\\'50%\\' y=\\'50%\\' dominant-baseline=\\'middle\\' text-anchor=\\'middle\\' font-family=\\'Arial\\' font-weight=\\'bold\\' font-size=\\'18\\' fill=\\'%23f59e0b\\'>Goodies &amp; Objets</text></svg>'">
-          <div class="card-price-pill">Dès 3 500 FCFA</div>
+        <div class="carousel" id="carousel-goodies">
+          <div class="carousel-track"></div>
+          <button class="carousel-btn carousel-prev" onclick="moveCarousel('goodies', -1)">❮</button>
+          <button class="carousel-btn carousel-next" onclick="moveCarousel('goodies', 1)">❯</button>
+          <div class="carousel-counter">1 / 20</div>
+          <div class="card-price-pill">À partir de 3 500 FCFA</div>
         </div>
         <div class="card-content">
           <h3 class="card-title">Objets Publicitaires Personnalisés</h3>
@@ -302,11 +398,14 @@
         </div>
       </article>
 
-      <!-- 5. Découpe et gravure Laser et CNC -->
+      <!-- 5. Laser & CNC -->
       <article class="card" data-title="Trophées, Médailles et Récompenses, meuble, invitations, set de bureau, panneaux en bois, métal, plexiglas, alucobond">
-        <div class="card-img-zone">
-          <img src="images/laser-cnc.jpg" alt="Découpe et gravure Laser et CNC" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 400 300\\' fill=\\'%231e293b\\'><rect width=\\'400\\' height=\\'300\\' fill=\\'%230f172a\\'/><text x=\\'50%\\' y=\\'50%\\' dominant-baseline=\\'middle\\' text-anchor=\\'middle\\' font-family=\\'Arial\\' font-weight=\\'bold\\' font-size=\\'17\\' fill=\\'%23f59e0b\\'>Laser &amp; CNC</text></svg>'">
-          <div class="card-price-pill">Dès 12 000 FCFA</div>
+        <div class="carousel" id="carousel-laser-cnc">
+          <div class="carousel-track"></div>
+          <button class="carousel-btn carousel-prev" onclick="moveCarousel('laser-cnc', -1)">❮</button>
+          <button class="carousel-btn carousel-next" onclick="moveCarousel('laser-cnc', 1)">❯</button>
+          <div class="carousel-counter">1 / 20</div>
+          <div class="card-price-pill">À partir de 12 000 FCFA</div>
         </div>
         <div class="card-content">
           <h3 class="card-title">Découpe et gravure Laser et CNC</h3>
@@ -321,9 +420,12 @@
 
       <!-- 6. Sérigraphie -->
       <article class="card" data-title="serigraphie textile sacs tote bags carton signaletique rollup kakemo enseigne lumineuse panneau">
-        <div class="card-img-zone">
-          <img src="images/serigraphie.jpg" alt="Sérigraphie" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 400 300\\' fill=\\'%231e293b\\'><rect width=\\'400\\' height=\\'300\\' fill=\\'%230f172a\\'/><text x=\\'50%\\' y=\\'50%\\' dominant-baseline=\\'middle\\' text-anchor=\\'middle\\' font-family=\\'Arial\\' font-weight=\\'bold\\' font-size=\\'18\\' fill=\\'%23f59e0b\\'>S%C3%A9rigraphie &amp; Signal%C3%A9tique</text></svg>'">
-          <div class="card-price-pill">Dès 1 200 FCFA / unité</div>
+        <div class="carousel" id="carousel-serigraphie">
+          <div class="carousel-track"></div>
+          <button class="carousel-btn carousel-prev" onclick="moveCarousel('serigraphie', -1)">❮</button>
+          <button class="carousel-btn carousel-next" onclick="moveCarousel('serigraphie', 1)">❯</button>
+          <div class="carousel-counter">1 / 20</div>
+          <div class="card-price-pill">À partir de 1 200 FCFA</div>
         </div>
         <div class="card-content">
           <h3 class="card-title">Sérigraphie</h3>
@@ -336,11 +438,14 @@
         </div>
       </article>
 
-      <!-- 7. Décoration Intérieure et Habillage -->
+      <!-- 7. Décoration -->
       <article class="card" data-title="horloge murale, agrandissement photo, toile, coussin, set de table, rideaux">
-        <div class="card-img-zone">
-          <img src="images/deco.jpg" alt="Décoration Intérieure et Habillage" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 400 300\\' fill=\\'%231e293b\\'><rect width=\\'400\\' height=\\'300\\' fill=\\'%230f172a\\'/><text x=\\'50%\\' y=\\'50%\\' dominant-baseline=\\'middle\\' text-anchor=\\'middle\\' font-family=\\'Arial\\' font-weight=\\'bold\\' font-size=\\'18\\' fill=\\'%23f59e0b\\'>D%C3%A9coration</text></svg>'">
-          <div class="card-price-pill">Dès 15 000 FCFA</div>
+        <div class="carousel" id="carousel-deco">
+          <div class="carousel-track"></div>
+          <button class="carousel-btn carousel-prev" onclick="moveCarousel('deco', -1)">❮</button>
+          <button class="carousel-btn carousel-next" onclick="moveCarousel('deco', 1)">❯</button>
+          <div class="carousel-counter">1 / 20</div>
+          <div class="card-price-pill">À partir de 15 000 FCFA</div>
         </div>
         <div class="card-content">
           <h3 class="card-title">Décoration Intérieure et Habillage</h3>
@@ -353,10 +458,13 @@
         </div>
       </article>
 
-      <!-- 8. Création de contenus pour les réseaux sociaux -->
+      <!-- 8. Réseaux sociaux -->
       <article class="card" data-title="creation de contenus pour les reseaux sociaux facebook instagram tiktok visuels publication bannières">
-        <div class="card-img-zone">
-          <img src="images/social.jpg" alt="Création Contenus Réseaux Sociaux" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 400 300\\' fill=\\'%231e293b\\'><rect width=\\'400\\' height=\\'300\\' fill=\\'%230f172a\\'/><text x=\\'50%\\' y=\\'50%\\' dominant-baseline=\\'middle\\' text-anchor=\\'middle\\' font-family=\\'Arial\\' font-weight=\\'bold\\' font-size=\\'18\\' fill=\\'%23f59e0b\\'>R%C3%A9seaux Sociaux</text></svg>'">
+        <div class="carousel" id="carousel-social">
+          <div class="carousel-track"></div>
+          <button class="carousel-btn carousel-prev" onclick="moveCarousel('social', -1)">❮</button>
+          <button class="carousel-btn carousel-next" onclick="moveCarousel('social', 1)">❯</button>
+          <div class="carousel-counter">1 / 5</div>
           <div class="card-price-pill">25 000 FCFA / 5 visuels</div>
         </div>
         <div class="card-content">
@@ -411,8 +519,62 @@
     </a>
   </aside>
 
-  <!-- SCRIPT DE RECHERCHE RAPIDE -->
+  <!-- SCRIPT CARROUSEL & PRODUITS -->
+  <script src="products.js"></script>
   <script>
+    const carouselConfig = {
+      'impression': { count: 20, folder: 'impression' },
+      'gadgeterie': { count: 20, folder: 'gadgeterie' },
+      'invitations': { count: 20, folder: 'invitations' },
+      'goodies': { count: 20, folder: 'goodies' },
+      'laser-cnc': { count: 20, folder: 'laser-cnc' },
+      'serigraphie': { count: 20, folder: 'serigraphie' },
+      'deco': { count: 20, folder: 'deco' },
+      'social': { count: 5, folder: 'social' }
+    };
+
+    const carouselState = {};
+
+    function initCarousels() {
+      for (const [id, config] of Object.entries(carouselConfig)) {
+        carouselState[id] = 0;
+        const track = document.querySelector(`#carousel-${id} .carousel-track`);
+        if (!track) continue;
+
+        const products = PRODUCTS[id] || [];
+        let html = '';
+
+        for (let i = 0; i < config.count; i++) {
+          const product = products[i] || { nom: `Produit ${i+1}`, prix: "0 FCFA" };
+          const imgNum = i + 1;
+          
+          html += `
+            <div class="carousel-slide">
+              <img src="images/${config.folder}/${config.folder}-${imgNum}.jpg" alt="${product.nom}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 400 300\\' fill=\\'%231e293b\\'><rect width=\\'400\\' height=\\'300\\' fill=\\'%230f172a\\'/><text x=\\'50%\\' y=\\'45%\\' dominant-baseline=\\'middle\\' text-anchor=\\'middle\\' font-family=\\'Arial\\' font-weight=\\'bold\\' font-size=\\'14\\' fill=\\'%23f59e0b\\'>${product.nom}</text><text x=\\'50%\\' y=\\'65%\\' dominant-baseline=\\'middle\\' text-anchor=\\'middle\\' font-family=\\'Arial\\' font-size=\\'12\\' fill=\\'%2394a3b8\\'>${product.prix}</text></svg>'">
+              <div class="slide-info">
+                <div class="slide-name">${product.nom}</div>
+                <div class="slide-price">${product.prix}</div>
+              </div>
+            </div>
+          `;
+        }
+        track.innerHTML = html;
+      }
+    }
+
+    function moveCarousel(id, direction) {
+      const config = carouselConfig[id];
+      if (!config) return;
+
+      const track = document.querySelector(`#carousel-${id} .carousel-track`);
+      const counter = document.querySelector(`#carousel-${id} .carousel-counter`);
+      if (!track || !counter) return;
+
+      carouselState[id] = (carouselState[id] + direction + config.count) % config.count;
+      track.style.transform = `translateX(-${carouselState[id] * 100}%)`;
+      counter.textContent = `${carouselState[id] + 1} / ${config.count}`;
+    }
+
     function filterCatalog() {
       const input = document.getElementById('searchInput').value.toLowerCase();
       const cards = document.querySelectorAll('#catalogGrid .card');
@@ -426,6 +588,8 @@
         }
       });
     }
+
+    document.addEventListener('DOMContentLoaded', initCarousels);
   </script>
 
 </body>
