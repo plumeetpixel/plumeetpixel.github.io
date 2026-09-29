@@ -531,31 +531,40 @@ background-position: center;
     const carouselState = {};
 
     function initCarousels() {
-      for (const [id, config] of Object.entries(carouselConfig)) {
-        carouselState[id] = 0;
-        const track = document.querySelector(`#carousel-${id} .carousel-track`);
-        if (!track) continue;
+  for (const [id, config] of Object.entries(carouselConfig)) {
+    carouselState[id] = 0;
+    const track = document.querySelector(`#carousel-${id} .carousel-track`);
+    if (!track) continue;
 
-        const products = PRODUCTS[id] || [];
-        let html = '';
+    const products = PRODUCTS[id] || [];
+    let html = '';
 
-        for (let i = 0; i < config.count; i++) {
-          const product = products[i] || { nom: `Produit ${i+1}`, prix: "0 FCFA" };
-          const imgNum = i + 1;
-          
-          html += `
-            <div class="carousel-slide">
-              <img src="images/${config.folder}/${config.folder}-${imgNum}.jpg" alt="${product.nom}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 400 300\\' fill=\\'%231e293b\\'><rect width=\\'400\\' height=\\'300\\' fill=\\'%230f172a\\'/><text x=\\'50%\\' y=\\'45%\\' dominant-baseline=\\'middle\\' text-anchor=\\'middle\\' font-family=\\'Arial\\' font-weight=\\'bold\\' font-size=\\'14\\' fill=\\'%23f59e0b\\'>${product.nom}</text><text x=\\'50%\\' y=\\'65%\\' dominant-baseline=\\'middle\\' text-anchor=\\'middle\\' font-family=\\'Arial\\' font-size=\\'12\\' fill=\\'%2394a3b8\\'>${product.prix}</text></svg>'">
-              <div class="slide-info">
-                <div class="slide-name">${product.nom}</div>
-                <div class="slide-price">${product.prix}</div>
-              </div>
-            </div>
-          `;
-        }
-        track.innerHTML = html;
-      }
+    for (let i = 0; i < config.count; i++) {
+      const product = products[i] || { nom: `Produit ${i + 1}`, prix: "0 FCFA" };
+      const imgNum = i + 1;
+      const imagePath = `images/${config.folder}/${config.folder}-${imgNum}.jpg`;
+
+      html += `
+        <div class="carousel-slide">
+          <img src="${imagePath}" alt="${product.nom}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 400 300\\' fill=\\'%231e293b\\'><rect width=\\'400\\' height=\\'300\\' fill=\\'%230f172a\\'/><text x=\\'50%\\' y=\\'45%\\' dominant-baseline=\\'middle\\' text-anchor=\\'middle\\' font-family=\\'Arial\\' font-weight=\\'bold\\' font-size=\\'14\\' fill=\\'%23f59e0b\\'>${product.nom}</text><text x=\\'50%\\' y=\\'65%\\' dominant-baseline=\\'middle\\' text-anchor=\\'middle\\' font-family=\\'Arial\\' font-size=\\'12\\' fill=\\'%2394a3b8\\'>${product.prix}</text></svg>'">
+
+          <div class="slide-info">
+            <div class="slide-name">${product.nom}</div>
+            <div class="slide-price">${product.prix}</div>
+
+            <button
+              onclick="openOrderDialog('${id}', ${i})"
+              style="margin-top:10px;width:100%;background:#0f172a;color:#fff;border:none;padding:10px;border-radius:8px;font-weight:700;cursor:pointer;">
+              Commander ce produit
+            </button>
+          </div>
+        </div>
+      `;
     }
+
+    track.innerHTML = html;
+  }
+}
 
     function moveCarousel(id, direction) {
       const config = carouselConfig[id];
@@ -586,6 +595,138 @@ background-position: center;
 
     document.addEventListener('DOMContentLoaded', initCarousels);
   </script>
+<!-- FORMULAIRE DE COMMANDE -->
+<dialog id="orderDialog" style="border:none;border-radius:14px;max-width:420px;width:90%;padding:0;background:#ffffff;box-shadow:0 10px 40px rgba(15,23,42,0.25);">
+  <div style="padding:18px 20px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;">
+    <strong style="font-family:Arial,sans-serif;font-size:1.05rem;color:#0f172a;">Commander ce produit</strong>
+    <button onclick="closeOrderDialog()" style="background:none;border:none;font-size:1.4rem;color:#64748b;cursor:pointer;">&times;</button>
+  </div>
+
+  <div style="padding:16px 20px;">
+    <div style="display:flex;gap:10px;margin-bottom:14px;">
+      <img id="orderImg" src="" alt="" style="width:70px;height:70px;object-fit:cover;border-radius:8px;border:1px solid #e2e8f0;">
+      <div>
+        <div id="orderName" style="font-weight:700;color:#0f172a;font-size:0.95rem;"></div>
+        <div id="orderPrice" style="color:#d97706;font-weight:800;font-size:0.9rem;margin-top:2px;"></div>
+      </div>
+    </div>
+
+    <label style="display:block;font-size:0.85rem;color:#64748b;margin-bottom:4px;">Quantité</label>
+    <input type="number" id="orderQty" min="1" value="1" style="width:100%;box-sizing:border-box;padding:10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:0.95rem;margin-bottom:12px;">
+
+    <label style="display:block;font-size:0.85rem;color:#64748b;margin-bottom:4px;">Personnalisation</label>
+    <select id="orderCustom" style="width:100%;box-sizing:border-box;padding:10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:0.95rem;margin-bottom:12px;">
+      <option>Aucune personnalisation</option>
+      <option>Avec texte</option>
+      <option>Avec logo</option>
+      <option>Avec photo</option>
+      <option>Logo + texte</option>
+      <option>Personnalisation complète</option>
+    </select>
+
+    <label style="display:block;font-size:0.85rem;color:#64748b;margin-bottom:4px;">Précisions : texte, couleurs, dimensions, etc.</label>
+    <textarea id="orderDetails" rows="3" style="width:100%;box-sizing:border-box;padding:10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:0.95rem;margin-bottom:12px;font-family:inherit;"></textarea>
+
+    <div style="display:flex;justify-content:space-between;margin-bottom:14px;">
+      <span style="color:#64748b;font-size:0.9rem;">Total estimatif :</span>
+      <strong id="orderTotal" style="color:#0f172a;font-size:1rem;"></strong>
+    </div>
+
+    <button onclick="sendOrderToWhatsApp()" style="width:100%;background:#25d366;color:#ffffff;border:none;padding:12px;border-radius:10px;font-weight:800;font-size:0.95rem;cursor:pointer;">
+      Envoyer la commande sur WhatsApp
+    </button>
+  </div>
+</dialog>
+
+<script>
+let currentProduct = null;
+
+function openOrderDialog(categoryId, productIndex) {
+  const config = carouselConfig[categoryId];
+  const products = PRODUCTS[categoryId] || [];
+  const product = products[productIndex] || {
+    nom: `Produit ${productIndex + 1}`,
+    prix: '0 FCFA'
+  };
+
+  const imagePath = `images/${config.folder}/${config.folder}-${productIndex + 1}.jpg`;
+
+  currentProduct = {
+    nom: product.nom,
+    prix: product.prix,
+    image: imagePath
+  };
+
+  document.getElementById('orderImg').src = currentProduct.image;
+  document.getElementById('orderImg').alt = currentProduct.nom;
+  document.getElementById('orderName').textContent = currentProduct.nom;
+  document.getElementById('orderPrice').textContent = currentProduct.prix;
+  document.getElementById('orderQty').value = 1;
+  document.getElementById('orderCustom').value = 'Aucune personnalisation';
+  document.getElementById('orderDetails').value = '';
+
+  updateOrderTotal();
+  document.getElementById('orderDialog').showModal();
+}
+
+function closeOrderDialog() {
+  document.getElementById('orderDialog').close();
+}
+
+document.getElementById('orderQty').addEventListener('input', updateOrderTotal);
+
+function updateOrderTotal() {
+  if (!currentProduct) return;
+
+  const priceText = currentProduct.prix
+    .replace(/\s/g, '')
+    .replace('FCFA', '')
+    .replace(',', '.');
+
+  const priceNum = parseFloat(priceText) || 0;
+  const qty = parseInt(document.getElementById('orderQty').value) || 1;
+  const total = priceNum * qty;
+
+  document.getElementById('orderTotal').textContent =
+    total.toLocaleString('fr-FR') + ' FCFA';
+}
+
+function sendOrderToWhatsApp() {
+  if (!currentProduct) return;
+
+  const qty = document.getElementById('orderQty').value;
+  const custom = document.getElementById('orderCustom').value;
+  const details = document.getElementById('orderDetails').value.trim();
+  const total = document.getElementById('orderTotal').textContent;
+  const phone = '237672434547';
+
+  const imageUrl = new URL(currentProduct.image, window.location.href).href;
+
+  const message = [
+    'Bonjour PLUME & PIXEL,',
+    '',
+    'NOUVELLE COMMANDE',
+    '',
+    'Produit : ' + currentProduct.nom,
+    'Prix unitaire : ' + currentProduct.prix,
+    'Quantité : ' + qty,
+    'Personnalisation : ' + custom,
+    details ? 'Détails : ' + details : '',
+    '',
+    'Total estimatif : ' + total,
+    '',
+    'Photo du produit : ' + imageUrl
+  ].filter(line => line !== '').join('\n');
+
+  window.open(
+    'https://wa.me/' + phone + '?text=' + encodeURIComponent(message),
+    '_blank'
+  );
+
+  closeOrderDialog();
+}
+</script>
+
 
 </body>
 </html>
