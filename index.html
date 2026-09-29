@@ -572,10 +572,17 @@ background-position: center;
     if (!track) continue;
 
     const products = PRODUCTS[id] || [];
-    let html = '';
 
-    for (let i = 0; i < config.count; i++) {
-      const product = products[i] || { nom: `Produit ${i + 1}`, prix: "0 FCFA" };
+/* Ignore une catégorie sans produit enregistré */
+if (products.length === 0) continue;
+
+/* Le total du carrousel devient le nombre réel de produits */
+config.count = products.length;
+
+let html = '';
+
+for (let i = 0; i < products.length; i++) {
+  const product = products[i];
       const imgNum = i + 1;
       const imagePath = `images/${config.folder}/${config.folder}-${imgNum}.jpg`;
 
