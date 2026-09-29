@@ -288,42 +288,40 @@ background-position: center;
       box-shadow: 0 6px 20px rgba(0,0,0,0.25);
       z-index: 100;
     }
-  /* Ajustement du nom, prix et bouton dans le bloc bleu */
+  /* Version compacte : conserve la taille des images */
 .carousel-slide .slide-info {
+  height: 25% !important;
+  min-height: 0 !important;
   box-sizing: border-box;
-  min-height: 132px;
-  padding: 12px !important;
+  padding: 5px 10px !important;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  gap: 4px;
+  justify-content: flex-start !important;
+  gap: 1px;
+  overflow: hidden !important;
 }
 
 .carousel-slide .slide-name {
+  font-size: 0.75rem !important;
+  line-height: 1.1;
   margin: 0 !important;
-  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .carousel-slide .slide-price {
+  font-size: 0.78rem !important;
+  line-height: 1.1;
   margin: 0 !important;
-  line-height: 1.2;
 }
 
 .carousel-slide .slide-info button {
-  margin-top: 8px !important;
-  padding: 8px !important;
-  line-height: 1.2;
-}
-/* Empêche le bouton de commande d'être coupé */
-.carousel-slide {
-  height: auto !important;
-  overflow: visible !important;
-}
-
-.carousel-slide .slide-info {
-  min-height: 160px !important;
-  height: auto !important;
-  overflow: visible !important;
+  margin-top: 4px !important;
+  padding: 5px 6px !important;
+  font-size: 0.7rem !important;
+  line-height: 1.1;
+  flex-shrink: 0;
 }
   </style>
 </head>
